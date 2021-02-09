@@ -1,0 +1,17 @@
+{{ define "response" }}
+  {{- $.Scratch.Set "__index" dict -}}
+  {{ with eq .Kind  "section" }}
+    {{ $.Scratch.SetInMap "__index" "section" $.Section }}
+  {{ end }}
+  {{ with eq .Kind  "taxonomy"}}
+    {{ $.Scratch.SetInMap "__index" "taxonomy" $.Data.Singular }}
+    {{ $.Scratch.SetInMap "__index" "term" $.Data.Term }}
+  {{ end }}
+  {{ $.Scratch.SetInMap "__index" "count" (.Pages | len) }}
+  {{- $.Scratch.Set "__index_items" slice -}}
+  {{ range .Pages }}
+    {{- $.Scratch.Add "__index_items" (.Render "item") -}}
+  {{ end }}
+  {{ $.Scratch.SetInMap "__index" "items" ($.Scratch.Get "__index_items") }}
+  {{- $.Scratch.Get "__index" | jsonify | replaceRE "\\\\\"" "\"" | replaceRE "\"\\{" "{" | replaceRE "\\}\"" "}" | replaceRE "\\\\n\"" "" -}}
+{{ end }}
