@@ -46,6 +46,8 @@ disableKinds = ["RSS"]
     weight = 10
 
 
+[outputs]
+  page = ["json", "html"]
 
 [Params]
 #Syntax Highlighting
