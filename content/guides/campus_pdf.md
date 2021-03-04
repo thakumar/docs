@@ -9,6 +9,7 @@ siteSlug: guides
 type: pdf
 layout: pdf
 bookhidden: true
+pdfhidden: true
 ---
 
 ## Executive Summary

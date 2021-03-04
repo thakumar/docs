@@ -6,6 +6,7 @@ product: Cumulus Networks PDFs
 imgData: pdfs
 version: "1.0"
 siteSlug: pdfs
+pdfhidden: True
 ---
 
 If you are running a version of Cumulus Linux earlier than 3.6 or Cumulus NetQ earlier than version 2.1, you can find a PDF of that version's documentation below. A link to the release notes is also provided.

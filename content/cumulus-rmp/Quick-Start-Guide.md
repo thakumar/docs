@@ -4,6 +4,7 @@ author: Cumulus Networks
 weight: 11
 product: Cumulus RMP
 version: "3.7"
+pdfhidden: true
 ---
 
 This quick start guide provides an end-to-end setup process for

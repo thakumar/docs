@@ -5,6 +5,7 @@ weight: -37
 product: Cumulus RMP
 version: "3.7"
 subsection: true
+pdfhidden: true
 ---
 
 ## Introducing Cumulus RMP

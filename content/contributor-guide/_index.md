@@ -5,6 +5,7 @@ weight: 1
 cascade:
   siteSlug: contributor-guide
   product: Documentation Contributor Guide
+  pdfhidden: true
 ---
 Welcome to the Cumulus Networks documentation Contributor Guide!
 All of the technical user documentation for [Cumulus Linux](/cumulus-linux/),

@@ -1,6 +1,7 @@
 ---
 title: "Cumulus Networks Documentation License"
 author: creative commons
+pdfhidden: true
 ---
 Attribution: [NonCommercial-ShareAlike 4.0 International](http://github.com/idleberg/Creative-Commons-Markdown/blob/master/4.0/by-nc-sa.markdown)
 
