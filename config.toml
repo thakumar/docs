@@ -10,6 +10,7 @@ enableGitInfo= false
 noChmod = true
 enableRobotsTXT = true
 disableKinds = ["RSS"]
+summaryLength = 10000
 
 [markup]
   [markup.tableOfContents]
@@ -47,7 +48,7 @@ disableKinds = ["RSS"]
 
 
 [outputs]
-  page = ["json", "html"]
+  home = ["json", "html"]
 
 [Params]
 #Syntax Highlighting
