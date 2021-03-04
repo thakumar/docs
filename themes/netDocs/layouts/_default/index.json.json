@@ -1,0 +1,13 @@
+{{ define "response" }}
+    {{ $pages := slice }}
+    {{ range .Site.Pages }}
+        {{ if and (not .Params.pdfhidden) (not .Params.draft)}}
+            {{ if .Truncated }}
+                    {{ $pages = $pages | append (dict "title" $.Title "version" $.Params.version "product" $.Params.product "permalink" $.Permalink "content" (.Summary | plainify) "Truncated" .Truncated) }}
+            {{ else }}
+                {{ $pages = $pages | append (dict "title" .Title "version" .Params.version "product" .Params.product "permalink" .Permalink "content" .Plain "Truncated" .Truncated) }}
+            {{ end }}
+        {{ end }}
+    {{ end }}
+    {{ $pages | jsonify }}
+{{ end }}
