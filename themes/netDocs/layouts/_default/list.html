@@ -6,7 +6,7 @@
 
 {{ define "main" }}
 {{ partial "old" . }}
-<article class="markdown">
+<article id="hits" class="markdown">
     <h1>  {{- .Page.Title -}} </h1>
   {{- .Content -}}
   {{ partial "kb-list" . }}

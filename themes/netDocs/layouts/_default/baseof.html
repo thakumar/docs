@@ -61,6 +61,42 @@
 {{ $jsAnnouncementBar := resources.Get "js/announcement-bar.js" }}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script src = "{{ $jsAnnouncementBar.Permalink }}"> </script>
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js" integrity="sha256-EXPXz4W6pQgfYY3yTpnDa3OH8/EPn16ciVsPQ/ypsjk=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js" integrity="sha256-LAGhRRdtVoD6RLo2qDQsU2mp+XVSciKRC8XPOBWmofM=" crossorigin="anonymous"></script>
+
+<script>
+    const searchClient = algoliasearch('9KW04NGCM1', 'fe44f8b8eb18f4b89872e2f03f7cb87d');
+
+    const search = instantsearch({
+        indexName: 'cumulus_docs',
+        searchClient,
+    });
+
+    search.addWidgets([
+      instantsearch.widgets.searchBox({
+        container: '#search-box',
+      }),
+      instantsearch.widgets.refinementList({
+        container: '#dropdown',
+        attribute: 'version',
+      }),
+      instantsearch.widgets.hits({
+        container: '#hits',
+        templates: {
+          item: `
+            <div>
+              <div class="hit-name">
+                {{#helpers.highlight}}{ "attribute": "content" }{{/helpers.highlight}}
+              </div>
+            </div>
+          `
+        }
+      })
+    ])
+
+    search.start();
+
+</script>
 
 <!-- The following Javascript does not play well with PDF output tools -->
 
