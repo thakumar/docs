@@ -1,0 +1,4 @@
+{{ $.Scratch.Set "content" (slice) -}}
+{{- range where ".Page.Params.type" "rn" -}}
+        {{ .Scratch.Set "content" (.Scratch.Get "content" | append (dict "title" .Page.Params.title "permalink" .Permalink "version" .Page.Params.version "product" .Page.Params.product "content"  (.Content | plainify)))}}
+{{end}}

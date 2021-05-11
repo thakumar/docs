@@ -10,7 +10,11 @@ enableGitInfo: True
 noChmod: True
 enableRobotsTXT: True
 disableKinds: ["RSS", "taxonomy", "term"]
-outputs: ["html", "json"]
+outputs:
+  home: ["html", "json"]
+  page: ["html", "json"]
+  section: ["html", "json"]
+
 summaryLength: 10000
 
 Params:
