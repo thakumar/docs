@@ -1,14 +1,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{ if .Page.GitInfo }}
+<meta name="nv-pub-date" content="{{ .Page.GitInfo.AuthorDate.Format "2006-01-02T15:04:05.000Z" }}">
+{{ end }}
+{{ if .Page.Params.version }}
+<meta name="docs_version" content="{{ .Page.Params.version }}">
+{{ end }}
+{{ if .Page.Params.keywords }}
+<meta name="keywords" content="{{ .Page.Params.keywords }}">
+{{ end }}
+{{ if .Page.Params.description }}
+<meta name="description" content="{{ .Page.Params.description }}">
+{{ end }}
+<meta name="products" content=”{{.Page.Params.product | htmlUnescape }}”>
 {{$prodVersion := print .Page.Params.product " " (.Page.Params.version | default "") }}
 <title>{{ .Page.Title }} | {{ $prodVersion | default .Site.Title -}}</title>
 
 <!-- Fonts for the theme -->
 <link href="https://fonts.googleapis.com/css?family=Oxygen|Oxygen+Mono:300,400,700" rel="stylesheet">
 
-<!-- Theme stylesheet, you can customize scss by creating `assets/custom.scss` in your website -->
-<!-- WHERE Hugo pipes in and compiles book.scss-->
-{{ $styles := resources.Get "book.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
+{{ $styles := resources.Get "book.scss" | resources.ExecuteAsTemplate "book.scss" . | toCSS | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $styles.Permalink }}">
 
 <!-- The PDF page has a custom CSS sheet to control PDF output formatting -->

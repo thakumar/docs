@@ -4,7 +4,7 @@ author: NVIDIA
 weight: 350
 toc: 5
 ---
-After installing your NetQ software and the NetQ 3.2.1 Agents on each switch you want to monitor, you can also install the NetQ CLI on servers running:
+After installing your NetQ software and the NetQ {{<version>}} Agents on each switch you want to monitor, you can also install the NetQ CLI on servers running:
 
 - Red Hat RHEL 7.1
 - CentOS 7
@@ -19,7 +19,7 @@ For servers running RHEL or CentOS, you need to:
 - Obtain NetQ software packages
 
 {{<notice note>}}
-If your network uses a proxy server for external connections, you should first {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/System-Configuration/Configuring-a-Global-Proxy/" text="configure a global proxy">}} so <code>apt-get</code> can access the software package in the Cumulus Networks repository.
+If your network uses a proxy server for external connections, you should first {{<kb_link url="cumulus-linux-43/System-Configuration/Configuring-a-Global-Proxy/" text="configure a global proxy">}} so <code>apt-get</code> can access the software package in the NVIDIA networking repository.
 {{</notice>}}
 
 ### Verify Service Package Versions
@@ -49,7 +49,7 @@ root@rhel7:~# sudo yum install wget
 
 If NTP is not already installed and configured, follow these steps:
 
-1. Install {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/System-Configuration/Setting-Date-and-Time/" text="NTP">}} on the server. Servers must be in time synchronization with the NetQ Appliance or VM to enable useful statistical analysis.
+1. Install {{<kb_link url="cumulus-linux-43/System-Configuration/Setting-Date-and-Time/" text="NTP">}} on the server. Servers must be in time synchronization with the NetQ Appliance or VM to enable useful statistical analysis.
 
     ```
     root@rhel7:~# sudo yum install ntp
@@ -100,14 +100,14 @@ A simple process installs the NetQ CLI on a RHEL or CentOS server.
     ```
     root@rhel7:~# vi /etc/yum.repos.d/cumulus-host-el.repo
     ...
-    [cumulus-arch-netq-3.2]
+    [cumulus-arch-netq-3.3]
     name=Cumulus netq packages
     baseurl=https://apps3.cumulusnetworks.com/repos/rpm/el/7/netq-3.2/$basearch
     gpgcheck=1
     enabled=1
-    [cumulus-noarch-netq-3.2]
+    [cumulus-noarch-netq-3.3]
     name=Cumulus netq architecture-independent packages
-    baseurl=https://apps3.cumulusnetworks.com/repos/rpm/el/7/netq-3.2/noarch
+    baseurl=https://apps3.cumulusnetworks.com/repos/rpm/el/7/netq-3.3/noarch
     gpgcheck=1
     enabled=1
     ...
@@ -125,9 +125,9 @@ A simple process installs the NetQ CLI on a RHEL or CentOS server.
     ```
     root@rhel7:~# rpm -q -netq-apps
     ```
-
-    {{<netq-install/cli-version version="3.2.1" opsys="rh">}}
-
+<!-- vale off -->
+    {{<netq-install/cli-version version="3.3.0" opsys="rh">}}
+<!-- vale on -->
 5. Continue with the next section.
 
 ## Configure the NetQ CLI on a RHEL or CentOS Server
@@ -136,9 +136,9 @@ Two methods are available for configuring the NetQ CLI on a switch:
 
 - Run NetQ CLI commands on the switch; refer to the next section
 - Edit the configuration file on the switch; refer to {{<link url="#configure-netq-cli-using-configuration-file" text="Configure CLI Using File">}}
-
+<!-- vale off -->
 {{<netq-install/cli-config opsys="rh">}}
-
+<!-- vale on -->
 ### Configure NetQ CLI Using the CLI
 
 The steps to configure the CLI are different depending on whether the NetQ software has been installed for an on-premises or cloud deployment. Follow the instructions for your deployment type.
@@ -170,7 +170,7 @@ If you have a server cluster deployed, use the IP address of the master server.
 
 {{< tab "Cloud Deployments" >}}
 
-To access and configure the CLI on your NetQ Platform or NetQ Cloud Appliance, you must have your username and password to access the NetQ UI to generate AuthKeys. These keys provide authorized access (access key) and user authentication (secret key). Your credentials and NetQ Cloud addresses were provided by Cumulus Networks via an email titled *Welcome to Cumulus NetQ!*
+To access and configure the CLI on your NetQ Platform or NetQ Cloud Appliance, you must have your username and password to access the NetQ UI to generate AuthKeys. These keys provide authorized access (access key) and user authentication (secret key). Your credentials and NetQ Cloud addresses were provided by NVIDIA via an email titled <!-- vale off -->*Welcome to Cumulus NetQ!*<!-- vale on -->
 
 To generate AuthKeys:
 
@@ -254,9 +254,9 @@ You can configure the NetQ CLI in the `netq.yml` configuration file contained in
     ```
     root@rhel7:~# sudo nano /etc/netq/netq.yml
     ```
-
+<!-- vale off -->
 2. Locate the *netq-cli* section, or add it.
-
+<!-- vale on -->
 3. Set the parameters for the CLI.
 
     {{< tabs "TabID1" >}}

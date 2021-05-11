@@ -9,10 +9,9 @@
   <!-- Fonts for the theme -->
   <link href="https://fonts.googleapis.com/css?family=Oxygen|Oxygen+Mono:300,400,700" rel="stylesheet">
 
-  <!-- Theme stylesheet, you can customize scss by creatig `assets/custom.scss` in your website -->
-  {{ $styles := resources.Get "book.scss" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+  {{ $styles := resources.Get "book.scss" | resources.ExecuteAsTemplate "book.scss" . | toCSS | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $styles.Permalink }}">
 
   <!-- Favicon -->
   <link rel="icon" href="{{ "icons/favicon.png" | relURL }}" type="image/x-icon">
@@ -32,21 +31,20 @@
       <div class="container-lg">
         <nav class="navTopWrapper">
           <ul class="navTop">
-            <li><a href="https://www.nvidia.com/" target="_blank"><img src="https://static.cumulusnetworks.com/static/images/shared/nvidia-logo.a71d2cb969b2.svg" alt="Nvidia Corporation"></a></li>
+            <li><a href="https://www.nvidia.com/" target="_blank"><img src={{"images/nvidia-logo.svg" | absURL }} /></a></li>
           </ul>
         </nav>
         <nav>
           <ul class="navRoot">
             <li class="navSection logo">
-              <div class="rootLink"><a href="//cumulusnetworks.com/"><span>Networking Docs</span></a></div>
+              <div class="rootLink"><a href={{.Site.BaseURL}}><span>Networking Docs</span></a></div>
             </li>
             <li class="navSection primary">
-              <a class="rootLink" href="//cumulusnetworks.com/">HOME</a>
-              <a class="rootLink" href="https://support.mellanox.com/s/contact-support-page">SUPPORT</a>
-              <a class="rootLink" href="//docs.cumulusnetworks.com/">DOCS</a>
-              <a class="rootLink" href="//education.cumulusnetworks.com/">EDUCATION</a>
-              <a class="rootLink" href="//cumulusnetworks.com/blog/">BLOG</a>
-              <a class="rootLink" href="//slack.cumulusnetworks.com/">COMMUNITY</a>
+              <a class="rootLink" href={{ .Site.Params.cl_latest | absURL }}>NVIDIA Cumulus Linux</a>
+              <a class="rootLink" href={{ .Site.Params.netq_latest | absURL }}>NVIDIA NetQ</a>
+              <a class="rootLink" href={{ "cumulus-vx" | absURL }}>NVIDIA Cumulus VX</a>
+              <a class="rootLink" href={{ .Site.Params.sonic_latest | absURL }}>SONiC</a>
+              <a class="rootLink" href={{ "knowledge-base" | absURL }}>Knowledge Base</a>
             </li>
             <li class="navSection mobile">
               <div class="burger-menu">
@@ -60,15 +58,14 @@
       </div>
       <div class="mobileMenu">
         <ul>
-          <li><a href="//cumulusnetworks.com/">HOME</a></li>
-          <li><a href="https://support.mellanox.com/s/contact-support-page">SUPPORT</a></li>
-          <li><a href="//docs.cumulusnetworks.com/">DOCS</a></li>
-          <li><a href="//education.cumulusnetworks.com/">EDUCATION</a></li>
-          <li><a href="//cumulusnetworks.com/blog/">BLOG</a></li>
-          <li><a href="//slack.cumulusnetworks.com/">COMMUNITY</a></li></ul>
+          <li><a href={{ .Site.Params.cl_latest | absURL }}>NVIDIA Cumulus Linux</a></li>
+          <li><a href={{ .Site.Params.netq_latest | absURL }}>NVIDIA NetQ</a></li>
+          <li><a href={{ "cumulus-vx" | absURL }}>NVIDIA Cumulus VX</a></li>
+          <li><a href={{ .Site.Params.sonic_latest | absURL }}>SONiC</a></li>
+          <li><a href={{ "knowledge-base" | absURL }}>Knowledge Base</a></li>
       </div>
     </div>
-    <header class="home-banner" style="background-image: url(/docs-home-bg.jpg);">
+    <header class="home-banner" style="background-color: #76b900">
       <div class="container">
         <div class="row">
           <div class="col-12">
@@ -82,10 +79,11 @@
         <div class="row">
           <div class="col-12">
             <script async src="https://cse.google.com/cse.js?cx=002929300794741444210:sy0sz3qlwdc"></script>
-            <div class="gcse-searchbox-only" enableAutoComplete="true" data-resultsUrl="/search/"></div>
+            <div class="gcse-searchbox-only" enableAutoComplete="true" data-resultsUrl={{"search" | absURL}}></div>
 
             <p class="search-hint">
-              <b>Hint:</b> For better results, include your version number in your query.
+              <!--<b>Hint:</b> For better results, include your version number in your query.-->
+              Search is currently disabled and will return soon.
             </p>
 
             <div id="search-results"></div>
@@ -101,33 +99,32 @@
             <div class="col-12">
                 <div class="footer-content">
                     <div class="mb-4">
-                        <img src="https://static.cumulusnetworks.com/static/images/shared/nvidia-logo-white.5c3d914c5190.svg">
-                        <p>© <script type="text/javascript">document.write(new Date().getFullYear());</script> NVIDIA Corporation.<br>
+                      <img src={{"images/nvidia-logo-white.svg" | absURL }} />
+                        <p>© <script type="text/javascript">document.write(new Date().getFullYear());</script>&nbsp;&nbsp;NVIDIA Corporation.<br>
                         Site by <a href="//unomena.com/" target="_blank">Unomena</a>.</p>
-                        <p><a href="/license/"><img src="/images/by-nc-sa.svg" alt="Cumulus Networks CC-by-NC-SA License"></a></p>
+                        <p><a href={{"license" | absURL }}><img src={{"images/by-nc-sa.svg" | absURL }} alt="Cumulus Networks CC-by-NC-SA License"></a></p>
                     </div>
                     <ul class="mb-4">
                         <li><h4 class="text-jade mb-3">Products</h4></li>
-                        <li><a href="//cumulusnetworks.com/products/cumulus-linux/">Cumulus Linux</a></li>
-                        <li><a href="//cumulusnetworks.com/products/netq/">Cumulus NetQ</a></li>
-                        <li><a href="//cumulusnetworks.com/products/cumulus-express/">Cumulus Express</a></li>
+                        <li><a href={{ .Site.Params.cl_latest | absURL }}>Cumulus Linux</a></li>
+                        <li><a href={{ .Site.Params.netq_latest | absURL }}>Cumulus NetQ</a></li>
+                        <li><a href="https://www.nvidia.com/en-us/networking/ethernet-switching/spectrum-sn4000/">Cumulus Express</a></li>
                     </ul>
                     <ul class="mb-4">
+                      <li><h4 class="text-jade mb-3">Solutions</h4></li>
+                      <li><a href="https://www.nvidia.com/en-us/networking/network-automation/">Automation</a></li>
+                      <li><a href="https://www.nvidia.com/en-us/networking/network-virtualization/">Network Virtualization</a></li>
+                      <li><a href="https://www.nvidia.com/en-us/networking/hyperconverged-infrastructure/">HCI</a></li>
+                  </ul>
+                  <ul class="mb-4">
                         <li><h4 class="text-jade mb-3">Learn</h4></li>
-                        <li><a href="//cumulusnetworks.com/learn/web-scale-networking-education/">Going web-scale</a></li>
-                        <li><a href="//cumulusnetworks.com/learn/events/">Events</a></li>
-                        <li><a href="//cumulusnetworks.com/blog/">Blog</a></li>
-                    </ul>
-                    <ul class="mb-4">
-                        <li><h4 class="text-jade mb-3">About</h4></li>
-                        <li><a href="//cumulusnetworks.com/about/">Our story</a></li>
-                        <li><a href="//cumulusnetworks.com/about/media-coverage/">Media coverage</a></li>
-                        <li><a href="//docs.cumulusnetworks.com/" target="_blank">Tech docs</a></li>
-                        <li><a href="//cumulusnetworks.com/community/">Community</a></li>
+                        <li><a href="https://www.nvidia.com/en-us/networking/education/web-scale/">Going web-scale</a></li>
+                        <li><a href="https://www.nvidia.com/en-us/about-nvidia/webinar-portal/">Webinars</a></li>
+                        <li><a href="https://developer.nvidia.com/blog/">Blog</a></li>
                     </ul>
                     <ul>
                         <li>
-                            <a href="//twitter.com/CumulusNetworks/" target="_blank">
+                            <a href="//twitter.com/NVIDIANetworkng/" target="_blank">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                     <defs>
                                       <style>
@@ -151,7 +148,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="//linkedin.com/company/cumulus-networks/" target="_blank">
+                            <a href="//www.linkedin.com/showcase/nvidianetworking/" target="_blank">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <defs>
                                     <style>
@@ -190,18 +187,6 @@
                             </a>
                         </li>
                         <li>
-                            <a href="//www.instagram.com/cumulusnetworks/" target="_blank">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <defs>
-                                        <style>
-                                        .a{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
-                                        </style>
-                                    </defs>
-                                    <rect class="a" x=".5" y=".5" width="23" height="23" rx="6" ry="6"></rect>
-                                    <circle class="a" cx="12" cy="12" r="6"></circle>
-                                    <circle class="a" cx="19" cy="5" r="1.5"></circle>
-                                </svg>
-                            </a>
                         </li>
                     </ul>
                 </div>
@@ -214,9 +199,9 @@
         <div class="row">
             <div class="col-12">
                 <ul>
-                    <li><a href="//cumulusnetworks.com/legal/trademarks/">Trademarks</a></li>
-                    <li><a href="//cumulusnetworks.com/legal/privacy/">Privacy</a></li>
-                    <li><a href="//cumulusnetworks.com/legal/">Terms of service</a></li>
+                    <li><a href="//www.nvidia.com/en-us/about-nvidia/legal-info/">Trademarks</a></li>
+                    <li><a href="//www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy</a></li>
+                    <li><a href="//www.nvidia.com/en-us/about-nvidia/nv-accounts/">Terms of service</a></li>
                 </ul>
             </div>
         </div>
@@ -287,12 +272,12 @@
 
             if (data.queries && data.queries.previousPage) {
               var prev = data.queries.previousPage[0].startIndex;
-              html += '<a href="/search/?q=' +query+ '&start=' +prev+ '">Previous</a> | '
+              html += '<a href="{{printf "?q=" ("search/" | absURL) }}' +query+ '&start=' +prev+ '">Previous</a> | '
             }
 
             if (data.queries && data.queries.nextPage) {
               var next = data.queries.nextPage[0].startIndex;
-              html += '<a href="/search/?q=' +query+ '&start=' +next+ '">Next</a>'
+              html += '<a href="{{printf "?q=" ("search/" | absURL) }}' +query+ '&start=' +next+ '">Next</a>'
             }
           } else {
             html += '<h4>No results were found for "' +data.queries.request[0].searchTerms+ '"<h4>';
@@ -306,9 +291,9 @@
   </script>
 
   <!-- Announcement bars -->
-  {{ $jsAnnouncementBar := resources.Get "js/announcement-bar.js" }}
+  <!-- {{ $jsAnnouncementBar := resources.Get "js/announcement-bar.js" }}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-  <script src = "{{ $jsAnnouncementBar.Permalink }}"> </script>
+  <script src = "{{ $jsAnnouncementBar.Permalink }}"> </script> -->
 
 </body>
 

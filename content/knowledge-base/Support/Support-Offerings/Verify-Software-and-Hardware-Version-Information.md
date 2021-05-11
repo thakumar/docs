@@ -8,7 +8,7 @@ toc: 4
 Cumulus Linux users familiar with Cisco IOS may look for the same level
 of information from commands they have learned and used over time. One
 of the most common commands used in Cisco IOS
-is `{{<exlink url="http://www.cisco.com%20/en/US/docs/ios/fundamentals/command/reference/cf_s4.html#wp1499591" text="show version">}}`,
+is `show version`,
 which displays the currently loaded software along with hardware and
 device information. This same level of information can be found in
 Cumulus Linux using the following commands:
@@ -30,7 +30,7 @@ accomplished via `apt-get`:
 
 ## Use decode-syseeprom to Verify Hardware Model, Version and Other Vendor-specific Details
 
-Similar to how Cisco offers the `show idprom` command for IOS and `show sprom` for NX-OS, Cumulus Networks created the `decode-syseeprom` command to provide a universal {{<exlink url="http://en.wikipedia.org/wiki/EEPROM" text="EEPROM">}} format that delivers a consistent way to display hardware platform-specific information. All vendors approved on the {{<exlink url="https://cumulusnetworks.com/hcl/" text="Cumulus Linux hardware compatibility list">}} adhere to this EEPROM format to be certified for Cumulus Linux.
+Similar to how Cisco offers the `show idprom` command for IOS and `show sprom` for NX-OS, Cumulus Networks created the `decode-syseeprom` command to provide a universal {{<exlink url="http://en.wikipedia.org/wiki/EEPROM" text="EEPROM">}} format that delivers a consistent way to display hardware platform-specific information. All vendors approved on the {{<exlink url="https://www.nvidia.com/en-us/networking/ethernet-switching/hardware-compatibility-list//" text="Cumulus Linux hardware compatibility list">}} adhere to this EEPROM format to be certified for Cumulus Linux.
 
 For example:
 

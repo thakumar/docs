@@ -4,7 +4,7 @@ author: NVIDIA
 weight: 290
 toc: 5
 ---
-After installing your NetQ software, you should install the NetQ 3.2.1 Agents on each switch you want to monitor. NetQ Agents can be installed on switches running:
+After installing your NetQ software, you should install the NetQ {{<version>}} Agents on each switch you want to monitor. NetQ Agents can be installed on switches running:
 
 - Cumulus Linux version 3.3.2-3.7.x
 - Cumulus Linux version 4.0.0 and later
@@ -17,12 +17,12 @@ For servers running Cumulus Linux, you need to:
 - Obtain NetQ software packages
 
 {{<notice note>}}
-If your network uses a proxy server for external connections, you should first {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/System-Configuration/Configuring-a-Global-Proxy/" text="configure a global proxy">}} so <code>apt-get</code> can access the software package in the Cumulus Networks repository.
+If your network uses a proxy server for external connections, you should first {{<kb_link url="cumulus-linux-43/System-Configuration/Configuring-a-Global-Proxy/" text="configure a global proxy">}} so <code>apt-get</code> can access the software package in the NVIDIA networking repository.
 {{</notice>}}
 
 ### Verify NTP is Installed and Configured
 
-Verify that {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/System-Configuration/Setting-Date-and-Time/" text="NTP">}} is running on the switch. The switch must be in time synchronization with the NetQ Platform or NetQ Appliance to enable useful statistical analysis.
+Verify that {{<kb_link url="cumulus-linux-43/System-Configuration/Setting-Date-and-Time/" text="NTP">}} is running on the switch. The switch must be in time synchronization with the NetQ Platform or NetQ Appliance to enable useful statistical analysis.
 
 ```
 cumulus@switch:~$ sudo systemctl status ntp
@@ -48,7 +48,7 @@ If you are running NTP in your out-of-band management network with VRF, specify 
 
 ### Obtain NetQ Agent Software Package
 
-To install the NetQ Agent you need to install `netq-agent` on each switch or host. This is available from the Cumulus Networks repository.
+To install the NetQ Agent you need to install `netq-agent` on each switch or host. This is available from the NVIDIA networking repository.
 
 To obtain the NetQ Agent package:
 
@@ -117,7 +117,7 @@ To install the NetQ Agent:
     cumulus@switch:~$ dpkg-query -W -f '${Package}\t${Version}\n' netq-agent
     ```
 
-    {{<netq-install/agent-version version="3.3.0" opsys="cl">}}
+    {{<netq-install/agent-version version="3.3.1" opsys="cl">}}
 
 3. Restart `rsyslog` so log files are sent to the correct destination.
 
@@ -194,7 +194,7 @@ A couple of additional options are available for configuring the NetQ Agent. If 
 
 ### Configure the Agent to Use a VRF
 
-By default, NetQ uses the *default* VRF for communication between the NetQ Appliance or VM and NetQ Agents.While optional, Cumulus strongly recommends that you configure NetQ Agents to communicate with the NetQ Appliance or VM only via a {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/Layer-3/Virtual-Routing-and-Forwarding-VRF/" text="VRF">}}, including a {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/Layer-3/Management-VRF/" text="management VRF">}}. To do so, you need to specify the VRF name when configuring the NetQ Agent. For example, if the management VRF is configured and you want the agent to communicate with the NetQ Appliance or VM over it, configure the agent like this:
+By default, NetQ uses the *default* VRF for communication between the NetQ Appliance or VM and NetQ Agents. While optional, Cumulus strongly recommends that you configure NetQ Agents to communicate with the NetQ Appliance or VM only via a {{<kb_link url="cumulus-linux-43/Layer-3/VRFs/Virtual-Routing-and-Forwarding-VRF/" text="VRF">}}, including a {{<kb_link url="cumulus-linux-43/Layer-3/VRFs/Management-VRF/" text="management VRF">}}. To do so, you need to specify the VRF name when configuring the NetQ Agent. For example, if the management VRF is configured and you want the agent to communicate with the NetQ Appliance or VM over it, configure the agent like this:
 
 ```
 cumulus@leaf01:~$ sudo netq config add agent server 192.168.1.254 vrf mgmt

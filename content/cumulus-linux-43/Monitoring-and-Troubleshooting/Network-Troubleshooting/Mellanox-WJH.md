@@ -7,7 +7,7 @@ toc: 4
 Cumulus Linux supports *What Just Happened* (WJH) for Mellanox switches, which provides real time visibility into network problems.
 
 WJH has two components:
-- The WJH agent is installed and enabled by default in Cumulus Linux so that you can stream detailed and contextual telemetry for off-box analysis with tools, such as {{<exlink url="https://docs.cumulusnetworks.com/cumulus-netq/" text="Cumulus NetQ">}}. 
+- The WJH agent is installed and enabled by default in Cumulus Linux so that you can stream detailed and contextual telemetry for off-box analysis with tools, such as {{<kb_link url="cumulus-netq-33/" text="Cumulus NetQ">}}. 
 - The WJH service is an optional package that you can install and run in Cumulus Linux to help diagnose network problems by looking at dropped packets. Currently, only forwarding (layer 2, layer 3, and tunnel) related issues are shown.
 
 ## Install the WJH Service
@@ -27,7 +27,7 @@ After you install and start the WJH service, you can run the following commands 
 | <div style="width:450px">Command  | Description |
 | -------  | ----------- |
 | `what-just-happened poll` | Shows information about dropped packets due to forwarding-related issues (layer 2, layer 3, and tunnel only). The output includes the reason for the drop and the recommended action to take.<br><br>The `what-just-happened poll forwarding` command shows the same information. |
-| `what-just-happened poll --aggregate` | Shows information about dropped packets due to forwarding-related issues aggregated by the reason for the drop. The number of times the dropped packet occured is also shown.<br><br>The `what-just-happened poll forwarding --aggregate` command shows the same information. |
+| `what-just-happened poll --aggregate` | Shows information about dropped packets due to forwarding-related issues aggregated by the reason for the drop. The number of times the dropped packet occurred is also shown.<br><br>The `what-just-happened poll forwarding --aggregate` command shows the same information. |
 | `what-just-happened poll --export` | Saves information about dropped packets due to forwarding-related issues into a file in PCAP format.<br><br>The `what-just-happened poll forwarding --export` command shows the same information. |
 | `what-just-happened poll  --no_metadata` | Saves information about dropped packets due to forwarding-related issues into a file in PCAP format without metadata.<br><br> The `what-just-happened poll forwarding --no_metadata` command shows the same information.|
 | `what-just-happened configuration global` | Shows WJH configuration for forwarding-related issues.<br><br>The `what-just-happened configuration forwarding` command shows the same information. |

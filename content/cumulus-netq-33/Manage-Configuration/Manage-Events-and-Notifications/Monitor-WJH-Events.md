@@ -4,13 +4,13 @@ author: Cumulus Networks
 weight: 810
 toc: 4
 ---
-The *What Just Happened* (WJH) feature, available on Mellanox switches, streams detailed and contextual telemetry data for analysis. This provides real-time visibility into problems in the network, such as hardware packet drops due to buffer congestion, incorrect routing, and ACL or layer 1 problems. You must have Cumulus Linux 4.0.0 or later and NetQ 2.4.0 or later to take advantage of this feature.
+The *What Just Happened* (WJH) feature, available on NVIDIA switches, streams detailed and contextual telemetry data for analysis. This provides real-time visibility into problems in the network, such as hardware packet drops due to buffer congestion, incorrect routing, and ACL or layer 1 problems. You must have Cumulus Linux 4.0.0 or later and NetQ 2.4.0 or later to take advantage of this feature.
 
 For a list of supported WJH events, refer to the {{<link title="WJH Event Messages Reference">}}.
 
 {{<notice tip>}}
 
-If your switches are sourced from a vendor other than Mellanox, this view is blank as no data is collected.
+If your switches are sourced from a vendor other than NVIDIA, this view is blank as no data is collected.
 
 {{</notice>}}
 
@@ -21,7 +21,7 @@ When WJH capabilities are combined with NetQ, you have the ability to hone in on
 
 {{<notice info>}}
 
-By default, Cumulus Linux 4.0.0 provides the NetQ 2.3.1 Agent and CLI. If you installed Cumulus Linux 4.0.0 on your Mellanox switch, you need to upgrade the NetQ Agent and optionally the CLI to release 2.4.0 or later (preferably the latest release).
+By default, Cumulus Linux 4.0.0 provides the NetQ 2.3.1 Agent and CLI. If you installed Cumulus Linux 4.0.0 on your NVIDIA switch, you need to upgrade the NetQ Agent and optionally the CLI to release 2.4.0 or later (preferably the latest release).
 
 <pre>
 cumulus@<hostname>:~$ sudo apt-get update
@@ -35,11 +35,11 @@ cumulus@<hostname>:~$ sudo netq config restart cli
 
 ## Configure the WJH Feature
 
-WJH is enabled by default on Mellanox switches and no configuration is required in Cumulus Linux 4.0.0; however, you must enable the NetQ Agent to collect the data in NetQ 2.4.0 or later.
+WJH is enabled by default on NVIDIA switches and no configuration is required in Cumulus Linux 4.0.0; however, you must enable the NetQ Agent to collect the data in NetQ 2.4.0 or later.
 
 To enable WJH in NetQ:
 
-1. Configure the NetQ Agent on the Mellanox switch.
+1. Configure the NetQ Agent on the NVIDIA switch.
 
     ```
     cumulus@switch:~$ sudo netq config add agent wjh
@@ -55,7 +55,7 @@ When you are finished viewing the WJH metrics, you might want to stop the NetQ A
 
 {{<notice note>}}
 
-Using <em>wjh_dump.py</em> on a Mellanox platform that is running Cumulus Linux 4.0 and the NetQ 2.4.0 agent causes the NetQ WJH client to stop receiving packet drop call backs. To prevent this issue, run <em>wjh_dump.py</em> on a different system than the one where the NetQ Agent has WJH enabled, or disable <em>wjh_dump.py</em> and restart the NetQ Agent (run <code>netq config restart agent</code>).
+Using <em>wjh_dump.py</em> on an NVIDIA platform that is running Cumulus Linux 4.0 and the NetQ 2.4.0 agent causes the NetQ WJH client to stop receiving packet drop call backs. To prevent this issue, run <em>wjh_dump.py</em> on a different system than the one where the NetQ Agent has WJH enabled, or disable <em>wjh_dump.py</em> and restart the NetQ Agent (run <code>netq config restart agent</code>).
 
 {{</notice>}}
 
@@ -85,36 +85,31 @@ cumulus@switch:~$ sudo netq config add agent wjh-threshold congestion 4 swp1 200
 
 ## Configure Filters
 
-You can filter the WJH events at the NetQ Agent before it is processed by the NetQ system. Filtering is performed on a drop-type basis. You can filter the drop type further by specifying one or more drop reasons or severity using the NetQ UI or the NetQ CLI.
+You can filter the WJH events at the NetQ Agent before it is processed by the NetQ system. Filtering is performed on a drop-type basis. You can filter the drop type further by specifying one or more drop reasons or severity. Filter events by creating a NetQ Configuration profile in the NetQ UI or using the `netq config add agent wjh-drop-filter` command in the NetQ CLI.
 
-Drop reasons are organized into the following types:
-
-- *ACL*: ingress and egress port ACLs, ingress and egress router ACLs.
-- *Buffer*: packet latency threshold crossed, port TC congestion threshold crossed, tail drop, WRED.
-- *Layer 1*: autonegotiation failure, bad signal integrity, cable/transceiver unplugged, cable/transceiver unsupported, calibration failure, link training failure, peer sending remote faults, port admin down.
-- *Layer 2*: destination MAC reserved (&lt;DMAC>), ingress spanning tree filter, ingress VLAN filtering, MLAG port isolation, multicast egress port list empty, port loopback filter, source MAC equals destination MAC, source MAC is multicast, unicast MAC table action discard, VLAN tagging mismatch.
-- *Router*: blackhole ARP/neighbor, blackhole route, checksum or IPver or IPv4 IHL too short, destination IP is loopback address, egress router interface is disabled, ingress router interface is disabled, IPv4 destination IP is link local, IPv4 destination IP is local network (destination=&lt;IP/subnet>), IPv4 routing table (LPM) unicast miss, IPv4 source IP is limited broadcast, IPv6 destination in multicast scope &lt;IPv6>, IPv6 routing table (LPM) unicast miss, multicast MAC mismatch, non-IP packet, non-routable packet, packet size is larger than router interface MTU, router interface loopback, source IP equals destination IP, source IP is in class E, source IP is loopback address, source IP is multicast, source IP is unspecified, TTL value is too small, unicast destination IP but multicast destination MAC, unresolved neighbor/next-hop.
-- *Tunnel*: decapsulation error, overlay switch - source MAC equals destination MAC, overlay switch - source MAC is multicast.
+For a complete list of drop types and reasons, refer to the {{<link title="WJH Event Messages Reference">}}.
 
 {{< tabs "WJH Filters" >}}
 
 {{< tab "NetQ UI" >}}
 
-To configure the NetQ Agent to filter WJH drops, do the following:
+To configure the NetQ Agent to filter WJH drops:
 
-1. In the NetQ UI, click **Switches** ({{<img src="https://icons.cumulusnetworks.com/03-Computers-Devices-Electronics/09-Hard-Drives/hard-drive-1.svg" height="18" width="18">}}), then click **Manage switches**.
+1. Click {{<img src="https://icons.cumulusnetworks.com/05-Internet-Networks-Servers/06-Servers/server-upload.svg" width="18" height="18">}} (Upgrade) in a workbench header.
 
-1. Click **Configuration Management** on the left.
+1. Click **Configuration Management**.
 
-1. Under NetQ Configurations, click **Add Config**.
+   {{<img src="/images/netq/lcm-dashboard-config-mgmt-tab-330.png" width="600px">}}
 
-   {{<img src="/images/netq/lcm-netq-config-profile-enable-wjh.png" width="500px">}}
+1. On the NetQ Configurations card, click **Add Config**.
 
 1. Click **Enable** to enable WJH, then click **Customize**.
 
-   {{<img src="/images/netq/lcm-netq-config-profile-configure-wjh.png" width="500px">}}
+   {{<img src="/images/netq/lcm-netq-config-profile-create-wjh-custom-330.png" width="400px">}}
 
-1. By default, all drop reasons are selected. Uncheck any drop reasons you don't want to use to generate WJH events, then click **Done**.
+1. By default, all drop reasons and severities are selected. Uncheck any drop reasons or severity you *do not* want to use to generate WJH events, then click **Done**.
+
+1. Click **Add** to save the configuration profile, or click **Close** to discard it.
 
 {{< /tab >}}
 

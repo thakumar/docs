@@ -515,7 +515,7 @@ To create a profile:
 
 9. Optionally set a CPU usage limit for the NetQ Agent. Click **Enable** and drag the dot to the desired limit.
 
-    Refer to this {{<exlink url="https://support.cumulusnetworks.com/hc/en-us/articles/360046925373-NetQ-Agent-CPU-Utilization-on-Cumulus-Linux-Switches" text="Knowledge Base article">}} for information about this feature.
+    Refer to this {{<kb_link url="knowledge-base/Configuration-and-Usage/Cumulus-NetQ/NetQ-Agent-CPU-Utilization-on-Cumulus-Linux-Switches/" text="Knowledge Base article">}} for information about this feature.
 
 10. Click **Add** to complete the configuration or **Close** to discard the configuration.
 
@@ -542,7 +542,7 @@ To ease the consistent configuration of your switches, NetQ enables you to creat
 You can view, create, and modify switch configuration profiles and their assignments at any time using the Switch Configurations card.
 
 {{<notice info>}}
-New switch configuration features introduced with release 3.3.0 are Early Access features and are provided in advance of general availability to enable customers to try them out and provide feedback. These features are bundled into the `netq-apps` package so there is no need to install a separate software package. The features are enabled by default and marked in the documentation here as Early Access.
+New switch configuration features introduced with release 3.3.0 are Early Access features and are provided in advance of general availability to enable customers to try them out and provide feedback. These features are bundled into the <code>netq-apps</code> package so there is no need to install a separate software package. The features are enabled by default and marked in the documentation here as Early Access.
 {{</notice>}}
 
 ### View Switch Configuration Profiles

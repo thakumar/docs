@@ -18,24 +18,21 @@ Prefix lists are access lists for route advertisements that match routes instead
 The following example commands configure a prefix list that permits all prefixes in the range 10.0.0.0/16 with a subnet mask less than or equal to /30. For networks 10.0.0.0/24, 10.10.10.0/24, and 10.0.0.10/32, only 10.0.0.0/24 is matched (10.10.10.0/24 has a different prefix and 10.0.0.10/32 has a greater subnet mask).
 
 {{< tabs "TabID22 ">}}
-
-{{< tab "NCLU Commands ">}}
+{{< tab "CUE Commands ">}}
 
 ```
-cumulus@switch:~$ net add routing prefix-list ipv4 prefixlist1 permit 10.0.0.0/16 le 30
-cumulus@switch:~$ net pending
-cumulus@switch:~$ net commit
+cumulus@switch:~$ cl set router policy prefix-list prefixlist1 rule 1 match 10.0.0.0/16 max-prefix-len 30
+cumulus@switch:~$ cl set router policy prefix-list prefixlist1 rule 1 action permit
+cumulus@switch:~$ cl config apply
 ```
 
 {{< /tab >}}
-
 {{< tab "vtysh Commands ">}}
 
 ```
 cumulus@switch:~$ sudo vtysh
-
 switch# configure terminal
-switch(config)# ip prefix-list prefixlist1 permit 10.0.0.0/16 le 30
+switch(config)# ip prefix-list prefixlist1 seq 1 permit 10.0.0.0/16 le 30
 switch(config)# exit
 switch# write memory
 switch# exit
@@ -43,22 +40,58 @@ cumulus@switch:~$
 ```
 
 {{< /tab >}}
-
 {{< /tabs >}}
 
-The NCLU and vtysh commands save the configuration in the `/etc/frr/frr.conf` file. For example:
+The commands save the configuration in the `/etc/frr/frr.conf` file. For example:
 
 ```
+cumulus@switch:~$ sudo cat /etc/frr/frr.conf
 ...
 router ospf
  ospf router-id 10.10.10.1
  timers throttle spf 80 100 6000
  passive-interface vlan10
  passive-interface vlan20
-ip prefix-list prefixlist1 permit 10.0.0.0/16 le 30
+ip prefix-list prefixlist1 seq 1 permit 10.0.0.0/16 le 30
 ```
 
-To use this prefix list in a route map, see {{<link url="#configuration-examples" text="Configuration-Examples">}} below.
+To use this prefix list in a route map called MAP1:
+
+{{< tabs "TabID60 ">}}
+{{< tab "CUE Commands ">}}
+
+```
+cumulus@switch:~$ cl set router policy route-map MAP1 rule 10 action permit
+cumulus@switch:~$ cl set router policy route-map MAP1 rule 10 match ip-prefix-list prefixlist1
+cumulus@switch:~$ cl config apply
+```
+
+{{< /tab >}}
+{{< tab "vtysh Commands ">}}
+
+```
+cumulus@switch:~$ sudo vtysh
+switch# configure terminal
+switch(config)# route-map MAP1 permit 10
+switch(config-route-map)# match ip address prefix-list prefixlist1
+switch(config-route-map)# exit
+switch# write memory
+switch# exit
+cumulus@switch:~$
+```
+
+{{< /tab >}}
+{{< /tabs >}}
+
+The commands save the configuration in the `/etc/frr/frr.conf` file. For example:
+
+```
+cumulus@switch:~$ sudo cat /etc/frr/frr.conf
+...
+ip prefix-list prefixlist1 seq 1 permit 10.0.0.0/16 le 30
+route-map MAP1 permit 10
+match ip address prefix-list prefixlist1
+```
 
 ## Route Maps
 
@@ -69,23 +102,20 @@ Route maps are routing policies that are considered before the router examines t
 The following example commands configure a route map that sets the metric to 50 for interface swp51:
 
 {{< tabs "TabID73 ">}}
-
-{{< tab "NCLU Commands ">}}
+{{< tab "CUE Commands ">}}
 
 ```
-cumulus@switch:~$ net add routing route-map routemap1 permit 10 match interface swp51
-cumulus@switch:~$ net add routing route-map routemap1 permit 10 set metric 50
-cumulus@switch:~$ net pending
-cumulus@switch:~$ net commit
+cumulus@switch:~$ cl set router policy route-map routemap1 rule 10 match interface swp51
+cumulus@switch:~$ cl set router policy route-map routemap1 rule 10 set metric 50
+cumulus@switch:~$ cl set router policy route-map routemap1 rule 10 action permit
+cumulus@switch:~$ cl config apply
 ```
 
 {{< /tab >}}
-
 {{< tab "vtysh Commands ">}}
 
 ```
 cumulus@switch:~$ sudo vtysh
-
 switch# configure terminal
 switch(config)# route-map routemap1 permit 10
 switch(config-route-map)# match interface swp51
@@ -97,18 +127,13 @@ cumulus@switch:~$
 ```
 
 {{< /tab >}}
-
 {{< /tabs >}}
 
-The NCLU and vtysh commands save the configuration in the `/etc/frr/frr.conf` file. For example:
+The commands save the configuration in the `/etc/frr/frr.conf` file. For example:
 
 ```
+cumulus@switch:~$ sudo cat /etc/frr/frr.conf
 ...
-router ospf
- ospf router-id 10.10.10.1
- timers throttle spf 80 100 6000
- passive-interface vlan10
- passive-interface vlan20
 route-map routemap1 permit 10
  match interface swp51
  set metric 50
@@ -116,27 +141,23 @@ route-map routemap1 permit 10
 
 ### Apply a Route Map
 
-To apply the route map, you specify the routing protocol (bgp, ospf, or static) and the route map name.
+To apply the route map, you specify the routing protocol and the route map name.
 
 The following example filters routes from Zebra into the Linux kernel. The commands apply the route map called routemap1 to BGP:
 
 {{< tabs "TabID152 ">}}
-
-{{< tab "NCLU Commands ">}}
+{{< tab "CUE Commands ">}}
 
 ```
-cumulus@switch:~$ net add routing protocol bgp route-map routemap1
-cumulus@switch:~$ net pending
-cumulus@switch:~$ net commit
+cumulus@switch:~$ cl set vrf default router bgp address-family ipv4-unicast rib-filter routemap1
+cumulus@switch:~$ cl config apply
 ```
 
 {{< /tab >}}
-
 {{< tab "vtysh Commands ">}}
 
 ```
 cumulus@switch:~$ sudo vtysh
-
 switch# configure terminal
 switch(config)# ip protocol bgp route-map routemap1
 switch(config)# exit
@@ -146,18 +167,13 @@ cumulus@switch:~$
 ```
 
 {{< /tab >}}
-
 {{< /tabs >}}
 
-The NCLU and vtysh commands save the configuration in the `/etc/frr/frr.conf` file. For example:
+The commands save the configuration in the `/etc/frr/frr.conf` file. For example:
 
 ```
+cumulus@switch:~$ sudo cat /etc/frr/frr.conf
 ...
-router ospf
- ospf router-id 10.10.10.1
- timers throttle spf 80 100 6000
- passive-interface vlan10
- passive-interface vlan20
 ip protocol bgp route-map routemap1
 ```
 
@@ -166,38 +182,33 @@ For BGP, you can also apply a route map on route updates from BGP to Zebra. All 
 To apply a route map to filter route updates from BGP into Zebra, run the following command:
 
 ```
-cumulus@switch:$ net add bgp table-map routemap2
+cumulus@switch:$ cl set vrf default router bgp address-family ipv4-unicast rib-filter routemap1
+cumulus@switch:$ cl config apply
 ```
 
 {{%notice note%}}
-
 In NCLU, you can only set the community number in a route map. You cannot set other community options such as `no-export`, `no-advertise`, or `additive`.
-
 {{%/notice%}}
 
 ## Route Redistribution
 
 Route redistribution allows a network to use a routing protocol to route traffic dynamically based on the information learned from a different routing protocol or from static routes. Route redistribution helps increase accessibility within networks.
 
-To redistribute protocol routes, run the `net add <protocol> redistribute` command. The following example commands redistribute routing information from ospf routes into BGP:
+The following example commands redistribute routing information from ospf routes into BGP:
 
 {{< tabs "TabID219 ">}}
-
-{{< tab "NCLU Commands ">}}
+{{< tab "CUE Commands ">}}
 
 ```
-cumulus@switch:~$ net add bgp redistribute ospf
-cumulus@switch:~$ net pending
-cumulus@switch:~$ net commit
+cumulus@switch:~$ cl set vrf default router bgp address-family ipv4-unicast route-redistribute ospf
+cumulus@switch:~$ cl config apply
 ```
 
 {{< /tab >}}
-
 {{< tab "vtysh Commands ">}}
 
 ```
 cumulus@switch:~$ sudo vtysh
-
 switch# configure terminal
 switch(config)# router bgp
 switch(config-router)# redistribute ospf
@@ -208,28 +219,23 @@ cumulus@switch:~$
 ```
 
 {{< /tab >}}
-
 {{< /tabs >}}
 
 To redistribute all directly connected networks, use the `redistribute connected` command. For example:
 
 {{< tabs "TabID251 ">}}
-
-{{< tab "NCLU Commands ">}}
+{{< tab "CUE Commands ">}}
 
 ```
-cumulus@switch:~$ net add bgp redistribute connected
-cumulus@switch:~$ net pending
-cumulus@switch:~$ net commit
+cumulus@switch:~$ cl set vrf default router bgp address-family ipv4-unicast route-redistribute connected
+cumulus@switch:~$ cl config apply
 ```
 
 {{< /tab >}}
-
 {{< tab "vtysh Commands ">}}
 
 ```
 cumulus@switch:~$ sudo vtysh
-
 switch# configure terminal
 switch(config)# router bgp
 switch(config-router)# redistribute connected
@@ -240,13 +246,10 @@ cumulus@switch:~$
 ```
 
 {{< /tab >}}
-
 {{< /tabs >}}
 
 {{%notice note%}}
-
 For OSPF, redistribution loads the database unnecessarily with type-5 LSAs. Only use this method to generate real external prefixes (type-5 LSAs).
-
 {{%/notice%}}
 
 ## Configuration Examples

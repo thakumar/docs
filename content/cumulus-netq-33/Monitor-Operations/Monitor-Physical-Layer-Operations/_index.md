@@ -23,7 +23,7 @@ information, you can, among other things:
 - Identify mismatched links
 - Identify changes in your physical layer, and when they occurred, indicating such items as bonds and links going down or flapping
 
-NetQ uses {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/Layer-2/Link-Layer-Discovery-Protocol/" text="LLDP">}} (Link Layer Discovery Protocol) to collect port information. NetQ can also identify peer ports connected to DACs (Direct Attached Cables) and AOCs (Active Optical Cables) without using LLDP, even if the link is not UP.
+NetQ uses {{<kb_link url="cumulus-linux-43/Layer-2/Link-Layer-Discovery-Protocol/" text="LLDP">}} (Link Layer Discovery Protocol) to collect port information. NetQ can also identify peer ports connected to DACs (Direct Attached Cables) and AOCs (Active Optical Cables) without using LLDP, even if the link is not UP.
 
 ## View Component Information
 
@@ -37,11 +37,11 @@ netq [<hostname>] show interfaces physical [<physical-port>] [empty|plugged] [pe
 
 When entering a time value, you must include a numeric value <em>and</em> the unit of measure:
 <ul>
-<li><strong>d</strong>: day(s)</li>
-<li><strong>w</strong>: week(s)</li>
-<li><strong>h</strong>: hour(s)</li>
-<li><strong>m</strong>: minute(s)</li>
-<li><strong>s</strong>: second(s)</li>
+<li><strong>d</strong>: days</li>
+<li><strong>w</strong>: weeks</li>
+<li><strong>h</strong>: hours</li>
+<li><strong>m</strong>: minutes</li>
+<li><strong>s</strong>: seconds</li>
 <li><strong>now</strong></li>
 </ul>
 For the <code>between</code> option, the start (<code>text-time</code>) and end time (<code>text-endtime</code>) values can be entered as most recent first and least recent second, or vice versa. The values do not have to have the same unit of measure.
@@ -282,7 +282,7 @@ Utilization statistics provide a view into the operation of the devices in your 
 
 ### View Compute Resources Utilization
 
-You can quickly determine how many compute resources &mdash; CPU, disk and memory &mdash; are being consumed by the switches on your network.
+You can quickly determine how many compute resources&mdash;CPU, disk and memory&mdash;are being consumed by the switches on your network.
 
 To obtain this information, run the relevant command:
 
@@ -1158,7 +1158,7 @@ This output indicates that the one drive found of this type, on the *spine02* sw
 
 Customers running Cumulus Linux 3.x which uses the BTRFS (b-tree file system) might experience issues with disk space management. This is a known problem of BTRFS because it does not perform periodic garbage collection, or rebalancing. If left unattended, these errors can make it impossible to rebalance the partitions on the disk. To avoid this issue, NVIDIA recommends rebalancing the BTRFS partitions in a preemptive manner, but only when absolutely needed to avoid reduction in the lifetime of the disk. By tracking the state of the disk space usage, users can determine when rebalancing should be performed.
 
-For details about when a rebalance is recommended, refer to {{<exlink url="https://docs.cumulusnetworks.com/knowledge-base/Configuration-and-Usage/Storage/When-to-Rebalance-BTRFS-Partitions/" text="When to Rebalance BTRFS Partitions">}}.
+For details about when a rebalance is recommended, refer to {{<kb_link url="knowledge-base/Configuration-and-Usage/Storage/When-to-Rebalance-BTRFS-Partitions/" text="When to Rebalance BTRFS Partitions">}}.
 
 To view the disk utilization and whether a rebalance is recommended, run:
 

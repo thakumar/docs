@@ -4,7 +4,7 @@ author: NVIDIA
 weight: 910
 toc: 3
 ---
-A VLAN (Virtual Local Area Network) enables devices on one or more LANs to communicate as if they were on the same network, without being physically connected. The VLAN enables network administrators to partition a network for functional or security requirements without changing physical infrastructure. For an overview and how to configure VLANs in your network, refer to {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux-42/Layer-2/Ethernet-Bridging-VLANs/" text="Ethernet Bridging - VLANs">}}.
+A VLAN (Virtual Local Area Network) enables devices on one or more LANs to communicate as if they were on the same network, without being physically connected. The VLAN enables network administrators to partition a network for functional or security requirements without changing physical infrastructure. For an overview and how to configure VLANs in your network, refer to {{<kb_link url="cumulus-linux-42/Layer-2/Ethernet-Bridging-VLANs/" text="Ethernet Bridging - VLANs">}}.
 
 With the NetQ CLI, you can view the operation of VLANs for one or all devices. You can also view the information at an earlier point in time or view changes that have occurred to the information during a specified time frame. NetQ enables you to view basic VLAN information for your devices using the `netq show vlan` command. Additional show commands provide information about VLAN interfaces, MAC addresses associated with VLANs, and events.
 
@@ -27,11 +27,11 @@ netq [<hostname>] show events [level info | level error | level warning | level 
 
 When entering a time value, you must include a numeric value *and* the unit of measure:
 
-- **w**: week(s)
-- **d**: day(s)
-- **h**: hour(s)
-- **m**: minute(s)
-- **s**: second(s)
+- **w**: weeks
+- **d**: days
+- **h**: hours
+- **m**: minutes
+- **s**: seconds
 - **now**
 
 When using the `between` option, the start time (`text-time`) and end time (`text-endtime`) values can be entered as most recent first and least recent second, or vice versa. The values do not have to have the same unit of measure.
@@ -42,7 +42,7 @@ When using the `between` option, the start time (`text-time`) and end time (`tex
 
 You can view the configuration information for all VLANs in your network by running the `netq show vlan` command. It lists VLANs by device, and indicates any switch virtual interfaces (SVIs) configured and the last time this configuration was changed.
 
-This example shows the VLANs configured across a network based on the Cumulus Networks reference architecture.
+This example shows the VLANs configured across a network based on the NVIDIA reference architecture.
 
 ```
 cumulus@switch:~$ netq show vlan

@@ -27,7 +27,7 @@ majority of designs seen in the field.
 | Hostname        | eth0 IP       | eth0 MAC          | Interface Count                                                  |
 | --------------- | ------------- | ----------------- | ---------------------------------------------------------------- |
 | oob-mgmt-server | 192.168.0.254 | any               |                                                                  |
-| oob-mgmt-switch | 192.168.0.1   | any               | [Cumulus RMP](https://cumulusnetworks.com/cumulus-rmp/overview/) |
+| oob-mgmt-switch | 192.168.0.1   | any               |                                                                  |
 | leaf01          | 192.168.0.11  | A0:00:00:00:00:11 | 48x10g w/ 6x40g uplink                                           |
 | leaf02          | 192.168.0.12  | A0:00:00:00:00:12 | 48x10g w/ 6x40g uplink                                           |
 | leaf03          | 192.168.0.13  | A0:00:00:00:00:13 | 48x10g w/ 6x40g uplink                                           |
@@ -57,7 +57,7 @@ up the entire reference topology on a laptop or server are on the
 
 #### Hardware
 
-Any switch from the [hardware compatibility list](https://cumulusnetworks.com/hcl)
+Any switch from the [hardware compatibility list](https://www.nvidia.com/en-us/networking/ethernet-switching/hardware-compatibility-list/)
 is compatible with the topology as long as you follow the interface
 count from the table above. Of course, in your own production
 environment, you don't have to use exactly the same devices and cabling

@@ -14,6 +14,10 @@ toc: 4
 
 EVPN-MH uses {{<link url="#supported-evpn-route-types" text="BGP-EVPN type-1, type-2 and type-4 routes">}} for discovering Ethernet segments (ES) and for forwarding traffic to those Ethernet segments. The MAC and neighbor databases are synced between the Ethernet segment peers via these routes as well. An *{{<exlink url="https://tools.ietf.org/html/rfc7432#section-5" text="Ethernet segment">}}* is a group of switch links that are attached to the same server. Each Ethernet segment has an unique Ethernet segment ID (`es-id`) across the entire PoD.
 
+{{%notice info%}}
+EVPN-MH is only supported on Spectrum ASIC based switches.
+{{% /notice %}}
+
 Configuring EVPN-MH involves setting an Ethernet segment system MAC address (`es-sys-mac`) and a local Ethernet segment ID (`local-es-id`) on a static or LACP bond. These two parameters are used to automatically generate the unique MAC-based ESI value ({{<exlink url="https://tools.ietf.org/html/rfc7432#section-5" text="type-3">}}):
 
 - The `es-sys-mac` is used for the LACP system identifier.
@@ -52,6 +56,8 @@ In order to use EVPN-MH, you must remove any MLAG configuration on the switch. T
 
 - Removing the `clag-id` from all interfaces in the `/etc/network/interfaces` file.
 - Removing the peerlink interfaces in the `/etc/network/interfaces` file.
+- Removing any existing `hwaddress` (from a Cumulus Linux 3.x MLAG configuration) or `address-virtual` (from a Cumulus Linux 4.x MLAG configuration) entries from all SVIs corresponding to a layer 3 VNI in the `/etc/network/interfaces` file.
+- Removing any `clagd-vxlan-anycast-ip` configuration in the `/etc/network/interfaces` file.
 - Then running `ifreload` to reload the configuration:<pre>cumulus@switch:~$ sudo ifreload</pre>
 
 {{%/notice%}}
@@ -63,7 +69,7 @@ In order to use EVPN-MH, you must remove any MLAG configuration on the switch. T
   - When an EVPN-MH bond enters LACP bypass state, BGP stops advertising EVPN type-1 and type-4 routes for that bond. Split-horizon and designated forwarder filters are disabled.
   - When an EVPN-MH bond exits the LACP bypass state, BGP starts advertising EVPN type-1 and type-4 routes for that bond. Split-horizon and designated forwarder filters are enabled.
 - EVI (*EVPN virtual instance*). Cumulus Linux supports VLAN-based service only, so the EVI is just a layer 2 VNI.
-- Supported {{<exlink url="https://cumulusnetworks.com/hcl" text="ASICs">}} include Mellanox Spectrum A1, Spectrum 2 and Spectrum 3.
+- Supported {{<exlink url="https://www.nvidia.com/en-us/networking/ethernet-switching/hardware-compatibility-list/" text="ASICs">}} include Mellanox Spectrum A1, Spectrum 2 and Spectrum 3.
 
 ### Supported EVPN Route Types
 
@@ -78,6 +84,14 @@ EVPN multihoming supports the following route types.
 | 5 | IP prefix route | {{<exlink url="https://tools.ietf.org/html/draft-ietf-bess-evpn-prefix-advertisement-04" text="draft-ietf-bess-evpn-prefix-advertisement-04">}} |
 
 ### Unsupported Features
+
+{{% notice note %}}
+EVPN MH can not coexist in an EVPN network with Broadcom based switches in an MLAG configuration.
+
+In mixed Broadcom-Spectrum networks EVPN-MH is not supported.
+
+In networks with all Spectrum based switches, EVPN and MLAG may coexist.
+{{% /notice %}}
 
 The following features are not supported with EVPN-MH:
 

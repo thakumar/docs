@@ -317,7 +317,7 @@ cumulus@switch:~$ net show bridge spanning-tree | grep bpdu
 {{< /tab >}}
 
 {{< tab "Linux Commands ">}}
-
+<!-- vale off -->
 ```
 cumulus@switch:~$ mstpctl showportdetail bridge bond0
 bridge:bond0 CIST info
@@ -343,7 +343,7 @@ bridge:bond0 CIST info
   clag role          unknown                 clag dual conn mac   0:0:0:0:0:0
   clag remote portID F.FFF                   clag system mac      0:0:0:0:0:0
 ```
-
+<!-- vale on -->
 {{< /tab >}}
 
 {{< /tabs >}}
@@ -488,7 +488,7 @@ cumulus@switch:~$ sudo mstpctl setportbpdufilter br100 swp1.100=yes swp2.100=yes
 
 Spanning tree parameters are defined in the IEEE {{<exlink url="https://standards.ieee.org/standard/802_1D-2004.html" text="802.1D">}} and {{<exlink url="https://standards.ieee.org/standard/802_1Q-2018.html" text="802.1Q">}} specifications.
 
-The table below describes the STP configuration parameters available in Cumulus Linux. For a comparison of STP parameter configuration between `mstpctl` and other vendors, {{<exlink url="https://docs.cumulusnetworks.com/knowledge-base/Demos-and-Training/Interoperability/Cumulus-Linux-vs-Cisco-IOS-Spanning-Tree-Protocol/" text="read this knowledge base article">}}.
+The table below describes the STP configuration parameters available in Cumulus Linux. For a comparison of STP parameter configuration between `mstpctl` and other vendors, {{<kb_link url="knowledge-base/Demos-and-Training/Interoperability/Cumulus-Linux-vs-Cisco-IOS-Spanning-Tree-Protocol/" text="read this knowledge base article">}}.
 
 {{%notice note%}}
 

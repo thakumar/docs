@@ -4,9 +4,10 @@ $block-border-radius: 0.15rem;
 
 .markdown {
   color: $nevada-gray;
-  font-size: 0.882rem;
-  line-height: 1.764rem;
+  font-size: 1rem;
+  line-height: 1.85rem;
   letter-spacing: -0.1px;
+  position: relative;
 
   h1 {
     color: $spruce-gray;
@@ -56,7 +57,7 @@ $block-border-radius: 0.15rem;
   }
 
   summary {
-    color: $jade;
+    color: $nvidia-green;
   }
 
   p {

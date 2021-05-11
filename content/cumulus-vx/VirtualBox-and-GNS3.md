@@ -20,12 +20,15 @@ The following procedure creates leaf01, leaf02, and spine01 and the network conn
 
 1. Download and install {{<exlink url="https://www.virtualbox.org" text="VirtualBox">}}.
 2. Download and install {{<exlink url="https://www.gns3.com/software" text="GNS3">}}.
-3. Download the {{<exlink url="https://cumulusnetworks.com/cumulus-vx/download/" text="VirtualBox OVA image">}}.
+3. Download the {{<exlink url="https://www.nvidia.com/en-us/networking/ethernet-switching/cumulus-vx/" text="VirtualBox OVA image">}}.
 
 ### Create VMs in VirtualBox
 
 {{%notice note%}}
 The Cumulus VX OVA image defines the CPU, memory, and disk requirements. Cumulus VX requires at least 768MB of RAM and 6GB of disk space.
+
+CumulusVX versions 4.3 and later requires 2 vCPUs.
+
 {{%/notice%}}
 
 {{% vx/virtualbox-steps %}}

@@ -123,8 +123,8 @@ packets. This is useful with LNV if you have more than 128 VTEPs.
 However, it is not recommended because it forces the spine switches
 running the `vxsnd` (service node daemon) to replicate the packets in
 software instead of in hardware, unlike head end replication. If you are
-not using a controller but have more than 128 VTEPs, contact [Cumulus
-Networks](mailto:support@cumulusnetworks.com).
+not using a controller but have more than 128 VTEPs, contact [NVIDIA
+Networking Support](https://support.mellanox.com/s/contact-support-page).
 
 To enable service node replication:
 
@@ -164,7 +164,7 @@ To enable service node replication:
     or Mellanox switches with the Spectrum ASIC running Cumulus Linux
     2.5.4 or later. Please refer to the Cumulus Networks [hardware
     compatibility
-    list](http://cumulusnetworks.com/support/linux-hardware-compatibility-list/)
+    list](https://www.nvidia.com/en-us/networking/ethernet-switching/hardware-compatibility-list/)
     for a list of supported switch models.
 
 ### Configuration Requirements
@@ -216,7 +216,7 @@ throughout this chapter.
 {{%notice tip%}}
 
 Want to try out configuring LNV and do not have a Cumulus Linux switch?
-Check out [Cumulus VX](https://cumulusnetworks.com/cumulus-vx/).
+Check out [Cumulus VX](https://www.nvidia.com/en-us/networking/network-simulation/).
 
 {{%/notice%}}
 

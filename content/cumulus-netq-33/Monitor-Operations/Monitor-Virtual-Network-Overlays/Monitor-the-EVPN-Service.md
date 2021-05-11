@@ -4,7 +4,7 @@ author: NVIDIA
 weight: 980
 toc: 4
 ---
-EVPN (Ethernet Virtual Private Network) enables network administrators in the data center to deploy a virtual layer 2 bridge overlay on top of layer 3 IP networks creating access, or tunnel, between two locations. This connects devices in different layer 2 domains or sites running VXLANs and their associated underlays. For an overview and how to configure EVPN in your data center network, refer to {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/Network-Virtualization/Ethernet-Virtual-Private-Network-EVPN/" text="Ethernet Virtual Private Network-EVPN">}}.
+EVPN (Ethernet Virtual Private Network) enables network administrators in the data center to deploy a virtual layer 2 bridge overlay on top of layer 3 IP networks creating access, or tunnel, between two locations. This connects devices in different layer 2 domains or sites running VXLANs and their associated underlays. For an overview and how to configure EVPN in your data center network, refer to {{<kb_link url="cumulus-linux-43/Network-Virtualization/Ethernet-Virtual-Private-Network-EVPN/" text="Ethernet Virtual Private Network-EVPN">}}.
 
 NetQ enables operators to view the health of the EVPN service on a networkwide and a per session basis, giving greater insight into all aspects of the service. This is accomplished through two card workflows, one for the service and one for the session and in the NetQ CLI with the `netq show evpn` command.
 
@@ -23,11 +23,11 @@ With NetQ, you can monitor EVPN performance across the network:
 
 When entering a time value in the `netq show lldp` command, you must include a numeric value *and* the unit of measure:
 
-- **w**: week(s)
-- **d**: day(s)
-- **h**: hour(s)
-- **m**: minute(s)
-- **s**: second(s)
+- **w**: weeks
+- **d**: days
+- **h**: hours
+- **m**: minutes
+- **s**: seconds
 - **now**
 
 When using the `between` option, the start time (`text-time`) and end time (`text-endtime`) values can be entered as most recent first and least recent second, or vice versa. The values do not have to have the same unit of measure.
@@ -708,7 +708,7 @@ To view all EVPN alarms, run:
 netq show events [level info | level error | level warning | level critical | level debug] type evpn [between <text-time> and <text-endtime>] [json]
 ```
 
-Use the level option to set the severity of the events to show.  Use the between option to show events within a given time range.
+Use the level option to set the severity of the events to show. Use the `between` option to show events within a given time range.
 
 This example shows critical EVPN events in the past three days.
 
@@ -800,7 +800,7 @@ With NetQ, you can monitor the performance of a single EVPN session using the Ne
     - Full-screen: view details of sessions-import/export route, type, origin IP address, VNI, VNI/gateway advertisement, and so forth
 - `netq <hostname> show evpn vni` command: view configuration and status for session (hostname, VNI), VTEP address, import and export route, and last time a change was made
 
-For an overview and how to configure EVPN in your data center network, refer to {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/Network-Virtualization/Ethernet-Virtual-Private-Network-EVPN/" text="Ethernet Virtual Private Network - EVPN">}}.
+For an overview and how to configure EVPN in your data center network, refer to {{<kb_link url="cumulus-linux-43/Network-Virtualization/Ethernet-Virtual-Private-Network-EVPN/" text="Ethernet Virtual Private Network - EVPN">}}.
 
 {{<notice note>}}
 To access the single session cards, you must open the full-screen Network Services|All EVPN Sessions card, click the <strong>All Sessions</strong> tab, select the desired session, then click <img src="https://icons.cumulusnetworks.com/44-Entertainment-Events-Hobbies/02-Card-Games/card-game-diamond.svg"  height="18" width="18"/> (Open Card).

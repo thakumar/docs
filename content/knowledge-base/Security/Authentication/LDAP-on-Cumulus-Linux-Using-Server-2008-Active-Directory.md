@@ -30,7 +30,7 @@ The method described in the article applies ONLY to Windows Server 2008. This me
 
 ## Goals
 
-- Configure LDAP authentication without changing the default AD schema. (There is no need to apply the {{<exlink url="http://technet.microsoft.com/en-us/library/cc780098%28v=ws.10%29.aspx" text="UNIX identities in Active Directory Domain Services">}}.)
+- Configure LDAP authentication without changing the default AD schema.
 - Support nested groups. The following should work:  
   {{<img src="/images/knowledge-base/LDAP-Server-2008-nested_group_diagram.png" width="500" alt="nested group diagram">}}
 - User directories are automatically created the first time an authorized user logs into the switch.

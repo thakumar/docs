@@ -208,7 +208,7 @@ iface vm-br10 inet manual
 <ul>
 <li><p>Can be done with either the {{<link url="Traditional-Bridge-Mode" text="traditional">}} or {{<link url="VLAN-aware-Bridge-Mode" text="VLAN-aware">}} bridge driver depending on overall STP needs</p></li>
 <li><p>There are a few different solutions including Cisco VPC and Arista MLAG, but none of them interoperate and are very vendor specific</p></li>
-<li><p>{{<exlink url="https://cumulusnetworks.com/media/resources/validated-design-guides/Cumulus-Linux-Layer-2-HA-Validated-Design-Guide_v1.0.0.pdf" text="Cumulus Linux Layer 2 HA validated design guide">}}</p></li>
+<li><p>{{<exlink url="https://resource.nvidia.com/en-us-ethernet-switching/bgp-evpn-for-vxlan-techincal-overview" text="Cumulus Linux Layer 2 HA validated design guide">}}</p></li>
 </ul></td>
 </tr>
 </tbody>
@@ -312,18 +312,6 @@ iface eth1 inet static
 <li><p>For additional bandwidth links between host and leaf may be bonded</p></li>
 </ul></td>
 </tr>
-<tr class="even">
-<td><p><strong>FHR (First Hop Redundancy)</strong></p></td>
-<td><p><strong>More Information</strong></p></td>
-</tr>
-<tr class="odd">
-<td><ul>
-<li><p>No redundancy, uses single ToR as gateway.</p></li>
-</ul></td>
-<td><ul>
-<li><p>{{<exlink url="https://cumulusnetworks.com/learn/resources/guides/big-data-cumulus-linux-installation-guide-2" text="Big Data validated design guide">}} uses single attached ToR</p></li>
-</ul></td>
-</tr>
 </tbody>
 </table>
 
@@ -368,9 +356,6 @@ iface eth1 inet static
 <td><ul>
 <li><p>Equal cost route installed on server/host/hypervisor to both ToRs to load balance evenly.</p></li>
 <li><p>For host/VM/container mobility, use the same default route on all hosts (such as x.x.x.1) but don't distribute or advertise the .1 on the ToR into the fabric. This allows the VM to use the same gateway no matter which pair of leafs it is cabled to.</p></li>
-</ul></td>
-<td><ul>
-<li><p>{{<exlink url="https://cumulusnetworks.com/blog/introducing-rdnbr/" text="blog post introducing redistribute neighbor">}}</p></li>
 </ul></td>
 </tr>
 </tbody>

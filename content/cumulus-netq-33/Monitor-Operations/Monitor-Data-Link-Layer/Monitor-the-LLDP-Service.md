@@ -4,7 +4,7 @@ author: NVIDIA
 weight: 890
 toc: 4
 ---
-LLDP is used by network devices for advertising their identity, capabilities, and neighbors on a LAN. You can view this information for one or more devices. You can also view the information at an earlier point in time or view changes that have occurred to the information during a specified time period. For an overview and how to configure LLDP in your network, refer to {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/Layer-2/Link-Layer-Discovery-Protocol/" text="Link Layer Discovery Protocol">}}.
+LLDP is used by network devices for advertising their identity, capabilities, and neighbors on a LAN. You can view this information for one or more devices. You can also view the information at an earlier point in time or view changes that have occurred to the information during a specified time period. For an overview and how to configure LLDP in your network, refer to {{<kb_link url="cumulus-linux-43/Layer-2/Link-Layer-Discovery-Protocol/" text="Link Layer Discovery Protocol">}}.
 
 NetQ enables operators to view the overall health of the LLDP service on a networkwide and a per session basis, giving greater insight into all aspects of the service. This is accomplished in the NetQ UI through two card workflows, one for the service and one for the session and in the NetQ CLI with the `netq show lldp` command.
 
@@ -23,11 +23,11 @@ With NetQ, you can monitor LLDP performance across the network:
 
 When entering a time value in the `netq show lldp` command, you must include a numeric value *and* the unit of measure:
 
-- **w**: week(s)
-- **d**: day(s)
-- **h**: hour(s)
-- **m**: minute(s)
-- **s**: second(s)
+- **w**: weeks
+- **d**: days
+- **h**: hours
+- **m**: minutes
+- **s**: seconds
 - **now**
 
 When using the `between` option, the start time (`text-time`) and end time (`text-endtime`) values can be entered as most recent first and least recent second, or vice versa. The values do not have to have the same unit of measure.
@@ -732,7 +732,7 @@ To view all LLDP alarms, run:
 netq show events [level info | level error | level warning | level critical | level debug] type lldp [between <text-time> and <text-endtime>] [json]
 ```
 
-Use the `level` option to set the severity of the events to show.  Use the `between` option to show events within a given time range.
+Use the `level` option to set the severity of the events to show. Use the `between` option to show events within a given time range.
 
 This example shows that no LLDP events have occurred in the last three days.
 
@@ -836,7 +836,7 @@ leaf02            swp3                      server03          mac:44:38:39:00:00
 
 ## Monitor a Single LLDP Session
 
-With NetQ, you can monitor the number of nodes running the LLDP service, view neighbor state changes, and compare with events occurring at the same time, as well as monitor the running LLDP configuration and changes to the configuration file. For an overview and how to configure LLDP in your data center network, refer to {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/Layer-2/Link-Layer-Discovery-Protocol/" text="Link Layer Discovery Protocol">}}.
+With NetQ, you can monitor the number of nodes running the LLDP service, view neighbor state changes, and compare with events occurring at the same time, as well as monitor the running LLDP configuration and changes to the configuration file. For an overview and how to configure LLDP in your data center network, refer to {{<kb_link url="cumulus-linux-43/Layer-2/Link-Layer-Discovery-Protocol/" text="Link Layer Discovery Protocol">}}.
 
 {{<notice note>}}
 

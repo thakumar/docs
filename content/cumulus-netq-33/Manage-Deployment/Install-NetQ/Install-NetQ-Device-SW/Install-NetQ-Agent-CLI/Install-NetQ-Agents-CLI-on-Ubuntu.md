@@ -4,7 +4,7 @@ author: NVIDIA
 weight: 380
 toc: 5
 ---
-After installing your NetQ software, you should install the  NetQ 3.2.1 Agent on each server you want to monitor. NetQ Agents can be installed on servers running:
+After installing your NetQ software, you should install the  NetQ {{<version>}} Agent on each server you want to monitor. NetQ Agents can be installed on servers running:
 
 - Ubuntu 16.04
 - Ubuntu 18.04 (NetQ 2.2.2 and later)
@@ -19,19 +19,19 @@ For servers running Ubuntu OS, you need to:
 - Obtain NetQ software packages
 
 {{<notice note>}}
-If your network uses a proxy server for external connections, you should first {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/System-Configuration/Configuring-a-Global-Proxy/" text="configure a global proxy">}} so <code>apt-get</code> can access the agent package on the Cumulus Networks repository.
+If your network uses a proxy server for external connections, you should first {{<kb_link url="cumulus-linux-43/System-Configuration/Configuring-a-Global-Proxy/" text="configure a global proxy">}} so <code>apt-get</code> can access the agent package on the NVIDIA networking repository.
 {{</notice>}}
 
 ### Verify Service Package Versions
 
 Before you install the NetQ Agent on an Ubuntu server, make sure the
 following packages are installed and running these minimum versions:
-
+<!-- vale off -->
 - iproute 1:4.3.0-1ubuntu3.16.04.1 all
 - iproute2 4.3.0-1ubuntu3 amd64
 - lldpd 0.7.19-1 amd64
 - ntp 1:4.2.8p4+dfsg-3ubuntu5.6 amd64
-
+<!-- vale on -->
 ### Verify the Server is Running lldpd
 
 Make sure you are running lldp**d**, not lldp**ad**. Ubuntu does not include `lldpd` by default, which is required for the installation.
@@ -49,7 +49,7 @@ root@ubuntu:~# sudo systemctl start lldpd.service
 
 If NTP is not already installed and configured, follow these steps:
 
-1. Install {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/System-Configuration/Setting-Date-and-Time/" text="NTP">}} on the server, if not already installed. Servers must be in time synchronization with the NetQ Platform or NetQ Appliance to enable useful statistical analysis.
+1. Install {{<kb_link url="cumulus-linux-43/System-Configuration/Setting-Date-and-Time/" text="NTP">}} on the server, if not already installed. Servers must be in time synchronization with the NetQ Platform or NetQ Appliance to enable useful statistical analysis.
 
     ```
     root@ubuntu:~# sudo apt-get install ntp
@@ -159,7 +159,7 @@ If you are running NTP in your out-of-band management network with VRF, specify 
 
 ### Obtain NetQ Agent Software Package
 
-To install the NetQ Agent you need to install `netq-agent` on each server. This is available from the Cumulus Networks repository.
+To install the NetQ Agent you need to install `netq-agent` on each server. This is available from the NVIDIA networking repository.
 
 To obtain the NetQ Agent package:
 
@@ -223,7 +223,7 @@ To install the NetQ Agent:
     root@ubuntu:~# dpkg-query -W -f '${Package}\t${Version}\n' netq-agent
     ```
 
-    {{<netq-install/agent-version version="3.3.0" opsys="ub">}}
+    {{<netq-install/agent-version version="3.3.1" opsys="ub">}}
 
 3. Restart `rsyslog` so log files are sent to the correct destination.
 
@@ -300,7 +300,7 @@ A couple of additional options are available for configuring the NetQ Agent. If 
 
 ### Configure the NetQ Agent to Use a VRF
 
-While optional, Cumulus strongly recommends that you configure NetQ Agents to communicate with the NetQ Platform only via a {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/Layer-3/Virtual-Routing-and-Forwarding-VRF/" text="VRF">}}, including a {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/Layer-3/Management-VRF/" text="management VRF">}}. To do so, you need to specify the VRF name when configuring the NetQ Agent. For example, if the management VRF is configured and you want the agent to communicate with the NetQ Platform over it, configure the agent like this:
+While optional, Cumulus strongly recommends that you configure NetQ Agents to communicate with the NetQ Platform only via a {{<kb_link url="cumulus-linux-43/Layer-3/VRFs/Virtual-Routing-and-Forwarding-VRF/" text="VRF">}}, including a {{<kb_link url="cumulus-linux-43/Layer-3/VRFs/Management-VRF/" text="management VRF">}}. To do so, you need to specify the VRF name when configuring the NetQ Agent. For example, if the management VRF is configured and you want the agent to communicate with the NetQ Platform over it, configure the agent like this:
 
 ```
 root@ubuntu:~# sudo netq config add agent server 192.168.1.254 vrf mgmt

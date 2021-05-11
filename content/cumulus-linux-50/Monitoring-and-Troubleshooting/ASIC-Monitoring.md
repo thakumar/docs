@@ -19,14 +19,12 @@ You can collect the following type of statistics with the ASIC monitoring tool:
 - Buffer congestion occupancy per port, priority and buffer pool, and at input and output ports
 
 {{%notice note%}}
-
-ASIC monitoring is currently supported on switches with {{<exlink url="https://cumulusnetworks.com/products/hardware-compatibility-list/?asic%5B0%5D=Mellanox%20Spectrum&asic%5B1%5D=Mellanox%20Spectrum_A1" text="Spectrum ASICs">}} only.
-
+ASIC monitoring is currently supported on switches with {{<exlink url="www.nvidia.com/en-us/networking/ethernet-switching/hardware-compatibility-list/" text="Spectrum ASICs">}} only.
 {{%/notice%}}
 
 ## Collecting Queue Lengths in Histograms
 
-The Mellanox Spectrum ASIC provides a mechanism to measure and report egress queue lengths in histograms (a graphical representation of data, which is divided into intervals or bins). You can configure the ASIC to measure up to 64 egress queues. Each queue is reported through a histogram with 10 bins, where each bin represents a range of queue lengths.
+The NVIDIA Spectrum ASIC provides a mechanism to measure and report egress queue lengths in histograms (a graphical representation of data, which is divided into intervals or bins). You can configure the ASIC to measure up to 64 egress queues. Each queue is reported through a histogram with 10 bins, where each bin represents a range of queue lengths.
 
 You configure the histogram with a minimum size boundary (Min) and a histogram size. You then derive the maximum size boundary (Max) by adding the minimum size boundary and the histogram size.
 
@@ -287,9 +285,7 @@ monitor.discards_pg.snapshot.file_count               = 16
 ```
 
 {{%notice note%}}
-
 Certain actions require additional settings. For example, if the `snapshot` action is specified, a snapshot file is also required. If the `log` action is specified, a log threshold is also required. See {{<link url="#asic-monitoring-settings" text="action\_list">}} for additional settings required for each *action*.
-
 {{%/notice%}}
 
 ## Example Snapshot File

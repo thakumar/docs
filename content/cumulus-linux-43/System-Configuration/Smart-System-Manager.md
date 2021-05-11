@@ -12,8 +12,28 @@ Smart System Manager includes the following modes:
 - Maintenance
 
 {{%notice note%}}
-The Smart System Manager NCLU commands do not require a `net commit`.
+
+- The Smart System Manager is supported on Spectrum 1, 2 and 3 ASICs only.
+- The Smart System Manager NCLU commands do not require a `net commit`.
+
 {{%/notice%}}
+
+## Requirements
+
+The Smart System Manager requires the `kexec-tools` package, which is installed on the switch when you install a new Cumulus Linux image. However, upgrading the switch with `apt-get` does not install the `kexec-tools` package.
+
+To verify that the `kexec-tools` package is installed on the switch, run the following command:
+
+```
+cumulus@switch:~$ net show package version
+```
+
+To install the `kexec-tools` package, run the following commands:
+
+```
+cumulus@switch:~$ sudo -E apt-get update
+cumulus@switch:~$ sudo -E apt-get install kexec-tools
+```
 
 ## Restart Mode
 

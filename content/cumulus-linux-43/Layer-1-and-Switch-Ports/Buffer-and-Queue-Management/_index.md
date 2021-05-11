@@ -101,7 +101,7 @@ PFC congestion detection is implemented on the switch using xoff and xon thresho
 
 After the downstream switch sends a PFC frame upstream, it continues to receive packets until the upstream switch receives and responds to the PFC frame. The downstream ingress buffer must be large enough to store those additional packets after the xoff threshold is reached.
 
-Priority flow control is fully supported on both {{<exlink url="https://cumulusnetworks.com/products/hardware-compatibility-list/?asic%5B0%5D=Broadcom%20Apollo2&asic%5B1%5D=Broadcom%20Firebolt3&asic%5B2%5D=Broadcom%20Helix4&asic%5B3%5D=Broadcom%20Hurricane2&asic%5B4%5D=Broadcom%20Maverick&asic%5B5%5D=Broadcom%20Tomahawk&asic%5B6%5D=Broadcom%20Tomahawk%2B&asic%5B7%5D=Broadcom%20Tomahawk2&asic%5B8%5D=Broadcom%20Trident&asic%5B9%5D=Broadcom%20Trident%2B&asic%5B10%5D=Broadcom%20Trident2&asic%5B11%5D=Broadcom%20Trident2%2B&asic%5B12%5D=Broadcom%20Trident3%20X7&asic%5B13%5D=Broadcom%20Triumph2&CPUType=x86_64&Brand%5B0%5D=broadcomtrident&Brand%5B1%5D=broadcomtridentplus&Brand%5B2%5D=broadcomtrident2plus&Brand%5B3%5D=broadcomtriumph2&SwitchSilicon=broadcomtrident2" text="Broadcom">}} (including the Edgecore Minipack-AS8000/Trident3) and {{<exlink url="https://cumulusnetworks.com/products/hardware-compatibility-list/?vendor_name%5B0%5D=Mellanox" text="Mellanox">}} switches.
+Priority flow control is fully supported on both {{<exlink url="www.nvidia.com/en-us/networking/ethernet-switching/hardware-compatibility-list/" text="Broadcom">}} (including the Edgecore Minipack-AS8000/Trident3) and {{<exlink url="www.nvidia.com/en-us/networking/ethernet-switching/hardware-compatibility-list/" text="Mellanox">}} switches.
 
 PFC is disabled by default in Cumulus Linux. To configure PFC, update and uncomment the settings in the `priority flow control` section of the `/etc/cumulus/datapath/traffic.conf` file.
 
@@ -147,7 +147,7 @@ On Broadcom switches, after you modify the settings in the `/etc/cumulus/datapat
 
 {{<cl/restart-switchd>}}
 
-On Mellanox switches with the Spectrum ASIC, changes to the settings in the `/etc/cumulus/datapath/traffic.conf` file do *not* require you to restart `switchd`. However, you must run the `echo 1 > /cumulus/switchd/config/traffic/reload` command to apply the settings.
+On NVIDIA Spectrum switches, changes to the settings in the `/etc/cumulus/datapath/traffic.conf` file do *not* require you to restart `switchd`. However, you must run the `echo 1 > /cumulus/switchd/config/traffic/reload` command to apply the settings.
 
 ```
 cumulus@switch:~$ echo 1 > /cumulus/switchd/config/traffic/reload
@@ -233,7 +233,7 @@ On Broadcom switches, after you modify the settings in the `/etc/cumulus/datapat
 
 {{<cl/restart-switchd>}}
 
-On Mellanox switches with the Spectrum ASIC, changes to the settings in the `/etc/cumulus/datapath/traffic.conf` file do *not* require you to restart `switchd`. However, you must run the `echo 1 > /cumulus/switchd/config/traffic/reload` command to apply the settings.
+On NVIDIA Spectrum switches, changes to the settings in the `/etc/cumulus/datapath/traffic.conf` file do *not* require you to restart `switchd`. However, you must run the `echo 1 > /cumulus/switchd/config/traffic/reload` command to apply the settings.
 
 ```
 cumulus@switch:~$ echo 1 > /cumulus/switchd/config/traffic/reload
@@ -243,7 +243,7 @@ Always run the {{<link url="#syntax-checker" text="syntax checker">}} syntax che
 
 ## Cut-through Mode and Store and Forward Switching
 
-Cut-through mode is disabled in Cumulus Linux by default on switches with Broadcom ASICs. On Mellanox switches, you cannot disable cut-through mode.
+Cut-through mode is disabled in Cumulus Linux by default on switches with Broadcom ASICs. On NVIDIA Spectrum switches, you cannot disable cut-through mode.
 
 ```
 # Cut-through is disabled by default on all chips with the exception of
@@ -323,7 +323,7 @@ ECN is implemented on the switch using minimum and maximum threshold values for 
 
 The downstream switches with ECN enabled perform the same actions as the traffic is received. If the ECN bits are set, they remain set. The only way to overwrite ECN bits is to set the ECN bits to *11*.
 
-ECN is supported on {{<exlink url="https://cumulusnetworks.com/hcl" text="Broadcom Tomahawk, Tomahawk2, Trident II, Trident II+ and Trident3, and Mellanox Spectrum ASICs">}}.
+ECN is supported on {{<exlink url="https://www.nvidia.com/en-us/networking/ethernet-switching/hardware-compatibility-list/" text="Broadcom Tomahawk, Tomahawk2, Trident II, Trident II+ and Trident3, and Mellanox Spectrum ASICs">}}.
 
 ECN is disabled by default in Cumulus Linux. You can enable ECN for individual switch priorities on specific switch ports in the `/etc/cumulus/datapath/traffic.conf` file:
 
@@ -358,7 +358,7 @@ On Broadcom switches, after you modify the settings in the `/etc/cumulus/datapat
 
 {{<cl/restart-switchd>}}
 
-On Mellanox switches with the Spectrum ASIC, changes to the settings in the `/etc/cumulus/datapath/traffic.conf` file do *not* require you to restart `switchd`. However, you must run the `echo 1 > /cumulus/switchd/config/traffic/reload` command to apply the settings.
+On NVIDIA Spectrum switches, changes to the settings in the `/etc/cumulus/datapath/traffic.conf` file do *not* require you to restart `switchd`. However, you must run the `echo 1 > /cumulus/switchd/config/traffic/reload` command to apply the settings.
 
 ```
 cumulus@switch:~$ echo 1 > /cumulus/switchd/config/traffic/reload
@@ -368,7 +368,7 @@ Always run the {{<link url="#syntax-checker" text="syntax checker">}} syntax che
 
 ## Scheduling Weights Per Egress Queue
 
-On Mellanox switches, you can set the scheduling weight per egress queue, which determines the amount of bandwidth assigned to the queue. Cumulus Linux supports eight queues per port. You can either use a default profile that each port inherits​ or create separate profiles that map a different set of ports. Each profile, including the default profile, has weights configured for each egress queue (0-7)​​.
+On NVIDIA Spectrum switches, you can set the scheduling weight per egress queue, which determines the amount of bandwidth assigned to the queue. Cumulus Linux supports eight queues per port. You can either use a default profile that each port inherits​ or create separate profiles that map a different set of ports. Each profile, including the default profile, has weights configured for each egress queue (0-7)​​.
 
 You set the weights per egress queue as a percentage. The total weight percentages for all egress queues cannot be greater than 100. If you do not define a weight for an egress queue, no scheduling is done for packets on this queue if congestion occurs. If you want to configure strict scheduling on an egress queue (always send every single packet in the queue) set the value to 0.
 
@@ -473,7 +473,7 @@ On Broadcom switches, after you modify the settings in the `/etc/cumulus/datapat
 
 {{<cl/restart-switchd>}}
 
-On Mellanox switches with the Spectrum ASIC, changes to the settings in the `/etc/cumulus/datapath/traffic.conf` file do *not* require you to restart `switchd`. However, you must run the `echo 1 > /cumulus/switchd/config/traffic/reload` command to apply the settings.
+On NVIDIA Spectrum switches, changes to the settings in the `/etc/cumulus/datapath/traffic.conf` file do *not* require you to restart `switchd`. However, you must run the `echo 1 > /cumulus/switchd/config/traffic/reload` command to apply the settings.
 
 ```
 cumulus@switch:~$ echo 1 > /cumulus/switchd/config/traffic/reload
@@ -493,7 +493,7 @@ To configure traffic shaping, update and uncomment the settings in the `Hierarch
 
 The egress shaping rate configured in the `/etc/cumulus/datapath/traffic.conf` is always the layer 1 rate. The calculated shaping rate considers overheads in the Ethernet frame like the interframe gap, preamble, cyclic redundancy check (CRC) and so on. The egress layer 3 throughput measured is always less than the maximum shaper rate configured.
 
-The following example shows the `Hierarchical traffic shaping` section of the the `/etc/cumulus/datapath/traffic.conf` file.
+The following example shows the `Hierarchical traffic shaping` section of the `/etc/cumulus/datapath/traffic.conf` file.
 
 ```
 ...
@@ -549,7 +549,7 @@ On Broadcom switches, after you modify the settings in the `/etc/cumulus/datapat
 
 {{<cl/restart-switchd>}}
 
-On Mellanox switches with the Spectrum ASIC, changes to the settings in the `/etc/cumulus/datapath/traffic.conf` file do *not* require you to restart `switchd`. However, you must run the `echo 1 > /cumulus/switchd/config/traffic/reload` command to apply the settings.
+On NVIDIA Spectrum switches, changes to the settings in the `/etc/cumulus/datapath/traffic.conf` file do *not* require you to restart `switchd`. However, you must run the `echo 1 > /cumulus/switchd/config/traffic/reload` command to apply the settings.
 
 ```
 cumulus@switch:~$ echo 1 > /cumulus/switchd/config/traffic/reload
@@ -559,11 +559,11 @@ Always run the {{<link url="#syntax-checker" text="syntax checker">}} syntax che
 
 ## Interface Buffer Status
 
-On switches with {{<exlink url="https://cumulusnetworks.com/products/hardware-compatibility-list/?asic%5B0%5D=Mellanox%20Spectrum&asic%5B1%5D=Mellanox%20Spectrum_A1" text="ASICs">}}, you can collect a fine-grained history of queue lengths using histograms maintained by the ASIC; see the {{<link title="ASIC Monitoring">}} for details.
+On switches with {{<exlink url="www.nvidia.com/en-us/networking/ethernet-switching/hardware-compatibility-list/" text="ASICs">}}, you can collect a fine-grained history of queue lengths using histograms maintained by the ASIC; see the {{<link title="ASIC Monitoring">}} for details.
 
 ## Example Configuration File
 
-The following example `/etc/cumulus/datapath/traffic.conf` datapath configuration file applies to 10G, 40G, and 100G switches on Broadcom Tomahawk, Trident II, Trident II+, or Trident3 and Mellanox Spectrum {{<exlink url="https://cumulusnetworks.com/hcl/" text="platforms">}} only.
+The following example `/etc/cumulus/datapath/traffic.conf` datapath configuration file applies to 10G, 40G, and 100G switches on Broadcom Tomahawk, Trident II, Trident II+, or Trident3 and Mellanox Spectrum {{<exlink url="https://www.nvidia.com/en-us/networking/ethernet-switching/hardware-compatibility-list//" text="platforms">}} only.
 
 - For the default source packet fields and mapping, each selected packet field must have a block of mapped values. Any packet field value that is not specified in the configuration is assigned to a default internal switch priority. The configuration applies to every forwarding port unless a custom remark configuration is defined for that port (see below).
 - For the default remark packet fields and mapping, each selected packet field should have a block of mapped values. Any internal switch priority value that is not specified in the configuration is assigned to a default packet field value. The configuration applies to every forwarding port unless a custom remark configuration is defined for that port (see below).
@@ -914,7 +914,7 @@ forwarding_table.profile = default
 
 {{%notice note%}}
 
-On switches with {{<exlink url="https://cumulusnetworks.com/products/hardware-compatibility-list/?asic%5B0%5D=Mellanox%20Spectrum&asic%5B1%5D=Mellanox%20Spectrum_A1" text="Spectrum ASICs">}}, you must enable packet priority remark on the **ingress** port. A packet received on a remark-enabled port is remarked according to the priority mapping configured on the **egress** port. If you configure packet priority remark the same way on every port, the default configuration example above is correct. However, per-port customized configurations require two port groups, one for the ingress ports and one for the egress ports, as below:
+On switches with {{<exlink url="www.nvidia.com/en-us/networking/ethernet-switching/hardware-compatibility-list/" text="Spectrum ASICs">}}, you must enable packet priority remark on the **ingress** port. A packet received on a remark-enabled port is remarked according to the priority mapping configured on the **egress** port. If you configure packet priority remark the same way on every port, the default configuration example above is correct. However, per-port customized configurations require two port groups, one for the ingress ports and one for the egress ports, as below:
 
 ```
 remark.port_group_list = [ingress_remark_group, egress_remark_group]
@@ -939,7 +939,7 @@ Cumulus Linux provides a syntax checker for the `/etc/cumulus/datapath/traffic.c
 
 On Broadcom switches, the syntax checker runs automatically during `switchd` initialization and reports syntax errors to the `/var/log/switchd.log` file.
 
-On both Broadcom and Mellanox switches, you can run the syntax checker manually from the command line by issuing the `cl-consistency-check --datapath-syntax-check` command. If errors exist, they are written to `stderr` by default. If you run the command with `-q`, errors are written to the `/var/log/switchd.log` file.
+On both Broadcom and NVIDIA switches, you can run the syntax checker manually from the command line by issuing the `cl-consistency-check --datapath-syntax-check` command. If errors exist, they are written to `stderr` by default. If you run the command with `-q`, errors are written to the `/var/log/switchd.log` file.
 
 The `cl-consistency-check --datapath-syntax-check` command takes the following options:
 

@@ -88,7 +88,7 @@ Attributes are displayed as the default tab on the large Switch card. You can vi
 
 {{<figure src="/images/netq/dev-switch-large-attributes-tab-230.png" width="500">}}
 
-From a performance perspective, this example shows that five interfaces are down, the NetQ Agent is communicating with the NetQ appliance or VM, and it is missing the Cumulus Linux license. It is important the license is valid, so you would want to fix this first (refer to {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux-42/Quick-Start-Guide/#install-the-license" text="Install the Cumulus Linux License">}}). Secondly, you would want to look more closely at the interfaces (refer to {{<link title="#view-interface-statistics-and-utilization" text="interface statistics">}}).
+From a performance perspective, this example shows that five interfaces are down, the NetQ Agent is communicating with the NetQ appliance or VM, and it is missing the Cumulus Linux license. It is important the license is valid, so you would want to fix this first (refer to {{<kb_link url="cumulus-linux-42/Quick-Start-Guide/#install-the-license" text="Install the Cumulus Linux License">}}). Secondly, you would want to look more closely at the interfaces (refer to {{<link title="#view-interface-statistics-and-utilization" text="interface statistics">}}).
 
 ## System Configuration
 
@@ -259,9 +259,7 @@ You can view all MAC address currently used by a switch using the NetQ UI or the
 
 1. Open the full-screen switch card for the switch of interest.
 
-    {{<figure src="/images/netq/dev-switch-fullscr-macaddr-tab-241.png" width="500">}}
-
-<!-- update above image -->
+    {{<figure src="/images/netq/dev-switch-fullscr-macaddr-tab-331.png" width="500">}}
 
 2. Review the addresses.
 
@@ -380,9 +378,7 @@ To view all VLANs on a switch:
 
 1. Open the full-screen Switch card and click **VLANs**.
 
-    {{<figure src="/images/netq/dev-switch-fullscr-alarms-tab-310.png" width="700">}}
-
-    <!-- capture new image -->
+    {{<figure src="/images/netq/dev-switch-fullscr-vlans-tab-331.png" width="700">}}
 
 2. Review the VLANs.
 
@@ -528,9 +524,7 @@ To view all IP neighbors on a switch:
 
 1. Open the full-screen Switch card and click **IP Neighbors**.
 
-    {{<figure src="/images/netq/dev-switch-fullscr-iproutes-tab-320.png" width="700">}}
-
-    <!-- update image and steps below -->
+    {{<figure src="/images/netq/dev-switch-fullscr-ipneigh-tab-331.png" width="700">}}
 
 2. By default all IP routes are listed. Click **IPv6** or **IPv4** to restrict the list to only those routes.
 
@@ -608,9 +602,7 @@ To view all IP addresses on a switch:
 
 1. Open the full-screen Switch card and click **IP Addresses**.
 
-    {{<figure src="/images/netq/dev-switch-fullscr-ipaddr-tab-241.png" width="700">}}
-
-    <!-- update image and steps below -->
+    {{<figure src="/images/netq/dev-switch-fullscr-ipaddr-tab-331.png" width="700">}}
 
 2. By default all IP addresses are listed. Click **IPv6** or **IPv4** to restrict the list to only those addresses.
 
@@ -1159,9 +1151,9 @@ This output indicates that this drive is in a good state overall with 80% of its
 
 ### View Disk Storage After BTRFS Allocation
 
-Customers running Cumulus Linux 3.x which uses the BTRFS (b-tree file system) might experience issues with disk space management. This is a known problem of BTRFS because it does not perform periodic garbage collection, or rebalancing. If left unattended, these errors can make it impossible to rebalance the partitions on the disk. To avoid this issue, Cumulus Networks recommends rebalancing the BTRFS partitions in a preemptive manner, but only when absolutely needed to avoid reduction in the lifetime of the disk. By tracking the state of the disk space usage, users can determine when rebalancing should be performed.
+Customers running Cumulus Linux 3.x which uses the BTRFS (b-tree file system) might experience issues with disk space management. This is a known problem of BTRFS because it does not perform periodic garbage collection, or rebalancing. If left unattended, these errors can make it impossible to rebalance the partitions on the disk. To avoid this issue, NVIDIA recommends rebalancing the BTRFS partitions in a preemptive manner, but only when absolutely needed to avoid reduction in the lifetime of the disk. By tracking the state of the disk space usage, users can determine when rebalancing should be performed.
 
-For details about when a rebalance is recommended, refer to {{<exlink url="https://support.cumulusnetworks.com/hc/en-us/articles/360037394933-When-to-Rebalance-BTRFS-Partitions" text="When to Rebalance BTRFS Partitions">}}.
+For details about when a rebalance is recommended, refer to {{<kb_link url="knowledge-base/Configuration-and-Usage/Storage/When-to-Rebalance-BTRFS-Partitions/" text="When to Rebalance BTRFS Partitions">}}.
 
 {{< tabs "TabID414" >}}
 

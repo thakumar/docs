@@ -19,7 +19,7 @@ Before you install Cumulus Linux, the switch can be in two different states:
 
 The sections below describe some of the different ways you can install the Cumulus Linux image, such as using a DHCP/web server, FTP, a local file, or a USB drive. Steps are provided for both installing directly from ONIE (if no image is installed on the switch) and from Cumulus Linux (if the image is already installed on the switch), where applicable. For additional methods to find and install the Cumulus Linux image, see the {{<exlink url="http://opencomputeproject.github.io/onie/design-spec/discovery.html" text="ONIE Design Specification">}}.
 
-You can download a Cumulus Linux image from the {{<exlink url="http://cumulusnetworks.com/downloads/" text="Cumulus Linux Downloads">}} page.
+You can download a Cumulus Linux image from the {{<exlink url="https://support.mellanox.com/s/contact-support-page" text="MyMellanox Downloads">}} page.
 
 {{%notice warning%}}
 
@@ -191,7 +191,7 @@ Installing the Cumulus Linux image using FTP from ONIE is not supported on the D
 
 3. Place the Cumulus Linux image into a TFTP or FTP directory.
 
-4. If you are not using DHCP options, run one of the following commands (`tftp` for TFTP or `ftp` for FTP):
+4. If you are not using DHCP options, run one of the following commands (tftp for TFTP or ftp for FTP):
 
     ```
     ONIE# onie-nos-install ftp://local-ftp-server/cumulus-install-[PLATFORM].bin
@@ -203,15 +203,12 @@ Installing the Cumulus Linux image using FTP from ONIE is not supported on the D
 
 {{< tab "Install from Cumulus Linux ">}}
 
-1. Place the Cumulus Linux image into a TFTP or FTP directory.
+1. Place the Cumulus Linux image into an FTP directory (TFTP is *not* supported in Cumulus Linux).
 
-2. From the Cumulus Linux command prompt, run one of the following
-    commands (`tftp` for TFTP or `ftp` for FTP), then reboot the switch.
+2. From the Cumulus Linux command prompt, run the following command:
 
     ```
     cumulus@switch:~$ sudo onie-install -a -i ftp://local-ftp-server/cumulus-install-[PLATFORM].bin
-
-    cumulus@switch:~$ sudo onie-install -a -i tftp://local-ftp-server/cumulus-install-[PLATFORM].bin
     ```
 
 {{< /tab >}}
@@ -286,7 +283,7 @@ Installing Cumulus Linux using a USB drive is fine for a single switch here and 
 
 ### Prepare for USB Installation
 
-1. From the {{<exlink url="http://cumulusnetworks.com/downloads/" text="Cumulus Linux Downloads page">}}, download the appropriate Cumulus Linux image for your x86 or ARM platform.
+1. From the {{<exlink url="https://support.mellanox.com/s/" text="MyMellanox Downloads page">}}, download the appropriate Cumulus Linux image for your x86 or ARM platform.
 2.  From a computer, prepare your USB drive by formatting it using one of the supported formats: FAT32, vFAT or EXT2.
 
     {{< expand "Optional: Prepare a USB Drive inside Cumulus Linux"  >}}
@@ -359,7 +356,7 @@ sudo mount /dev/sdb1 /mnt/usb
     {{< img src = "/images/cumulus-linux/install-image-GNUx86-2.png" >}}
 
 4. The USB drive is recognized and mounted automatically. The image file is located and automatic installation of Cumulus Linux begins. Here is some sample output:
-
+<!-- vale off -->
     ```
     ONIE: OS Install Mode  ...
 
@@ -391,7 +388,7 @@ sudo mount /dev/sdb1 /mnt/usb
 
     Homepage: http://www.cumulusnetworks.com/
     ```
-
+<!-- vale on -->
 5. After installation completes, the switch automatically reboots into the newly installed instance of Cumulus Linux.
 
 {{< /tab >}}
@@ -432,7 +429,7 @@ sudo mount /dev/sdb1 /mnt/usb
     ```
 
 4. The USB drive is recognized and mounted automatically. The image file is located and automatic installation of Cumulus Linux begins. Here is some sample output:
-
+<!-- vale off -->
     ```
     Loading Open Network Install Environment  ...
     Platform: arm-as4610_54p-r0
@@ -473,7 +470,7 @@ sudo mount /dev/sdb1 /mnt/usb
     Platforms: accton_as4600_54t, accton_as6701_32x, accton_5652, accton_as5610_52x, dni_6448, dni_7448, dni_c7448n, cel_kennisis, cel_redstone, cel_smallstone, cumulus_p2020, quanta_lb9, quanta_ly2, quanta_ly2r, quanta_ly6_p2020
     Homepage: http://www.cumulusnetworks.com/
     ```
-
+<!-- vale on -->
 5. After installation completes, the switch automatically reboots into the newly installed instance of Cumulus Linux.
 
 {{< /tab >}}
@@ -566,7 +563,7 @@ If you use the `--ztp` option together with any of the other command line option
 
 ## Edit the Cumulus Linux Image (Advanced)
 
-The Cumulus Linux disk image file contains a BASH script that includes a set of variables. You can set these variables to be able to install a fully-configured system with a single image file.
+The Cumulus Linux disk image file contains a BASH script that includes a set of variables. You can set these variables to be able to install a fully configured system with a single image file.
 
 {{< expand "To edit the image"  >}}
 
@@ -673,6 +670,5 @@ If you install the modified installation image and specify installer command lin
 ## Related Information
 
 - {{<exlink url="http://opencomputeproject.github.io/onie/design-spec/" text="ONIE Design Specification">}}
-- {{<exlink url="http://cumulusnetworks.com/downloads/" text="Cumulus Linux Downloads page">}}
-- {{<exlink url="https://cumulusnetworks.com/cumulus-on-a-stick/" text="Cumulus on a Stick">}}
+- {{<exlink url="https://support.mellanox.com/s/" text="MyMellanox Downloads page">}}
 - {{<link url="Managing-Cumulus-Linux-Disk-Images" text="Managing Cumulus Linux Disk Images">}}

@@ -11,13 +11,13 @@ The *cumulus* account:
 - Uses the default password `cumulus`. You are required to change the default password when you log into Cumulus Linux for the first time.
 - Is a user account in the *sudo* group with sudo privileges.
 - Can log in to the system through all the usual channels, such as console and {{<link url="SSH-for-Remote-Access" text="SSH">}}.
-- Along with the cumulus group, has both show and edit rights for {{<link url="Network-Command-Line-Utility-NCLU" text="NCLU">}}.
+- Along with the cumulus group, has both show and edit rights for NCLU.
 
 The *root* account:
 
 - Has the default password disabled by default
 - Has the standard Linux root user access to everything on the switch
-- Disabled password prohibits login to the switch by SSH, telnet, FTP, and so on
+- The disabled password prevents you from using SSH, telnet, FTP, and so on, to log in to the switch.
 
 You can add additional user accounts as needed. Like the *cumulus* account, these accounts must use `sudo` to {{<link url="Using-sudo-to-Delegate-Privileges" text="execute privileged commands">}}; be sure to include them in the *sudo* group. For example:
 
@@ -27,7 +27,7 @@ cumulus@switch:~$ sudo adduser NEWUSERNAME sudo
 
 To access the switch without a password, you need to {{<link url="Single-User-Mode-Password-Recovery" text="boot into a single shell/user mode">}}.
 
-You can add and configure user accounts in Cumulus Linux with read-only or edit permissions for NCLU. For more information, see {{<link url="Network-Command-Line-Utility-NCLU#configure-user-accounts" text="Configure User Accounts">}}.
+<!--WHAT HAPPENS FOR CUE? - You can add and configure user accounts in Cumulus Linux with read-only or edit permissions for NCLU. For more information, see Configure User Accounts.-->
 
 ## Enable Remote Access for the root User
 

@@ -226,6 +226,8 @@ Protocol="udp")
 
 The most common use case for VRF is to use multiple independent routing and forwarding tables; however, there are situations where destinations in one VRF must be reachable (leaked) from another VRF. For example, to make a service (such as a firewall) available to multiple VRFs or to enable routing to external networks (or the Internet) for multiple VRFs, where the external network itself is reachable through a specific VRF.
 
+Cumulus Linux supports dynamic VRF route leaking. Static route leaking is not supported.
+
 - An interface is always assigned to only one VRF; any packets received on that interface are routed using the associated VRF routing table.
 - Route leaking is not allowed for overlapping addresses.
 - Route leaking is supported for both IPv4 and IPv6 routes.
@@ -257,7 +259,7 @@ When you use route leaking:
 - Routes learned with iBGP or multi-hop eBGP in a VRF can be leaked even if their next hops become unreachable. Therefore, route leaking for BGP-learned routes is recommended only when they are learned through single-hop eBGP.
 - You cannot configure VRF instances of BGP in multiple autonomous systems (AS) or an AS that is not the same as the global AS.
 - Do not use the default VRF as a shared service VRF. Create another VRF for shared services.
-- An EVPN symmetric routing configuration on a Mellanox switch with a {{<exlink url="https://cumulusnetworks.com/products/hardware-compatibility-list/?asic%5B0%5D=Mellanox%20Spectrum&asic%5B1%5D=Mellanox%20Spectrum_A1" text="Spectrum ASIC">}} or a Broadcom switch has certain limitations when leaking routes between the default VRF and non-default VRFs. The default VRF has underlay routes (routes to VTEP addresses) that cannot be leaked to any tenant VRFs. If you need to leak routes between the default VRF and a non-default VRF, you must filter out routes to the VTEP addresses to prevent leaking these routes. Use caution with such a configuration. Run common services in a separate VRF (service VRF) instead of the default VRF to simplify configuration and avoid using route-maps for filtering.
+- An EVPN symmetric routing configuration on a Mellanox switch with a {{<exlink url="www.nvidia.com/en-us/networking/ethernet-switching/hardware-compatibility-list/" text="Spectrum ASIC">}} or a Broadcom switch has certain limitations when leaking routes between the default VRF and non-default VRFs. The default VRF has underlay routes (routes to VTEP addresses) that cannot be leaked to any tenant VRFs. If you need to leak routes between the default VRF and a non-default VRF, you must filter out routes to the VTEP addresses to prevent leaking these routes. Use caution with such a configuration. Run common services in a separate VRF (service VRF) instead of the default VRF to simplify configuration and avoid using route-maps for filtering.
 
 In the following example commands, routes in the BGP routing table of VRF `rocket` are dynamically leaked into VRF `turtle`.
 

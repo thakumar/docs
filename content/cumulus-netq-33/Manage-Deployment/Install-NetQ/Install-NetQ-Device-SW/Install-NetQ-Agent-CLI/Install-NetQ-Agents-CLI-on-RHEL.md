@@ -4,7 +4,7 @@ author: NVIDIA
 weight: 390
 toc: 5
 ---
-After installing your NetQ software, you can install the NetQ 3.3.0 Agent and CLI on each server you want to monitor. These can be installed on servers running:
+After installing your NetQ software, you can install the NetQ {{<version>}} Agent and CLI on each server you want to monitor. These can be installed on servers running:
 
 - Red Hat RHEL 7.1
 - CentOS 7
@@ -18,9 +18,9 @@ For servers running RHEL or CentOS, you need to:
 - Install and configure NTP, if needed
 - Obtain NetQ software packages
 
-{{%notice note%}}
-If your network uses a proxy server for external connections, you should first {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/System-Configuration/Configuring-a-Global-Proxy/" text="configure a global proxy">}} so `apt-get` can access the software package in the Cumulus Networks repository.
-{{%/notice%}}
+{{<notice note>}}
+If your network uses a proxy server for external connections, you should first {{<kb_link url="cumulus-linux-43/System-Configuration/Configuring-a-Global-Proxy/" text="configure a global proxy">}} so `apt-get` can access the software package in the NVIDIA networking repository.
+{{</notice>}}
 
 ### Verify Service Package Versions
 
@@ -49,7 +49,7 @@ root@rhel7:~# sudo yum install wget
 
 If NTP is not already installed and configured, follow these steps:
 
-1. Install {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/System-Configuration/Setting-Date-and-Time/" text="NTP">}} on the server. Servers must be in time synchronization with the NetQ Platform or NetQ Appliance to enable useful statistical analysis.
+1. Install {{<kb_link url="cumulus-linux-43/System-Configuration/Setting-Date-and-Time/" text="NTP">}} on the server. Servers must be in time synchronization with the NetQ Platform or NetQ Appliance to enable useful statistical analysis.
 
     ```
     root@rhel7:~# sudo yum install ntp
@@ -86,7 +86,7 @@ If you are running NTP in your out-of-band management network with VRF, specify 
 
 ### Obtain NetQ Agent and CLI Package
 
-To install the NetQ Agent you need to install `netq-agent` on each switch or host. To install the NetQ CLI you need to install `netq-apps` on each switch or host. These are available from the Cumulus Networks repository.
+To install the NetQ Agent you need to install `netq-agent` on each switch or host. To install the NetQ CLI you need to install `netq-apps` on each switch or host. These are available from the NVIDIA networking repository.
 
 To obtain the NetQ packages:
 
@@ -134,14 +134,14 @@ To install the NetQ software:
     root@rhel7:~# rpm -q -netq-agent
     ```
 
-    {{<netq-install/agent-version version="3.3.0" opsys="rh">}}
+    {{<netq-install/agent-version version="3.3.1" opsys="rh">}}
 
     ```
     root@rhel7:~# rpm -q -netq-apps
     ```
-
-    {{<netq-install/cli-version version="3.3.0" opsys="rh">}}
-
+<!-- vale off -->
+    {{<netq-install/cli-version version="3.3.1" opsys="rh">}}
+<!-- vale on -->
 3. Restart `rsyslog` so log files are sent to the correct destination.
 
     ```
@@ -188,8 +188,9 @@ You can configure the NetQ Agent and CLI in the `netq.yml` configuration file co
     server: 127.0.0.1
     vrf: default
     ```
+<!-- vale off -->
 Locate the *netq-cli* section, or add it.
-
+<!-- vale on -->
 4. Set the parameters for the CLI based on your deployment type.
 
     {{< tabs "TabID1" >}}
@@ -288,7 +289,7 @@ If you have a server cluster deployed, use the IP address of the master server.
 
 {{< tab "Cloud Deployments" >}}
 
-To access and configure the CLI on your NetQ Platform or NetQ Cloud Appliance, you must have your username and password to access the NetQ UI to generate AuthKeys. These keys provide authorized access (access key) and user authentication (secret key). Your credentials and NetQ Cloud addresses were provided by Cumulus Networks via an email titled *Welcome to Cumulus NetQ!*
+To access and configure the CLI on your NetQ Platform or NetQ Cloud Appliance, you must have your username and password to access the NetQ UI to generate AuthKeys. These keys provide authorized access (access key) and user authentication (secret key). Your credentials and NetQ Cloud addresses were provided by NVIDIA via an email titled <!-- vale off -->*Welcome to Cumulus NetQ!*<!-- vale on -->.
 
 To generate AuthKeys:
 
@@ -369,7 +370,7 @@ A couple of additional options are available for configuring the NetQ Agent. If 
 
 ### Configure the NetQ Agent to Use a VRF
 
-While optional, Cumulus strongly recommends that you configure NetQ Agents to communicate with the NetQ Platform only via a {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/Layer-3/Virtual-Routing-and-Forwarding-VRF/" text="VRF">}}, including a {{<exlink url="https://docs.cumulusnetworks.com/cumulus-linux/Layer-3/Management-VRF/" text="management VRF">}}. To do so, you need to specify the VRF name when configuring the NetQ Agent. For example, if the management VRF is configured and you want the agent to communicate with the NetQ Platform over it, configure the agent like this:
+While optional, Cumulus strongly recommends that you configure NetQ Agents to communicate with the NetQ Platform only via a {{<kb_link url="cumulus-linux-43/Layer-3/VRFs/Virtual-Routing-and-Forwarding-VRF/" text="VRF">}}, including a {{<kb_link url="cumulus-linux-43/Layer-3/VRFs/Management-VRF/" text="management VRF">}}. To do so, you need to specify the VRF name when configuring the NetQ Agent. For example, if the management VRF is configured and you want the agent to communicate with the NetQ Platform over it, configure the agent like this:
 
 ```
 root@rhel7:~# sudo netq config add agent server 192.168.1.254 vrf mgmt

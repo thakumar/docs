@@ -17,7 +17,7 @@ The following procedure creates leaf01, leaf02, and spine01 and the network conn
 
 ### Download Cumulus VX
 
-Download the {{<exlink url="https://cumulusnetworks.com/products/cumulus-vx/download/" text="OVA disk image for VMware">}}.
+Download the {{<exlink url="https://www.nvidia.com/en-us/networking/ethernet-switching/cumulus-vx/" text="OVA disk image for VMware">}}.
 
 ### Create the VMs
 
@@ -37,6 +37,9 @@ Follow these steps for each VM (leaf01, leaf02, and spine01):
 
    {{% notice note %}}
    The Cumulus VX OVA image defines the CPU, memory, and disk requirements. Cumulus VX requires at least 768MB of RAM and 6GB of disk space.
+
+   CumulusVX versions 4.3 and later requires 2 vCPUs.
+
    {{% /notice %}}
 
 7. Repeat the previous steps to create two additional VMs: `leaf02` and `spine01`.

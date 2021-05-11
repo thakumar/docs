@@ -19,9 +19,7 @@ ExecStart=/sbin/ifup -av
 ```
 
 {{%notice note%}}
-
 When you run the `systemctl edit` command, you do *not* need to run `systemctl daemon-reload`.
-
 {{%/notice%}}
 
 To disable logging, either:
@@ -61,7 +59,7 @@ iface bond0
     bond-slaves swp25 swp26
 ```
 
-Use `ifquery --check` to check the current running state of an interface within the `interfaces` file. It will return exit code *0* or *1* if the configuration does not match. The line `bond-xmit-hash-policy layer3+7` below fails because it should read `bond-xmit-hash-policy layer3+4`.
+Use `ifquery --check` to check the current running state of an interface within the `interfaces` file. The command returns exit code *0* or *1* if the configuration does not match. The line `bond-xmit-hash-policy layer3+7` below fails because it should read `bond-xmit-hash-policy layer3+4`.
 
 ```
 cumulus@switch:~$ sudo ifquery --check bond0
@@ -73,9 +71,7 @@ iface bond0
 ```
 
 {{%notice note%}}
-
 `ifquery --check` is an experimental feature.
-
 {{%/notice%}}
 
 Use `ifquery --running` to print the running state of interfaces in the `interfaces` file format:

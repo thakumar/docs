@@ -20,13 +20,11 @@ The following illustration shows a basic NAT configuration.
 {{< img src = "/images/cumulus-linux/nat-example.png" >}}
 
 {{%notice note%}}
-
-- NAT is supported on Mellanox Spectrum-2 and Spectrum-3 switches only.
+- NAT is supported on NVIDIA Spectrum-2 and Spectrum-3 switches only.
 - NAT is supported on physical interfaces and bond interfaces and only in the default VRF.
 - IPv6 to IPv4 translation is not supported.
 - Multicast traffic is not supported.
 - NAT is *not* supported in an EVPN configuration.
-
 {{%/notice%}}
 
 ## Static NAT
@@ -53,9 +51,7 @@ Then restart `switchd`.
 {{<cl/restart-switchd>}}
 
 {{%notice note%}}
-
 Other options in the NAT configuration section of the `switchd.conf` file, such as `nat.age_poll_interval` and `nat.table_size` are dynamic NAT configuration options and are not supported with static NAT.
-
 {{%/notice%}}
 
 ### Configure Static NAT
@@ -64,12 +60,11 @@ For static **NAT**, create a rule that matches a source or destination IP addres
 
 For static **PAT**, create a rule that matches a source or destination IP address together with the layer 4 port and translates the IP address and port to a public IP address and port.
 
-For Mellanox Spectrum-2 switches, you can include the outgoing or incoming interface.
+For NVIDIA Spectrum-2 switches, you can include the outgoing or incoming interface.
 
 To create rules, you can use either NCLU or `cl-acltool`.
 
 {{< tabs "TabID68 ">}}
-
 {{< tab "NCLU Commands ">}}
 
 Use the following NCLU commands:
@@ -91,8 +86,8 @@ Where:
 - `snat` is the source NAT
 - `dnat` is the destination NAT
 - `protocol` is TCP, ICMP, or UDP. The protocol is required.
-- `out-interface` is the outbound interface for `snat` (Mellanox Spectrum-2 switches only)
-- `in-interface` is the inbound interface for `dnat` (Mellanox Spectrum-2 switches only)
+- `out-interface` is the outbound interface for `snat` (NVIDIA Spectrum-2 switches only)
+- `in-interface` is the inbound interface for `dnat` (NVIDIA Spectrum-2 switches only)
 
 **Command Examples**
 
@@ -137,7 +132,6 @@ cumulus@switch:~$ net commit
 ```
 
 {{< /tab >}}
-
 {{< tab "cl-acltool Commands ">}}
 
 To add NAT rules using `cl-acltool`, either edit an existing file in the `/etc/cumulus/acl/policy.d` directory and add rules under `[iptables]` or create a new file in the `/etc/cumulus/acl/policy.d` directory and add rules under an `[iptables]` section. For example:
@@ -178,7 +172,6 @@ The following rule matches UDP packets with destination IP address 172.30.58.80 
 To delete a static NAT rule, remove the rule from the policy file in the  `/etc/cumulus/acl/policy.d` directory, then run the `sudo cl-acltool -i command`.
 
 {{< /tab >}}
-
 {{< /tabs >}}
 
 ## Dynamic NAT
@@ -209,7 +202,7 @@ The `/etc/cumulus/switchd.conf` file includes the following configuration option
 | Option | Description |
 | ------ | ----------- |
 | nat.age_poll_interval | The period of inactivity before `switchd` releases a NAT entry from the translation table.<br>The default value is 5 minutes. The minimum value is 1 minute. The maximum value is 24 hours.|
-| nat.table_size | The maximum number of dynamic `snat` and `dnat` entries in the translation table. The default value is 1024.<br>Mellanox Spectrum-2 switches support a maximum of 8192 entries. |
+| nat.table_size | The maximum number of dynamic `snat` and `dnat` entries in the translation table. The default value is 1024.<br>NVIDIA Spectrum-2 switches support a maximum of 8192 entries. |
 | nat.config_table_size | The maximum number of rules allowed (NCLU or cl-acltool).<br>The default value is 64. The minimum value is 64. The maximum value is 1024. |
 
 After you change any of the dynamic NAT configuration options, restart `switchd`.
@@ -222,10 +215,9 @@ For dynamic **NAT**, create a rule that matches a IP address in CIDR notation an
 
 For dynamic **PAT**, create a rule that matches an IP address in CIDR notation and translates the address to a public IP address and port range or an IP address range and port range. You can also match on an IP address in CIDR notation and port.
 
-For Mellanox Spectrum-2 switches, you can include the outgoing or incoming interface in the rule. See the examples below.
+For NVIDIA Spectrum-2 switches, you can include the outgoing or incoming interface in the rule. See the examples below.
 
 {{< tabs "TabID226 ">}}
-
 {{< tab "NCLU Commands ">}}
 
 Use the following NCLU commands:
@@ -247,8 +239,8 @@ Where:
 - `snat` is the source NAT
 - `dnat` is the destination NAT
 - `protocol` is TCP, ICMP, or UDP. The protocol is required.
-- `out-interface` is the outbound interface for `snat` (Mellanox Spectrum-2 switches only)
-- `in-interface` is the inbound interface for `dnat` (Mellanox Spectrum-2 switches only)
+- `out-interface` is the outbound interface for `snat` (NVIDIA Spectrum-2 switches only)
+- `in-interface` is the inbound interface for `dnat` (NVIDIA Spectrum-2 switches only)
 
 **Example Commands**
 
@@ -301,7 +293,6 @@ cumulus@switch:~$ net commit
 ```
 
 {{< /tab >}}
-
 {{< tab "cl-acltool Commands ">}}
 
 To add NAT rules using `cl-acltool`, either edit an existing file in the `/etc/cumulus/acl/policy.d` directory and add rules under `[iptables]` or create a new file in the `/etc/cumulus/acl/policy.d` directory and add rules under an `[iptables]` section. For example:
@@ -348,7 +339,6 @@ The following rule matches ICMP packets with source IP address in the range 10.0
 To delete a dynamic NAT rule, remove the rule from the policy file in the  `/etc/cumulus/acl/policy.d` directory, then run the `sudo cl-acltool -i` command.
 
 {{< /tab >}}
-
 {{< /tabs >}}
 
 ## Show Configured NAT Rules

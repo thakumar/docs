@@ -8,7 +8,7 @@ Various add-on packages enable {{<exlink url="https://en.wikipedia.org/wiki/RADI
 
 ## Install the RADIUS Packages
 
-You can install the RADIUS packages even if the switch is not connected to the internet, as they are contained in the `cumulus-local-apt-archive` repository that is {{<link url="Adding-and-Updating-Packages#add-packages-from-the-cumulus-linux-local-archive" text="embedded">}} in the Cumulus Linux image.
+You can install the RADIUS packages even if the switch is not connected to the internet, as they are provided in the `cumulus-local-apt-archive` repository that is {{<link url="Adding-and-Updating-Packages#add-packages-from-the-cumulus-linux-local-archive" text="embedded">}} in the Cumulus Linux image.
 
 To install the RADIUS packages:
 
@@ -37,7 +37,7 @@ To configure the RADIUS client, edit the `/etc/pam_radius_auth.conf` file:
 
     {{%notice tip%}}
 
-The hostname of the switch must be resolvable to an IP address, which, in general, is fixed in DNS. If for some reason you cannot find the hostname in DNS, you can add the hostname to the `/etc/hosts` file manually. However, this can cause problems since the IP address is usually assigned by DHCP, which can change at any time.
+The hostname of the switch must be resolvable to an IP address, which, in general, is fixed in DNS. If for some reason you cannot find the hostname in DNS, you can add the hostname to the `/etc/hosts` file manually. However, this can cause problems because the IP address is usually assigned by DHCP, which can change at any time.
 
 {{%/notice%}}
 
@@ -86,7 +86,7 @@ The VSA vendor name (Cisco-AVPair in the example above) can have any content. Th
 
 ## Enable Login without Local Accounts
 
-Because LDAP is not commonly used with switches and adding accounts locally is cumbersome, Cumulus Linux includes a mapping capability with the `libnss-mapuser` package.
+LDAP is not commonly used with switches and adding accounts locally is cumbersome, Cumulus Linux includes a mapping capability with the `libnss-mapuser` package.
 
 Mapping is done using two NSS (Name Service Switch) plugins, one for account name, and one for UID lookup. These accounts are configured automatically in `/etc/nsswitch.conf` during installation and are removed when the package is removed. See the `nss_mapuser (8)` man page for the full description of this plugin.
 
@@ -237,6 +237,6 @@ cumulus@switch:~$ sudo delgroup radius_users
 
 ## Related Information
 
-- {{<link url="TACACS+" text="TACACS+ client">}}
+- {{<link url="TACACS" text="TACACS+ client">}}
 - {{<exlink url="https://github.com/CumulusNetworks/cldemo-radius" text="Cumulus Networks RADIUS demo on GitHub">}}
 - {{<exlink url="https://github.com/CumulusNetworks/cldemo-tacacs" text="Cumulus Network TACACS demo on GitHub">}}
