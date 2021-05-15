@@ -13,7 +13,7 @@ scheduling in hardware. There are two configuration input files:
 
     {{%notice note%}}
 
-While it is possible to change the buffer limits in the `datapath.conf` file, it's best to {{<exlink url="https://support.mellanox.com/s/contact-support-page" text="work with a Cumulus support engineer">}} to do so.
+The default thresholds defined in the `datapath.conf` file are intended for data center environments, but certain workloads may require additional tuning. It is best to make small, incremental changes to validate the changes with your application performance. Be sure to backup the original file before making changes.
 
     {{%/notice%}}
 
@@ -59,7 +59,7 @@ If you modify the configuration in the `/etc/cumulus/datapath/traffic.conf` file
 The following example `/etc/cumulus/datapath/traffic.conf` datapath
 configuration file applies to 10G, 40G, and 100G switches on Broadcom
 Tomahawk, Trident II, Trident II+, or Trident3 and Mellanox Spectrum
-{{<exlink url="https://www.nvidia.com/en-us/networking/ethernet-switching/hardware-compatibility-list//" text="platforms">}} only. However, see the note
+{{<exlink url="https://www.nvidia.com/en-us/networking/ethernet-switching/hardware-compatibility-list/" text="platforms">}} only. However, see the note
 above for all the supported ASICs.
 
 Keep in mind the following about the configuration:
