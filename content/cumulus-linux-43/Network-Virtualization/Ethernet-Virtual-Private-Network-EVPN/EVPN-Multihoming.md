@@ -625,6 +625,8 @@ The following example uses the topology illustrated here. It shows one rack for 
 
 ### Configuration Commands
 
+The following configuration requires you to enable EVPN-MH in `switchd`. See {{<link url="#enable-evpn-mh-in-switchd" text="Enable EVPN-MH in switchd">}} above.
+
 {{< tabs "TabID635 ">}}
 {{<tab "NCLU Commands">}}
 
@@ -650,7 +652,6 @@ cumulus@leaf01:~$ net add bond bond1-3 stp bpduguard
 cumulus@leaf01:~$ net add bond bond1-3 stp portadminedge
 cumulus@leaf01:~$ net add bridge bridge ports bond1,bond2,bond3
 cumulus@leaf01:~$ net add loopback lo pim
-cumulus@leaf01:~$ net add loopback lo pim use-source 10.10.10.1
 cumulus@leaf01:~$ net add pim rp 10.10.100.100 224.0.0.0/4
 cumulus@leaf01:~$ net add pim ecmp
 cumulus@leaf01:~$ net add pim keep-alive-timer 3600
@@ -713,11 +714,12 @@ cumulus@leaf01:~$ net add vxlan vni30 vxlan mcastgrp 224.0.0.30
 cumulus@leaf01:~$ net add vxlan vniBLUE bridge access 4002
 cumulus@leaf01:~$ net add vxlan vniRED bridge access 4001
 cumulus@leaf01:~$ net add loopback lo vxlan local-tunnelip 10.10.10.1
-cumulus@leaf01:~$ net add routing route 0.0.0.0/0 192.168.200.1 vrf mgmt
+cumulus@leaf01:~$ net add evpn mh startup-delay 30
 cumulus@leaf01:~$ net add bgp autonomous-system 65101
 cumulus@leaf01:~$ net add bgp router-id 10.10.10.1
 cumulus@leaf01:~$ net add bgp neighbor underlay peer-group
 cumulus@leaf01:~$ net add bgp neighbor underlay remote-as external
+cumulus@leaf01:~$ net add bgp bestpath as-path multipath-relax
 cumulus@leaf01:~$ net add bgp neighbor swp51 interface peer-group underlay
 cumulus@leaf01:~$ net add bgp neighbor swp52 interface peer-group underlay
 cumulus@leaf01:~$ net add bgp ipv4 unicast redistribute connected
@@ -756,7 +758,6 @@ cumulus@leaf02:~$ net add bond bond1-3 stp bpduguard
 cumulus@leaf02:~$ net add bond bond1-3 stp portadminedge
 cumulus@leaf02:~$ net add bridge bridge ports bond1,bond2,bond3
 cumulus@leaf02:~$ net add loopback lo pim
-cumulus@leaf02:~$ net add loopback lo pim use-source 10.10.10.2
 cumulus@leaf02:~$ net add pim rp 10.10.100.100 224.0.0.0/4
 cumulus@leaf02:~$ net add pim ecmp
 cumulus@leaf02:~$ net add pim keep-alive-timer 3600
@@ -819,11 +820,12 @@ cumulus@leaf02:~$ net add vxlan vni30 vxlan mcastgrp 224.0.0.30
 cumulus@leaf02:~$ net add vxlan vniBLUE bridge access 4002
 cumulus@leaf02:~$ net add vxlan vniRED bridge access 4001
 cumulus@leaf02:~$ net add loopback lo vxlan local-tunnelip 10.10.10.2
-cumulus@leaf02:~$ net add routing route 0.0.0.0/0 192.168.200.1 vrf mgmt
+cumulus@leaf02:~$ net add evpn mh startup-delay 30
 cumulus@leaf02:~$ net add bgp autonomous-system 65102
 cumulus@leaf02:~$ net add bgp router-id 10.10.10.2
 cumulus@leaf02:~$ net add bgp neighbor underlay peer-group
 cumulus@leaf02:~$ net add bgp neighbor underlay remote-as external
+cumulus@leaf02:~$ net add bgp bestpath as-path multipath-relax
 cumulus@leaf02:~$ net add bgp neighbor swp51 interface peer-group underlay
 cumulus@leaf02:~$ net add bgp neighbor swp52 interface peer-group underlay
 cumulus@leaf02:~$ net add bgp ipv4 unicast redistribute connected
@@ -862,7 +864,6 @@ cumulus@leaf03:~$ net add bond bond1-3 stp bpduguard
 cumulus@leaf03:~$ net add bond bond1-3 stp portadminedge
 cumulus@leaf03:~$ net add bridge bridge ports bond1,bond2,bond3
 cumulus@leaf03:~$ net add loopback lo pim
-cumulus@leaf03:~$ net add loopback lo pim use-source 10.10.10.3
 cumulus@leaf03:~$ net add pim rp 10.10.100.100 224.0.0.0/4
 cumulus@leaf03:~$ net add pim ecmp
 cumulus@leaf03:~$ net add pim keep-alive-timer 3600
@@ -925,11 +926,12 @@ cumulus@leaf03:~$ net add vxlan vni30 vxlan mcastgrp 224.0.0.30
 cumulus@leaf03:~$ net add vxlan vniBLUE bridge access 4002
 cumulus@leaf03:~$ net add vxlan vniRED bridge access 4001
 cumulus@leaf03:~$ net add loopback lo vxlan local-tunnelip 10.10.10.3
-cumulus@leaf03:~$ net add routing route 0.0.0.0/0 192.168.200.1 vrf mgmt
+cumulus@leaf03:~$ net add evpn mh startup-delay 30
 cumulus@leaf03:~$ net add bgp autonomous-system 65103
 cumulus@leaf03:~$ net add bgp router-id 10.10.10.3
 cumulus@leaf03:~$ net add bgp neighbor underlay peer-group
 cumulus@leaf03:~$ net add bgp neighbor underlay remote-as external
+cumulus@leaf03:~$ net add bgp bestpath as-path multipath-relax
 cumulus@leaf03:~$ net add bgp neighbor swp51 interface peer-group underlay
 cumulus@leaf03:~$ net add bgp neighbor swp52 interface peer-group underlay
 cumulus@leaf03:~$ net add bgp ipv4 unicast redistribute connected
@@ -968,7 +970,6 @@ cumulus@leaf04:~$ net add bond bond1-3 stp bpduguard
 cumulus@leaf04:~$ net add bond bond1-3 stp portadminedge
 cumulus@leaf04:~$ net add bridge bridge ports bond1,bond2,bond3
 cumulus@leaf04:~$ net add loopback lo pim
-cumulus@leaf04:~$ net add loopback lo pim use-source 10.10.10.4
 cumulus@leaf04:~$ net add pim rp 10.10.100.100 224.0.0.0/4
 cumulus@leaf04:~$ net add pim ecmp
 cumulus@leaf04:~$ net add pim keep-alive-timer 3600
@@ -1031,11 +1032,12 @@ cumulus@leaf04:~$ net add vxlan vni30 vxlan mcastgrp 224.0.0.30
 cumulus@leaf04:~$ net add vxlan vniBLUE bridge access 4002
 cumulus@leaf04:~$ net add vxlan vniRED bridge access 4001
 cumulus@leaf04:~$ net add loopback lo vxlan local-tunnelip 10.10.10.4
-cumulus@leaf04:~$ net add routing route 0.0.0.0/0 192.168.200.1 vrf mgmt
+
 cumulus@leaf04:~$ net add bgp autonomous-system 65104
 cumulus@leaf04:~$ net add bgp router-id 10.10.10.4
 cumulus@leaf04:~$ net add bgp neighbor underlay peer-group
 cumulus@leaf04:~$ net add bgp neighbor underlay remote-as external
+cumulus@leaf04:~$ net add bgp bestpath as-path multipath-relax
 cumulus@leaf04:~$ net add bgp neighbor swp51 interface peer-group underlay
 cumulus@leaf04:~$ net add bgp neighbor swp52 interface peer-group underlay
 cumulus@leaf04:~$ net add bgp ipv4 unicast redistribute connected
@@ -1057,11 +1059,6 @@ cumulus@leaf04:~$ net commit
 
 ```
 cumulus@spine01:~$ net add loopback lo ip address 10.10.10.101/32
-cumulus@spine01:~$ net add interface eth0 ip address 192.168.200.21/24
-cumulus@spine01:~$ net add interface eth0 vrf mgmt
-cumulus@spine01:~$ net add vrf mgmt ip address 127.0.0.1/8
-cumulus@spine01:~$ net add vrf mgmt ipv6 address ::1/128
-cumulus@spine01:~$ net add vrf mgmt vrf-table auto
 cumulus@spine01:~$ net add loopback lo pim
 cumulus@spine01:~$ net add loopback lo pim use-source 10.10.10.101
 cumulus@spine01:~$ net add interface swp1-4 pim
@@ -1069,11 +1066,11 @@ cumulus@spine01:~$ net add interface swp1-4 alias to leaf
 cumulus@spine01:~$ net add pim rp 10.10.100.100 224.0.0.0/4
 cumulus@spine01:~$ net add pim ecmp
 cumulus@spine01:~$ net add pim keep-alive-timer 3600
-cumulus@spine01:~$ net add routing route 0.0.0.0/0 192.168.200.1 vrf mgmt
 cumulus@spine01:~$ net add bgp autonomous-system 65100
 cumulus@spine01:~$ net add bgp router-id 10.10.10.101
 cumulus@spine01:~$ net add bgp neighbor underlay peer-group
 cumulus@spine01:~$ net add bgp neighbor underlay remote-as external
+cumulus@spine01:~$ net add bgp bestpath as-path multipath-relax
 cumulus@spine01:~$ net add bgp neighbor swp1 interface peer-group underlay
 cumulus@spine01:~$ net add bgp neighbor swp2 interface peer-group underlay
 cumulus@spine01:~$ net add bgp neighbor swp3 interface peer-group underlay
@@ -1090,11 +1087,6 @@ cumulus@spine01:~$ net commit
 
 ```
 cumulus@spine02:~$ net add loopback lo ip address 10.10.10.102/32
-cumulus@spine02:~$ net add interface eth0 ip address 192.168.200.22/24
-cumulus@spine02:~$ net add interface eth0 vrf mgmt
-cumulus@spine02:~$ net add vrf mgmt ip address 127.0.0.1/8
-cumulus@spine02:~$ net add vrf mgmt ipv6 address ::1/128
-cumulus@spine02:~$ net add vrf mgmt vrf-table auto
 cumulus@spine02:~$ net add loopback lo pim
 cumulus@spine02:~$ net add loopback lo pim use-source 10.10.10.101
 cumulus@spine02:~$ net add interface swp1-4 pim
@@ -1102,11 +1094,11 @@ cumulus@spine02:~$ net add interface swp1-4 alias to leaf
 cumulus@spine02:~$ net add pim rp 10.10.100.100 224.0.0.0/4
 cumulus@spine02:~$ net add pim ecmp
 cumulus@spine02:~$ net add pim keep-alive-timer 3600
-cumulus@spine02:~$ net add routing route 0.0.0.0/0 192.168.200.1 vrf mgmt
 cumulus@spine02:~$ net add bgp autonomous-system 65100
 cumulus@spine02:~$ net add bgp router-id 10.10.10.102
 cumulus@spine02:~$ net add bgp neighbor underlay peer-group
 cumulus@spine02:~$ net add bgp neighbor underlay remote-as external
+cumulus@spine02:~$ net add bgp bestpath as-path multipath-relax
 cumulus@spine02:~$ net add bgp neighbor swp1 interface peer-group underlay
 cumulus@spine02:~$ net add bgp neighbor swp2 interface peer-group underlay
 cumulus@spine02:~$ net add bgp neighbor swp3 interface peer-group underlay
@@ -1124,7 +1116,7 @@ cumulus@spine02:~$ net commit
 
 **Linux commands**:
 
-1. On the leafs and spines, edit the `daemons` file to enable `bgp` and `pimd` (change *no* to *yes*).
+1. On the leafs and spines, edit the `/etc/frr/daemons` file to enable `bgpd` and `pimd` (change *no* to *yes*), then run the `sudo systemctl restart frr.service` command to restart the FRR service.
 2. On the leafs, spines, and servers, copy the configuration from the `/etc/network/interfaces` files show below.
 3. On the leafs and spines, reload the new configuration with the `sudo ifreload -a` command.
 
@@ -1137,6 +1129,7 @@ cumulus@spine02:~$ net commit
 cumulus@leaf01:~$ sudo vtysh
 ...
 leaf01# configure terminal
+leaf01(config)# evpn mh startup-delay 30
 leaf01(config)# vrf RED
 leaf01(config-vrf)# vni 4001
 leaf01(config-vrf)# exit-vrf
@@ -1169,15 +1162,14 @@ leaf01(config)# interface swp52
 leaf01(config-if)# evpn mh uplink
 leaf01(config-if)# ip pim
 leaf01(config-if)# exit
-leaf01(config)# ip route 0.0.0.0/0 192.168.200.1 vrf mgmt
 leaf01(config)# ip pim rp 10.10.100.100 224.0.0.0/4
 leaf01(config)# ip pim ecmp
 leaf01(config)# ip pim keep-alive-timer 3600
 leaf01(config)# router bgp 65101
 leaf01(config-router)# bgp router-id 10.10.10.1
-leaf01(config-router)# bgp bestpath as-path multipath-relax
 leaf01(config-router)# neighbor underlay peer-group
 leaf01(config-router)# neighbor underlay remote-as external
+leaf01(config-router)# bgp bestpath as-path multipath-relax
 leaf01(config-router)# neighbor swp51 interface peer-group underlay
 leaf01(config-router)# neighbor swp52 interface peer-group underlay
 leaf01(config-router)# address-family ipv4 unicast
@@ -1206,7 +1198,7 @@ leaf01(config-router-af)# exit-address-family
 leaf01(config-router)# address-family l2vpn evpn
 leaf01(config-router-af)# advertise ipv4 unicast
 leaf01(config-router-af)# exit-address-family
-leaf01(config-router)# exit
+leaf01(config-router)# end
 leaf01# write memory
 leaf01# exit
 cumulus@leaf01:~$
@@ -1218,6 +1210,7 @@ cumulus@leaf01:~$
 ```
 cumulus@leaf02:~$ sudo vtysh
 leaf02# configure terminal
+leaf02(config)# evpn mh startup-delay 30
 leaf02(config)# vrf RED
 leaf02(config-vrf)# vni 4001
 leaf02(config-vrf)# exit-vrf
@@ -1250,15 +1243,14 @@ leaf02(config)# interface swp52
 leaf02(config-if)# evpn mh uplink
 leaf02(config-if)# ip pim
 leaf02(config-if)# exit
-leaf02(config)# ip route 0.0.0.0/0 192.168.200.1 vrf mgmt
 leaf02(config)# ip pim rp 10.10.100.100 224.0.0.0/4
 leaf02(config)# ip pim ecmp
 leaf02(config)# ip pim keep-alive-timer 3600
 leaf02(config)# router bgp 65102
 leaf02(config-router)# bgp router-id 10.10.10.2
-leaf02(config-router)# bgp bestpath as-path multipath-relax
 leaf02(config-router)# neighbor underlay peer-group
 leaf02(config-router)# neighbor underlay remote-as external
+leaf02(config-router)# bgp bestpath as-path multipath-relax
 leaf02(config-router)# neighbor swp51 interface peer-group underlay
 leaf02(config-router)# neighbor swp52 interface peer-group underlay
 leaf02(config-router)# address-family ipv4 unicast
@@ -1287,7 +1279,7 @@ leaf02(config-router-af)# exit-address-family
 leaf02(config-router)# address-family l2vpn evpn
 leaf02(config-router-af)# advertise ipv4 unicast
 leaf02(config-router-af)# exit-address-family
-leaf02(config-router)# exit
+leaf02(config-router)# end
 leaf02# write memory
 leaf02# exit
 cumulus@leaf02:~$
@@ -1300,6 +1292,7 @@ cumulus@leaf02:~$
 cumulus@leaf03:~$ sudo vtysh
 ...
 leaf03# configure terminal
+leaf03(config)# evpn mh startup-delay 30
 leaf03(config)# vrf RED
 leaf03(config-vrf)# vni 4001
 leaf03(config-vrf)# exit-vrf
@@ -1332,15 +1325,14 @@ leaf03(config)# interface swp52
 leaf03(config-if)# evpn mh uplink
 leaf03(config-if)# ip pim
 leaf03(config-if)# exit
-leaf03(config)# ip route 0.0.0.0/0 192.168.200.1 vrf mgmt
 leaf03(config)# ip pim rp 10.10.100.100 224.0.0.0/4
 leaf03(config)# ip pim ecmp
 leaf03(config)# ip pim keep-alive-timer 3600
 leaf03(config)# router bgp 65103
 leaf03(config-router)# bgp router-id 10.10.10.3
-leaf03(config-router)# bgp bestpath as-path multipath-relax
 leaf03(config-router)# neighbor underlay peer-group
 leaf03(config-router)# neighbor underlay remote-as external
+leaf03(config-router)# bgp bestpath as-path multipath-relax
 leaf03(config-router)# neighbor swp51 interface peer-group underlay
 leaf03(config-router)# neighbor swp52 interface peer-group underlay
 leaf03(config-router)# address-family ipv4 unicast
@@ -1369,7 +1361,7 @@ leaf03(config-router-af)# exit-address-family
 leaf03(config-router)# address-family l2vpn evpn
 leaf03(config-router-af)# advertise ipv4 unicast
 leaf03(config-router-af)# exit-address-family
-leaf03(config-router)# exit
+leaf03(config-router)# end
 leaf03# write memory
 leaf03# exit
 cumulus@leaf03:~$
@@ -1382,6 +1374,7 @@ cumulus@leaf03:~$
 cumulus@leaf04:~$ sudo vtysh
 ...
 leaf04# configure terminal
+leaf04(config)# evpn mh startup-delay 30
 leaf04(config)# vrf RED
 leaf04(config-vrf)# vni 4001
 leaf04(config-vrf)# exit-vrf
@@ -1414,15 +1407,14 @@ leaf04(config)# interface swp52
 leaf04(config-if)# evpn mh uplink
 leaf04(config-if)# ip pim
 leaf04(config-if)# exit
-leaf04(config)# ip route 0.0.0.0/0 192.168.200.1 vrf mgmt
 leaf04(config)# ip pim rp 10.10.100.100 224.0.0.0/4
 leaf04(config)# ip pim ecmp
 leaf04(config)# ip pim keep-alive-timer 3600
 leaf04(config)# router bgp 65104
 leaf04(config-router)# bgp router-id 10.10.10.4
-leaf04(config-router)# bgp bestpath as-path multipath-relax
 leaf04(config-router)# neighbor underlay peer-group
 leaf04(config-router)# neighbor underlay remote-as external
+leaf04(config-router)# bgp bestpath as-path multipath-relax
 leaf04(config-router)# neighbor swp51 interface peer-group underlay
 leaf04(config-router)# neighbor swp52 interface peer-group underlay
 leaf04(config-router)# address-family ipv4 unicast
@@ -1451,7 +1443,7 @@ leaf04(config-router-af)# exit-address-family
 leaf04(config-router)# address-family l2vpn evpn
 leaf04(config-router-af)# advertise ipv4 unicast
 leaf04(config-router-af)# exit-address-family
-leaf04(config-router)# exit
+leaf04(config-router)# end
 leaf04# write memory
 leaf04# exit
 cumulus@leaf04:~$
@@ -1466,7 +1458,6 @@ cumulus@spine01:~$ sudo vtysh
 spine01# configure terminal
 spine01(config)# interface lo
 spine01(config-if)# ip pim
-spine01(config-if)# ip pim use-source 10.10.10.101
 spine01(config-if)# exit
 spine01(config)# interface swp1
 spine01(config-if)# ip pim
@@ -1480,7 +1471,6 @@ spine01(config-if)# exit
 spine01(config)# interface swp4
 spine01(config-if)# ip pim
 spine01(config-if)# exit
-spine01(config)# ip route 0.0.0.0/0 192.168.200.1 vrf mgmt
 spine01(config)# ip pim rp 10.10.100.100 224.0.0.0/4
 spine01(config)# ip pim ecmp
 spine01(config)# ip pim keep-alive-timer 3600
@@ -1515,7 +1505,6 @@ cumulus@spine02:~$ sudo vtysh
 spine02# configure terminal
 spine02(config)# interface lo
 spine02(config-if)# ip pim
-spine02(config-if)# ip pim use-source 10.10.10.102
 spine02(config-if)# exit
 spine02(config)# interface swp1
 spine02(config-if)# ip pim
@@ -1529,15 +1518,14 @@ spine02(config-if)# exit
 spine02(config)# interface swp4
 spine02(config-if)# ip pim
 spine02(config-if)# exit
-spine02(config)# ip route 0.0.0.0/0 192.168.200.1 vrf mgmt
 spine02(config)# ip pim rp 10.10.100.100 224.0.0.0/4
 spine02(config)# ip pim ecmp
 spine02(config)# ip pim keep-alive-timer 3600
 spine02(config)# router bgp 65100
 spine02(config-router)# bgp router-id 10.10.10.102
-spine02(config-router)# bgp bestpath as-path multipath-relax
 spine02(config-router)# neighbor underlay peer-group
 spine02(config-router)# neighbor underlay remote-as external
+spine02(config-router)# bgp bestpath as-path multipath-relax
 spine02(config-router)# neighbor swp1 interface peer-group underlay
 spine02(config-router)# neighbor swp2 interface peer-group underlay
 spine02(config-router)# neighbor swp3 interface peer-group underlay
@@ -1568,122 +1556,22 @@ cumulus@spine02:~$
 
 ```
 cumulus@leaf01:~$ cat /etc/network/interfaces
-...
 auto lo
 iface lo inet loopback
     address 10.10.10.1/32
     vxlan-local-tunnelip 10.10.10.1
 
-auto eth0
-iface eth0
-    vrf mgmt
-    address 192.168.200.11/24
+auto swp1
+iface swp1
+    alias bond member of bond1
 
-auto mgmt
-iface mgmt
-  vrf-table auto
-  address 127.0.0.1/8
-  address ::1/128
+auto swp2
+iface swp2
+    alias bond member of bond2
 
-auto RED
-iface RED
-  vrf-table auto
-
-auto BLUE
-iface BLUE
-  vrf-table auto
-
-auto bridge
-iface bridge
-    bridge-ports bond1 bond2 bond3 vni10 vni20 vni30 vniRED vniBLUE 
-    bridge-vids 10 20 30 4001 4002  
-    bridge-vlan-aware yes
-
-auto vni10
-iface vni10
-    bridge-access 10
-    vxlan-id 10
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-    vxlan-mcastgrp 224.0.0.10
-
-auto vni20
-iface vni20
-    bridge-access 20
-    vxlan-id 20
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-    vxlan-mcastgrp 224.0.0.20
-
-auto vni30
-iface vni30
-    bridge-access 30
-    vxlan-id 30
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-    vxlan-mcastgrp 224.0.0.30
-
-auto vniRED
-iface vniRED
-    bridge-access 4001
-    vxlan-id 4001
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-
-auto vniBLUE
-iface vniBLUE
-    bridge-access 4002
-    vxlan-id 4002
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-
-auto vlan10
-iface vlan10
-    address 10.1.10.2/24
-    address-virtual 00:00:00:00:00:10 10.1.10.1/24
-    vrf RED
-    vlan-raw-device bridge
-    vlan-id 10
-
-auto vlan20
-iface vlan20
-    address 10.1.20.2/24
-    address-virtual 00:00:00:00:00:20 10.1.20.1/24
-    vrf RED
-    vlan-raw-device bridge
-    vlan-id 20
-
-auto vlan30
-iface vlan30
-    address 10.1.30.2/24
-    address-virtual 00:00:00:00:00:30 10.1.30.1/24
-    vrf BLUE
-    vlan-raw-device bridge
-    vlan-id 30
-
-auto vlan4001
-iface vlan4001
-    hwaddress 44:38:39:BE:EF:AA
-    vrf RED
-    vlan-raw-device bridge
-    vlan-id 4001
-
-auto vlan4002
-iface vlan4002
-    hwaddress 44:38:39:BE:EF:AA
-    vrf BLUE
-    vlan-raw-device bridge
-    vlan-id 4002
+auto swp3
+iface swp3
+    alias bond member of bond3
 
 auto swp51
 iface swp51
@@ -1693,47 +1581,145 @@ auto swp52
 iface swp52
     alias to spine
 
-auto swp1
-iface swp1
-    alias bond member of bond1
+auto BLUE
+iface BLUE
+    vrf-table auto
+
+auto RED
+iface RED
+    vrf-table auto
 
 auto bond1
 iface bond1
-    bond-slaves swp1 
-    es-sys-mac 44:38:39:BE:EF:AA
-    bridge-access 10
-    mtu 9000
     bond-lacp-bypass-allow yes
+    bond-slaves swp1
+    bridge-access 10
+    es-sys-mac 44:38:39:BE:EF:AA
     mstpctl-bpduguard yes
     mstpctl-portadminedge yes
-
-auto swp2
-iface swp2
-    alias bond member of bond2
+    mtu 9000
 
 auto bond2
 iface bond2
-    bond-slaves swp2 
-    es-sys-mac 44:38:39:BE:EF:AA
-    bridge-access 20
-    mtu 9000
     bond-lacp-bypass-allow yes
+    bond-slaves swp2
+    bridge-access 20
+    es-sys-mac 44:38:39:BE:EF:AA
     mstpctl-bpduguard yes
     mstpctl-portadminedge yes
-
-auto swp3
-iface swp3
-    alias bond member of bond3
+    mtu 9000
 
 auto bond3
 iface bond3
-    bond-slaves swp3 
-    es-sys-mac 44:38:39:BE:EF:AA
-    bridge-access 30
-    mtu 9000
     bond-lacp-bypass-allow yes
+    bond-slaves swp3
+    bridge-access 30
+    es-sys-mac 44:38:39:BE:EF:AA
     mstpctl-bpduguard yes
     mstpctl-portadminedge yes
+    mtu 9000
+
+auto bridge
+iface bridge
+    bridge-ports bond1 bond2 bond3 vni10 vni20 vni30 vniBLUE vniRED
+    bridge-vids 10 20 30 4001-4002
+    bridge-vlan-aware yes
+
+auto mgmt
+iface mgmt
+    vrf-table auto
+    address 127.0.0.1/8
+    address ::1/128
+
+auto eth0
+iface eth0 inet dhcp
+    vrf mgmt
+
+auto vlan10
+iface vlan10
+    address 10.1.10.2/24
+    address-virtual 00:00:00:00:00:10 10.1.10.1/24
+    vlan-id 10
+    vlan-raw-device bridge
+    vrf RED
+
+auto vlan20
+iface vlan20
+    address 10.1.20.2/24
+    address-virtual 00:00:00:00:00:20 10.1.20.1/24
+    vlan-id 20
+    vlan-raw-device bridge
+    vrf RED
+
+auto vlan30
+iface vlan30
+    address 10.1.30.2/24
+    address-virtual 00:00:00:00:00:30 10.1.30.1/24
+    vlan-id 30
+    vlan-raw-device bridge
+    vrf BLUE
+
+auto vlan4001
+iface vlan4001
+    hwaddress 44:38:39:BE:EF:AA
+    vlan-id 4001
+    vlan-raw-device bridge
+    vrf RED
+
+auto vlan4002
+iface vlan4002
+    hwaddress 44:38:39:BE:EF:AA
+    vlan-id 4002
+    vlan-raw-device bridge
+    vrf BLUE
+
+auto vni10
+iface vni10
+    bridge-access 10
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 10
+    vxlan-mcastgrp 224.0.0.10
+
+auto vni20
+iface vni20
+    bridge-access 20
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 20
+    vxlan-mcastgrp 224.0.0.20
+
+auto vni30
+iface vni30
+    bridge-access 30
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 30
+    vxlan-mcastgrp 224.0.0.30
+
+auto vniBLUE
+iface vniBLUE
+    bridge-access 4002
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 4002
+
+auto vniRED
+iface vniRED
+    bridge-access 4001
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 4001
 ```
 
 {{</tab>}}
@@ -1741,122 +1727,22 @@ iface bond3
 
 ```
 cumulus@leaf02:~$ cat /etc/network/interfaces
-...
 auto lo
 iface lo inet loopback
     address 10.10.10.2/32
     vxlan-local-tunnelip 10.10.10.2
 
-auto eth0
-iface eth0
-    vrf mgmt
-    address 192.168.200.12/24
+auto swp1
+iface swp1
+    alias bond member of bond1
 
-auto mgmt
-iface mgmt
-  vrf-table auto
-  address 127.0.0.1/8
-  address ::1/128
+auto swp2
+iface swp2
+    alias bond member of bond2
 
-auto RED
-iface RED
-  vrf-table auto
-
-auto BLUE
-iface BLUE
-  vrf-table auto
-
-auto bridge
-iface bridge
-    bridge-ports bond1 bond2 bond3 vni10 vni20 vni30 vniRED vniBLUE 
-    bridge-vids 10 20 30 4001 4002  
-    bridge-vlan-aware yes
-
-auto vni10
-iface vni10
-    bridge-access 10
-    vxlan-id 10
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-    vxlan-mcastgrp 224.0.0.10
-
-auto vni20
-iface vni20
-    bridge-access 20
-    vxlan-id 20
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-    vxlan-mcastgrp 224.0.0.20
-
-auto vni30
-iface vni30
-    bridge-access 30
-    vxlan-id 30
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-    vxlan-mcastgrp 224.0.0.30
-
-auto vniRED
-iface vniRED
-    bridge-access 4001
-    vxlan-id 4001
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-
-auto vniBLUE
-iface vniBLUE
-    bridge-access 4002
-    vxlan-id 4002
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-
-auto vlan10
-iface vlan10
-    address 10.1.10.3/24
-    address-virtual 00:00:00:00:00:10 10.1.10.1/24
-    vrf RED
-    vlan-raw-device bridge
-    vlan-id 10
-
-auto vlan20
-iface vlan20
-    address 10.1.20.3/24
-    address-virtual 00:00:00:00:00:20 10.1.20.1/24
-    vrf RED
-    vlan-raw-device bridge
-    vlan-id 20
-
-auto vlan30
-iface vlan30
-    address 10.1.30.3/24
-    address-virtual 00:00:00:00:00:30 10.1.30.1/24
-    vrf BLUE
-    vlan-raw-device bridge
-    vlan-id 30
-
-auto vlan4001
-iface vlan4001
-    hwaddress 44:38:39:BE:EF:AA
-    vrf RED
-    vlan-raw-device bridge
-    vlan-id 4001
-
-auto vlan4002
-iface vlan4002
-    hwaddress 44:38:39:BE:EF:AA
-    vrf BLUE
-    vlan-raw-device bridge
-    vlan-id 4002
+auto swp3
+iface swp3
+    alias bond member of bond3
 
 auto swp51
 iface swp51
@@ -1866,47 +1752,145 @@ auto swp52
 iface swp52
     alias to spine
 
-auto swp1
-iface swp1
-    alias bond member of bond1
+auto BLUE
+iface BLUE
+    vrf-table auto
+
+auto RED
+iface RED
+    vrf-table auto
 
 auto bond1
 iface bond1
-    bond-slaves swp1 
-    es-sys-mac 44:38:39:BE:EF:AA
-    bridge-access 10
-    mtu 9000
     bond-lacp-bypass-allow yes
+    bond-slaves swp1
+    bridge-access 10
+    es-sys-mac 44:38:39:BE:EF:AA
     mstpctl-bpduguard yes
     mstpctl-portadminedge yes
-
-auto swp2
-iface swp2
-    alias bond member of bond2
+    mtu 9000
 
 auto bond2
 iface bond2
-    bond-slaves swp2 
-    es-sys-mac 44:38:39:BE:EF:AA
-    bridge-access 20
-    mtu 9000
     bond-lacp-bypass-allow yes
+    bond-slaves swp2
+    bridge-access 20
+    es-sys-mac 44:38:39:BE:EF:AA
     mstpctl-bpduguard yes
     mstpctl-portadminedge yes
-
-auto swp3
-iface swp3
-    alias bond member of bond3
+    mtu 9000
 
 auto bond3
 iface bond3
-    bond-slaves swp3 
-    es-sys-mac 44:38:39:BE:EF:AA
-    bridge-access 30
-    mtu 9000
     bond-lacp-bypass-allow yes
+    bond-slaves swp3
+    bridge-access 30
+    es-sys-mac 44:38:39:BE:EF:AA
     mstpctl-bpduguard yes
     mstpctl-portadminedge yes
+    mtu 9000
+
+auto bridge
+iface bridge
+    bridge-ports bond1 bond2 bond3 vni10 vni20 vni30 vniBLUE vniRED
+    bridge-vids 10 20 30 4001-4002
+    bridge-vlan-aware yes
+
+auto mgmt
+iface mgmt
+    vrf-table auto
+    address 127.0.0.1/8
+    address ::1/128
+
+auto eth0
+iface eth0 inet dhcp
+    vrf mgmt
+
+auto vlan10
+iface vlan10
+    address 10.1.10.2/24
+    address-virtual 00:00:00:00:00:10 10.1.10.1/24
+    vlan-id 10
+    vlan-raw-device bridge
+    vrf RED
+
+auto vlan20
+iface vlan20
+    address 10.1.20.2/24
+    address-virtual 00:00:00:00:00:20 10.1.20.1/24
+    vlan-id 20
+    vlan-raw-device bridge
+    vrf RED
+
+auto vlan30
+iface vlan30
+    address 10.1.30.2/24
+    address-virtual 00:00:00:00:00:30 10.1.30.1/24
+    vlan-id 30
+    vlan-raw-device bridge
+    vrf BLUE
+
+auto vlan4001
+iface vlan4001
+    hwaddress 44:38:39:BE:EF:AA
+    vlan-id 4001
+    vlan-raw-device bridge
+    vrf RED
+
+auto vlan4002
+iface vlan4002
+    hwaddress 44:38:39:BE:EF:AA
+    vlan-id 4002
+    vlan-raw-device bridge
+    vrf BLUE
+
+auto vni10
+iface vni10
+    bridge-access 10
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 10
+    vxlan-mcastgrp 224.0.0.10
+
+auto vni20
+iface vni20
+    bridge-access 20
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 20
+    vxlan-mcastgrp 224.0.0.20
+
+auto vni30
+iface vni30
+    bridge-access 30
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 30
+    vxlan-mcastgrp 224.0.0.30
+
+auto vniBLUE
+iface vniBLUE
+    bridge-access 4002
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 4002
+
+auto vniRED
+iface vniRED
+    bridge-access 4001
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 4001
 ```
 
 {{</tab>}}
@@ -1914,122 +1898,22 @@ iface bond3
 
 ```
 cumulus@leaf03:~$ cat /etc/network/interfaces
-...
 auto lo
 iface lo inet loopback
     address 10.10.10.3/32
     vxlan-local-tunnelip 10.10.10.3
 
-auto eth0
-iface eth0
-    vrf mgmt
-    address 192.168.200.13/24
+auto swp1
+iface swp1
+    alias bond member of bond1
 
-auto mgmt
-iface mgmt
-  vrf-table auto
-  address 127.0.0.1/8
-  address ::1/128
+auto swp2
+iface swp2
+    alias bond member of bond2
 
-auto RED
-iface RED
-  vrf-table auto
-
-auto BLUE
-iface BLUE
-  vrf-table auto
-
-auto bridge
-iface bridge
-    bridge-ports bond1 bond2 bond3 vni10 vni20 vni30 vniRED vniBLUE 
-    bridge-vids 10 20 30 4001 4002  
-    bridge-vlan-aware yes
-
-auto vni10
-iface vni10
-    bridge-access 10
-    vxlan-id 10
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-    vxlan-mcastgrp 224.0.0.10
-
-auto vni20
-iface vni20
-    bridge-access 20
-    vxlan-id 20
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-    vxlan-mcastgrp 224.0.0.20
-
-auto vni30
-iface vni30
-    bridge-access 30
-    vxlan-id 30
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-    vxlan-mcastgrp 224.0.0.30
-
-auto vniRED
-iface vniRED
-    bridge-access 4001
-    vxlan-id 4001
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-
-auto vniBLUE
-iface vniBLUE
-    bridge-access 4002
-    vxlan-id 4002
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-
-auto vlan10
-iface vlan10
-    address 10.1.10.4/24
-    address-virtual 00:00:00:00:00:10 10.1.10.1/24
-    vrf RED
-    vlan-raw-device bridge
-    vlan-id 10
-
-auto vlan20
-iface vlan20
-    address 10.1.20.4/24
-    address-virtual 00:00:00:00:00:20 10.1.20.1/24
-    vrf RED
-    vlan-raw-device bridge
-    vlan-id 20
-
-auto vlan30
-iface vlan30
-    address 10.1.30.4/24
-    address-virtual 00:00:00:00:00:30 10.1.30.1/24
-    vrf BLUE
-    vlan-raw-device bridge
-    vlan-id 30
-
-auto vlan4001
-iface vlan4001
-    hwaddress 44:38:39:BE:EF:BB
-    vrf RED
-    vlan-raw-device bridge
-    vlan-id 4001
-
-auto vlan4002
-iface vlan4002
-    hwaddress 44:38:39:BE:EF:BB
-    vrf BLUE
-    vlan-raw-device bridge
-    vlan-id 4002
+auto swp3
+iface swp3
+    alias bond member of bond3
 
 auto swp51
 iface swp51
@@ -2039,47 +1923,145 @@ auto swp52
 iface swp52
     alias to spine
 
-auto swp1
-iface swp1
-    alias bond member of bond1
+auto BLUE
+iface BLUE
+    vrf-table auto
+
+auto RED
+iface RED
+    vrf-table auto
 
 auto bond1
 iface bond1
-    bond-slaves swp1 
-    es-sys-mac 44:38:39:BE:EF:BB
-    bridge-access 10
-    mtu 9000
     bond-lacp-bypass-allow yes
+    bond-slaves swp1
+    bridge-access 10
+    es-sys-mac 44:38:39:BE:EF:AA
     mstpctl-bpduguard yes
     mstpctl-portadminedge yes
-
-auto swp2
-iface swp2
-    alias bond member of bond2
+    mtu 9000
 
 auto bond2
 iface bond2
-    bond-slaves swp2 
-    es-sys-mac 44:38:39:BE:EF:BB
-    bridge-access 20
-    mtu 9000
     bond-lacp-bypass-allow yes
+    bond-slaves swp2
+    bridge-access 20
+    es-sys-mac 44:38:39:BE:EF:AA
     mstpctl-bpduguard yes
     mstpctl-portadminedge yes
-
-auto swp3
-iface swp3
-    alias bond member of bond3
+    mtu 9000
 
 auto bond3
 iface bond3
-    bond-slaves swp3 
-    es-sys-mac 44:38:39:BE:EF:BB
-    bridge-access 30
-    mtu 9000
     bond-lacp-bypass-allow yes
+    bond-slaves swp3
+    bridge-access 30
+    es-sys-mac 44:38:39:BE:EF:AA
     mstpctl-bpduguard yes
     mstpctl-portadminedge yes
+    mtu 9000
+
+auto bridge
+iface bridge
+    bridge-ports bond1 bond2 bond3 vni10 vni20 vni30 vniBLUE vniRED
+    bridge-vids 10 20 30 4001-4002
+    bridge-vlan-aware yes
+
+auto mgmt
+iface mgmt
+    vrf-table auto
+    address 127.0.0.1/8
+    address ::1/128
+
+auto eth0
+iface eth0 inet dhcp
+    vrf mgmt
+
+auto vlan10
+iface vlan10
+    address 10.1.10.2/24
+    address-virtual 00:00:00:00:00:10 10.1.10.1/24
+    vlan-id 10
+    vlan-raw-device bridge
+    vrf RED
+
+auto vlan20
+iface vlan20
+    address 10.1.20.2/24
+    address-virtual 00:00:00:00:00:20 10.1.20.1/24
+    vlan-id 20
+    vlan-raw-device bridge
+    vrf RED
+
+auto vlan30
+iface vlan30
+    address 10.1.30.2/24
+    address-virtual 00:00:00:00:00:30 10.1.30.1/24
+    vlan-id 30
+    vlan-raw-device bridge
+    vrf BLUE
+
+auto vlan4001
+iface vlan4001
+    hwaddress 44:38:39:BE:EF:AA
+    vlan-id 4001
+    vlan-raw-device bridge
+    vrf RED
+
+auto vlan4002
+iface vlan4002
+    hwaddress 44:38:39:BE:EF:AA
+    vlan-id 4002
+    vlan-raw-device bridge
+    vrf BLUE
+
+auto vni10
+iface vni10
+    bridge-access 10
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 10
+    vxlan-mcastgrp 224.0.0.10
+
+auto vni20
+iface vni20
+    bridge-access 20
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 20
+    vxlan-mcastgrp 224.0.0.20
+
+auto vni30
+iface vni30
+    bridge-access 30
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 30
+    vxlan-mcastgrp 224.0.0.30
+
+auto vniBLUE
+iface vniBLUE
+    bridge-access 4002
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 4002
+
+auto vniRED
+iface vniRED
+    bridge-access 4001
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 4001
 ```
 
 {{</tab>}}
@@ -2087,121 +2069,22 @@ iface bond3
 
 ```
 cumulus@leaf04:~$ cat /etc/network/interfaces
-...
 auto lo
 iface lo inet loopback
     address 10.10.10.4/32
     vxlan-local-tunnelip 10.10.10.4
 
-auto eth0
-iface eth0
-    vrf mgmt
-    address 192.168.200.14/24
+auto swp1
+iface swp1
+    alias bond member of bond1
 
-auto mgmt
-iface mgmt
-  vrf-table auto
-  address 127.0.0.1/8
-  address ::1/128
+auto swp2
+iface swp2
+    alias bond member of bond2
 
-auto RED
-iface RED
-  vrf-table auto
-
-auto BLUE
-iface BLUE
-  vrf-table auto
-
-auto bridge
-iface bridge
-    bridge-ports bond1 bond2 bond3 vni10 vni20 vni30 vniRED vniBLUE 10 20 30 4001 4002  
-    bridge-vlan-aware yes
-
-auto vni10
-iface vni10
-    bridge-access 10
-    vxlan-id 10
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-    vxlan-mcastgrp 224.0.0.10
-
-auto vni20
-iface vni20
-    bridge-access 20
-    vxlan-id 20
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-    vxlan-mcastgrp 224.0.0.20
-
-auto vni30
-iface vni30
-    bridge-access 30
-    vxlan-id 30
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-    vxlan-mcastgrp 224.0.0.30
-
-auto vniRED
-iface vniRED
-    bridge-access 4001
-    vxlan-id 4001
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-
-auto vniBLUE
-iface vniBLUE
-    bridge-access 4002
-    vxlan-id 4002
-    mstpctl-portbpdufilter yes
-    mstpctl-bpduguard yes
-    bridge-learning off
-    bridge-arp-nd-suppress on
-
-auto vlan10
-iface vlan10
-    address 10.1.10.5/24
-    address-virtual 00:00:00:00:00:10 10.1.10.1/24
-    vrf RED
-    vlan-raw-device bridge
-    vlan-id 10
-
-auto vlan20
-iface vlan20
-    address 10.1.20.5/24
-    address-virtual 00:00:00:00:00:20 10.1.20.1/24
-    vrf RED
-    vlan-raw-device bridge
-    vlan-id 20
-
-auto vlan30
-iface vlan30
-    address 10.1.30.5/24
-    address-virtual 00:00:00:00:00:30 10.1.30.1/24
-    vrf BLUE
-    vlan-raw-device bridge
-    vlan-id 30
-
-auto vlan4001
-iface vlan4001
-    hwaddress 44:38:39:BE:EF:BB
-    vrf RED
-    vlan-raw-device bridge
-    vlan-id 4001
-
-auto vlan4002
-iface vlan4002
-    hwaddress 44:38:39:BE:EF:BB
-    vrf BLUE
-    vlan-raw-device bridge
-    vlan-id 4002
+auto swp3
+iface swp3
+    alias bond member of bond3
 
 auto swp51
 iface swp51
@@ -2211,47 +2094,145 @@ auto swp52
 iface swp52
     alias to spine
 
-auto swp1
-iface swp1
-    alias bond member of bond1
+auto BLUE
+iface BLUE
+    vrf-table auto
+
+auto RED
+iface RED
+    vrf-table auto
 
 auto bond1
 iface bond1
-    bond-slaves swp1 
-    es-sys-mac 44:38:39:BE:EF:BB
-    bridge-access 10
-    mtu 9000
     bond-lacp-bypass-allow yes
+    bond-slaves swp1
+    bridge-access 10
+    es-sys-mac 44:38:39:BE:EF:AA
     mstpctl-bpduguard yes
     mstpctl-portadminedge yes
-
-auto swp2
-iface swp2
-    alias bond member of bond2
+    mtu 9000
 
 auto bond2
 iface bond2
-    bond-slaves swp2 
-    es-sys-mac 44:38:39:BE:EF:BB
-    bridge-access 20
-    mtu 9000
     bond-lacp-bypass-allow yes
+    bond-slaves swp2
+    bridge-access 20
+    es-sys-mac 44:38:39:BE:EF:AA
     mstpctl-bpduguard yes
     mstpctl-portadminedge yes
-
-auto swp3
-iface swp3
-    alias bond member of bond3
+    mtu 9000
 
 auto bond3
 iface bond3
-    bond-slaves swp3 
-    es-sys-mac 44:38:39:BE:EF:BB
-    bridge-access 30
-    mtu 9000
     bond-lacp-bypass-allow yes
+    bond-slaves swp3
+    bridge-access 30
+    es-sys-mac 44:38:39:BE:EF:AA
     mstpctl-bpduguard yes
     mstpctl-portadminedge yes
+    mtu 9000
+
+auto bridge
+iface bridge
+    bridge-ports bond1 bond2 bond3 vni10 vni20 vni30 vniBLUE vniRED
+    bridge-vids 10 20 30 4001-4002
+    bridge-vlan-aware yes
+
+auto mgmt
+iface mgmt
+    vrf-table auto
+    address 127.0.0.1/8
+    address ::1/128
+
+auto eth0
+iface eth0 inet dhcp
+    vrf mgmt
+
+auto vlan10
+iface vlan10
+    address 10.1.10.2/24
+    address-virtual 00:00:00:00:00:10 10.1.10.1/24
+    vlan-id 10
+    vlan-raw-device bridge
+    vrf RED
+
+auto vlan20
+iface vlan20
+    address 10.1.20.2/24
+    address-virtual 00:00:00:00:00:20 10.1.20.1/24
+    vlan-id 20
+    vlan-raw-device bridge
+    vrf RED
+
+auto vlan30
+iface vlan30
+    address 10.1.30.2/24
+    address-virtual 00:00:00:00:00:30 10.1.30.1/24
+    vlan-id 30
+    vlan-raw-device bridge
+    vrf BLUE
+
+auto vlan4001
+iface vlan4001
+    hwaddress 44:38:39:BE:EF:AA
+    vlan-id 4001
+    vlan-raw-device bridge
+    vrf RED
+
+auto vlan4002
+iface vlan4002
+    hwaddress 44:38:39:BE:EF:AA
+    vlan-id 4002
+    vlan-raw-device bridge
+    vrf BLUE
+
+auto vni10
+iface vni10
+    bridge-access 10
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 10
+    vxlan-mcastgrp 224.0.0.10
+
+auto vni20
+iface vni20
+    bridge-access 20
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 20
+    vxlan-mcastgrp 224.0.0.20
+
+auto vni30
+iface vni30
+    bridge-access 30
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 30
+    vxlan-mcastgrp 224.0.0.30
+
+auto vniBLUE
+iface vniBLUE
+    bridge-access 4002
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 4002
+
+auto vniRED
+iface vniRED
+    bridge-access 4001
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
+    vxlan-id 4001
 ```
 
 {{</tab>}}
@@ -2259,7 +2240,6 @@ iface bond3
 
 ```
 cumulus@spine01:~$ cat /etc/network/interfaces
-...
 auto lo
 iface lo inet loopback
     address 10.10.10.101/32
@@ -2287,9 +2267,9 @@ iface swp4
 
 auto mgmt
 iface mgmt
+    vrf-table auto
     address 127.0.0.1/8
     address ::1/128
-    vrf-table auto
 ```
 
 {{</tab>}}
@@ -2297,7 +2277,6 @@ iface mgmt
 
 ```
 cumulus@spine02:~$ cat /etc/network/interfaces
-...
 auto lo
 iface lo inet loopback
     address 10.10.10.102/32
@@ -2335,7 +2314,6 @@ iface mgmt
 
 ```
 cumulus@host01:~$ cat /etc/network/interfaces
-...
 auto lo
 iface lo inet loopback
 
@@ -2373,7 +2351,6 @@ iface uplink inet static
 
 ```
 cumulus@host02:~$ cat /etc/network/interfaces
-...
 auto lo
 iface lo inet loopback
 
@@ -2411,7 +2388,6 @@ iface uplink inet static
 
 ```
 cumulus@host03:~$ cat /etc/network/interfaces
-...
 auto lo
 iface lo inet loopback
 
@@ -2449,7 +2425,6 @@ iface uplink inet static
 
 ```
 cumulus@host04:~$ cat /etc/network/interfaces
-...
 auto lo
 iface lo inet loopback
 
@@ -2493,88 +2468,70 @@ iface uplink inet static
 ```
 cumulus@leaf01:~$ cat /etc/frr/frr.conf
 ...
-!
+interface lo
+ ip pim
+ ip pim use-source 10.10.10.1
 ip pim rp 10.10.100.100 224.0.0.0/4
 ip pim ecmp
 ip pim keep-alive-timer 3600
-interface lo
-  ip igmp
-  ip pim
-  ip pim use-source 10.10.10.1
 interface swp51
-  evpn mh uplink
-  ip pim
+ ip pim
+ evpn mh uplink
 interface swp52
-  evpn mh uplink
-  ip pim
+ ip pim
+ evpn mh uplink
+evpn mh startup-delay 10
 interface bond1
-  evpn mh es-df-pref 50000
-  evpn mh es-id 1
-  evpn mh es-sys-mac 44:38:39:BE:EF:AA
+ evpn mh es-df-pref 50000
+ evpn mh es-sys-mac 44:38:39:BE:EF:AA
+ evpn mh es-id 1
 interface bond2
-  evpn mh es-df-pref 50000
-  evpn mh es-id 2
-  evpn mh es-sys-mac 44:38:39:BE:EF:AA
+ evpn mh es-df-pref 50000
+ evpn mh es-sys-mac 44:38:39:BE:EF:AA
+ evpn mh es-id 2
 interface bond3
-  evpn mh es-df-pref 50000
-  evpn mh es-id 3
-  evpn mh es-sys-mac 44:38:39:BE:EF:AA
-
- evpn mh startup-delay 10
-vrf mgmt
- ip route 0.0.0.0/0 192.168.200.1
- exit-vrf
-!
+ evpn mh es-df-pref 50000
+ evpn mh es-sys-mac 44:38:39:BE:EF:AA
+ evpn mh es-id 3
 vrf RED
  vni 4001
- exit-vrf
-!
+exit-vrf
 vrf BLUE
  vni 4002
- exit-vrf
-!
-!
+exit-vrf
+vrf mgmt
+ ip route 0.0.0.0/0 192.168.200.1
+exit-vrf
 router bgp 65101
  bgp router-id 10.10.10.1
+ bgp bestpath as-path multipath-relax
  neighbor underlay peer-group
  neighbor underlay remote-as external
  neighbor swp51 interface peer-group underlay
  neighbor swp52 interface peer-group underlay
- neighbor swp53 interface peer-group underlay
- neighbor swp54 interface peer-group underlay
- !
- !
  address-family ipv4 unicast
   redistribute connected
  exit-address-family
- !
  address-family l2vpn evpn
   neighbor underlay activate
   advertise-all-vni
  exit-address-family
-!
 router bgp 65101 vrf RED
  bgp router-id 10.10.10.1
- !
  address-family ipv4 unicast
   redistribute connected
  exit-address-family
- !
  address-family l2vpn evpn
   advertise ipv4 unicast
  exit-address-family
-!
 router bgp 65101 vrf BLUE
  bgp router-id 10.10.10.1
- !
  address-family ipv4 unicast
   redistribute connected
  exit-address-family
- !
  address-family l2vpn evpn
   advertise ipv4 unicast
  exit-address-family
-!
 ```
 
 {{</tab>}}
@@ -2583,88 +2540,70 @@ router bgp 65101 vrf BLUE
 ```
 cumulus@leaf02:~$ cat /etc/frr/frr.conf
 ...
-!
+interface lo
+ ip pim
+ ip pim use-source 10.10.10.2
 ip pim rp 10.10.100.100 224.0.0.0/4
 ip pim ecmp
 ip pim keep-alive-timer 3600
-interface lo
-  ip igmp
-  ip pim
-  ip pim use-source 10.10.10.2
 interface swp51
-  evpn mh uplink
-  ip pim
+ ip pim
+ evpn mh uplink
 interface swp52
-  evpn mh uplink
-  ip pim
+ ip pim
+ evpn mh uplink
+evpn mh startup-delay 10
 interface bond1
-  evpn mh es-df-pref 1
-  evpn mh es-id 1
-  evpn mh es-sys-mac 44:38:39:BE:EF:AA
+ evpn mh es-df-pref 50000
+ evpn mh es-sys-mac 44:38:39:BE:EF:AA
+ evpn mh es-id 1
 interface bond2
-  evpn mh es-df-pref 1
-  evpn mh es-id 2
-  evpn mh es-sys-mac 44:38:39:BE:EF:AA
+ evpn mh es-df-pref 50000
+ evpn mh es-sys-mac 44:38:39:BE:EF:AA
+ evpn mh es-id 2
 interface bond3
-  evpn mh es-df-pref 1
-  evpn mh es-id 3
-  evpn mh es-sys-mac 44:38:39:BE:EF:AA
-
- evpn mh startup-delay 10
-vrf mgmt
- ip route 0.0.0.0/0 192.168.200.1
- exit-vrf
-!
+ evpn mh es-df-pref 50000
+ evpn mh es-sys-mac 44:38:39:BE:EF:AA
+ evpn mh es-id 3
 vrf RED
  vni 4001
- exit-vrf
-!
+exit-vrf
 vrf BLUE
  vni 4002
- exit-vrf
-!
-!
+exit-vrf
+vrf mgmt
+ ip route 0.0.0.0/0 192.168.200.1
+exit-vrf
 router bgp 65102
  bgp router-id 10.10.10.2
+ bgp bestpath as-path multipath-relax
  neighbor underlay peer-group
  neighbor underlay remote-as external
  neighbor swp51 interface peer-group underlay
  neighbor swp52 interface peer-group underlay
- neighbor swp53 interface peer-group underlay
- neighbor swp54 interface peer-group underlay
- !
- !
  address-family ipv4 unicast
   redistribute connected
  exit-address-family
- !
  address-family l2vpn evpn
   neighbor underlay activate
   advertise-all-vni
  exit-address-family
-!
 router bgp 65102 vrf RED
  bgp router-id 10.10.10.2
- !
  address-family ipv4 unicast
   redistribute connected
  exit-address-family
- !
  address-family l2vpn evpn
   advertise ipv4 unicast
  exit-address-family
-!
 router bgp 65102 vrf BLUE
  bgp router-id 10.10.10.2
- !
  address-family ipv4 unicast
   redistribute connected
  exit-address-family
- !
  address-family l2vpn evpn
   advertise ipv4 unicast
  exit-address-family
-!
 ```
 
 {{</tab>}}
@@ -2673,91 +2612,70 @@ router bgp 65102 vrf BLUE
 ```
 cumulus@leaf03:~$ cat /etc/frr/frr.conf
 ...
-!
+interface lo
+ ip pim
+ ip pim use-source 10.10.10.3
 ip pim rp 10.10.100.100 224.0.0.0/4
 ip pim ecmp
 ip pim keep-alive-timer 3600
-interface lo
-  ip igmp
-  ip pim
-  ip pim use-source 10.10.10.3
 interface swp51
-  evpn mh uplink
-  ip pim
+ ip pim
+ evpn mh uplink
 interface swp52
-  evpn mh uplink
-  ip pim
+ ip pim
+ evpn mh uplink
+evpn mh startup-delay 10
 interface bond1
-  evpn mh es-df-pref 50000
-  evpn mh es-id 1
-  evpn mh es-sys-mac 44:38:39:BE:EF:BB
+ evpn mh es-df-pref 50000
+ evpn mh es-sys-mac 44:38:39:BE:EF:AA
+ evpn mh es-id 1
 interface bond2
-  evpn mh es-df-pref 50000
-  evpn mh es-id 2
-  evpn mh es-sys-mac 44:38:39:BE:EF:BB
+ evpn mh es-df-pref 50000
+ evpn mh es-sys-mac 44:38:39:BE:EF:AA
+ evpn mh es-id 2
 interface bond3
-  evpn mh es-df-pref 50000
-  evpn mh es-id 3
-  evpn mh es-sys-mac 44:38:39:BE:EF:BB
-
- evpn mh startup-delay 10
-vrf mgmt
- ip route 0.0.0.0/0 192.168.200.1
- exit-vrf
-!
+ evpn mh es-df-pref 50000
+ evpn mh es-sys-mac 44:38:39:BE:EF:AA
+ evpn mh es-id 3
 vrf RED
  vni 4001
- exit-vrf
-!
+exit-vrf
 vrf BLUE
  vni 4002
- exit-vrf
-!
-!
+exit-vrf
+vrf mgmt
+ ip route 0.0.0.0/0 192.168.200.1
+exit-vrf
 router bgp 65103
  bgp router-id 10.10.10.3
+ bgp bestpath as-path multipath-relax
  neighbor underlay peer-group
  neighbor underlay remote-as external
  neighbor swp51 interface peer-group underlay
  neighbor swp52 interface peer-group underlay
- neighbor swp53 interface peer-group underlay
- neighbor swp54 interface peer-group underlay
- !
- !
  address-family ipv4 unicast
   redistribute connected
  exit-address-family
- !
  address-family l2vpn evpn
   neighbor underlay activate
   advertise-all-vni
  exit-address-family
-!
 router bgp 65103 vrf RED
  bgp router-id 10.10.10.3
- !
  address-family ipv4 unicast
   redistribute connected
  exit-address-family
- !
  address-family l2vpn evpn
   advertise ipv4 unicast
  exit-address-family
-!
 router bgp 65103 vrf BLUE
  bgp router-id 10.10.10.3
- !
  address-family ipv4 unicast
   redistribute connected
  exit-address-family
- !
  address-family l2vpn evpn
   advertise ipv4 unicast
  exit-address-family
-!
-!
-line vty
-!
 ```
 
 {{</tab>}}
@@ -2766,91 +2684,70 @@ line vty
 ```
 cumulus@leaf03:~$ cat /etc/frr/frr.conf
 ...
-!
+interface lo
+ ip pim
+ ip pim use-source 10.10.10.4
 ip pim rp 10.10.100.100 224.0.0.0/4
 ip pim ecmp
 ip pim keep-alive-timer 3600
-interface lo
-  ip igmp
-  ip pim
-  ip pim use-source 10.10.10.4
 interface swp51
-  evpn mh uplink
-  ip pim
+ ip pim
+ evpn mh uplink
 interface swp52
-  evpn mh uplink
-  ip pim
+ ip pim
+ evpn mh uplink
+evpn mh startup-delay 10
 interface bond1
-  evpn mh es-df-pref 1
-  evpn mh es-id 1
-  evpn mh es-sys-mac 44:38:39:BE:EF:BB
+ evpn mh es-df-pref 50000
+ evpn mh es-sys-mac 44:38:39:BE:EF:AA
+ evpn mh es-id 1
 interface bond2
-  evpn mh es-df-pref 1
-  evpn mh es-id 2
-  evpn mh es-sys-mac 44:38:39:BE:EF:BB
+ evpn mh es-df-pref 50000
+ evpn mh es-sys-mac 44:38:39:BE:EF:AA
+ evpn mh es-id 2
 interface bond3
-  evpn mh es-df-pref 1
-  evpn mh es-id 3
-  evpn mh es-sys-mac 44:38:39:BE:EF:BB
-
- evpn mh startup-delay 10
-vrf mgmt
- ip route 0.0.0.0/0 192.168.200.1
- exit-vrf
-!
+ evpn mh es-df-pref 50000
+ evpn mh es-sys-mac 44:38:39:BE:EF:AA
+ evpn mh es-id 3
 vrf RED
  vni 4001
- exit-vrf
-!
+exit-vrf
 vrf BLUE
  vni 4002
- exit-vrf
-!
-!
+exit-vrf
+vrf mgmt
+ ip route 0.0.0.0/0 192.168.200.1
+exit-vrf
 router bgp 65104
  bgp router-id 10.10.10.4
+ bgp bestpath as-path multipath-relax
  neighbor underlay peer-group
  neighbor underlay remote-as external
  neighbor swp51 interface peer-group underlay
  neighbor swp52 interface peer-group underlay
- neighbor swp53 interface peer-group underlay
- neighbor swp54 interface peer-group underlay
- !
- !
  address-family ipv4 unicast
   redistribute connected
  exit-address-family
- !
  address-family l2vpn evpn
   neighbor underlay activate
   advertise-all-vni
  exit-address-family
-!
 router bgp 65104 vrf RED
  bgp router-id 10.10.10.4
- !
  address-family ipv4 unicast
   redistribute connected
  exit-address-family
- !
  address-family l2vpn evpn
   advertise ipv4 unicast
  exit-address-family
-!
 router bgp 65104 vrf BLUE
  bgp router-id 10.10.10.4
- !
  address-family ipv4 unicast
   redistribute connected
  exit-address-family
- !
  address-family l2vpn evpn
   advertise ipv4 unicast
  exit-address-family
-!
-!
-line vty
-!
 ```
 
 {{</tab>}}
@@ -2859,48 +2756,38 @@ line vty
 ```
 cumulus@spine01:~$ cat /etc/frr/frr.conf
 ...
-!
+interface lo
+ ip pim
+ ip pim use-source 10.10.10.101
+interface swp1
+ ip pim
+interface swp2
+ ip pim
+interface swp3
+ ip pim
+interface swp4
+ ip pim
 ip pim rp 10.10.100.100 224.0.0.0/4
 ip pim ecmp
 ip pim keep-alive-timer 3600
-interface lo
-  ip igmp
-  ip pim
-  ip pim use-source 10.10.10.101
-interface swp1
-  ip pim
-interface swp2
-  ip pim
-interface swp3
-  ip pim
-interface swp4
-  ip pim
 vrf mgmt
  ip route 0.0.0.0/0 192.168.200.1
- exit-vrf
-!
-!
+exit-vrf
 router bgp 65100
  bgp router-id 10.10.10.101
+ bgp bestpath as-path multipath-relax
  neighbor underlay peer-group
  neighbor underlay remote-as external
  neighbor swp1 interface peer-group underlay
  neighbor swp2 interface peer-group underlay
  neighbor swp3 interface peer-group underlay
  neighbor swp4 interface peer-group underlay
- !
- !
  address-family ipv4 unicast
   redistribute connected
  exit-address-family
- !
  address-family l2vpn evpn
   neighbor underlay activate
  exit-address-family
-!
-!
-line vty
-!
 ```
 
 {{</tab>}}
@@ -2909,49 +2796,38 @@ line vty
 ```
 cumulus@spine02:~$ cat /etc/frr/frr.conf
 !
+interface lo
+ ip pim
+ ip pim use-source 10.10.10.102
+interface swp1
+ ip pim
+interface swp2
+ ip pim
+interface swp3
+ ip pim
+interface swp4
+ ip pim
 ip pim rp 10.10.100.100 224.0.0.0/4
 ip pim ecmp
 ip pim keep-alive-timer 3600
-interface lo
-  ip igmp
-  ip pim
-  ip pim use-source 10.10.10.102
-interface swp1
-  ip pim
-interface swp2
-  ip pim
-interface swp3
-  ip pim
-interface swp4
-  ip pim
 vrf mgmt
  ip route 0.0.0.0/0 192.168.200.1
- exit-vrf
-!
-!
+exit-vrf
 router bgp 65100
  bgp router-id 10.10.10.102
+ bgp bestpath as-path multipath-relax
  neighbor underlay peer-group
  neighbor underlay remote-as external
  neighbor swp1 interface peer-group underlay
  neighbor swp2 interface peer-group underlay
  neighbor swp3 interface peer-group underlay
  neighbor swp4 interface peer-group underlay
- neighbor swp5 interface peer-group underlay
- neighbor swp6 interface peer-group underlay
- !
- !
  address-family ipv4 unicast
   redistribute connected
  exit-address-family
- !
  address-family l2vpn evpn
   neighbor underlay activate
  exit-address-family
-!
-!
-line vty
-!
 ```
 
 {{</tab>}}
