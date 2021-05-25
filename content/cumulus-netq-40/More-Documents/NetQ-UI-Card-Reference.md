@@ -1079,7 +1079,7 @@ The *Interface Health* tab displays:
 <td>Range of time in which the displayed data was collected; applies to all card sizes.</td>
 </tr>
 <tr class="even">
-<td><img src="/images/netq/ntwk-health-if-health-icon.png" height="20" width="20"/></td>
+<td>{{<img src="/images/netq/ntwk-health-if-health-icon.png" height="20" width="20" >}}</td>
 <td>Indicates data is for Interface Health.</td>
 </tr>
 <tr class="odd">
@@ -4664,7 +4664,7 @@ The *Digital Optics* tab displays:
 </thead>
 <tbody>
 <tr class="odd">
-<td><img src="/images/netq/dom.svg" width="18" height="18"/></td>
+<td>{{<img src="/images/netq/dom.svg" width="18" height="18" >}}</td>
 <td>Indicates digital optics metrics for a single switch.</td>
 </tr>
 <tr class="even">
@@ -4835,7 +4835,7 @@ The full screen Switch card provides multiple tabs.
 <li><strong>Hostname</strong>: Hostname of the given device</li>
 <li><strong>Largest Chunk Size</strong>: Largest remaining chunk size on disk</li>
 <li><strong>Last Changed</strong>: Data and time that the storage allocation was last updated</li>
-<li><strong>Rebalance Recommended</strong>: Based on rules described in {{<exlink url="https://support.cumulusnetworks.com/hc/en-us/articles/360037394933-When-to-Rebalance-BTRFS-Partitions" text="When to Rebalance BTRFS Partitions" >}}, a rebalance is suggested</li>
+<li><strong>Rebalance Recommended</strong>: Based on rules described in [When to Rebalance BTRFS Partitions]({{<ref "/knowledge-base/Configuration-and-Usage/Storage/When-to-Rebalance-BTRFS-Partitions">}}), a rebalance is suggested</li>
 <li><strong>Unallocated Space</strong>: Amount of space remaining on the disk</li>
 <li><strong>Unused Data Chunks Space</strong>: Amount of available data chunk space</li>
 </ul></td>

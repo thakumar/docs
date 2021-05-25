@@ -49,7 +49,7 @@ Redistribute neighbor works as follows:
 
 The following example configuration is based on the {{<exlink url="https://github.com/cumulusnetworks/cldemo-vagrant" text="reference topology">}}. Other configurations are possible, based on the use cases outlined above. Here is a diagram of the topology:
 
-{{% imgOld 0 %}}
+{{< img src = "/images/cumulus-linux/redistribute-neighbor-example.png" >}}
 
 ### Configure the Leaf(s)
 
@@ -204,7 +204,7 @@ ARGS="-q -f -u10 -d10 -w -I"
 SUSPEND_ACTION="stop"
 ```
 
-For full instructions on installing `ifplugd` on Ubuntu, {{<kb_link url="knowledge-base/Using-ifplugd-on-a-Server-Host" text="follow this guide">}}.
+For full instructions on installing `ifplugd` on Ubuntu, [follow this guide]({{<ref "/knowledge-base/Configuration-and-Usage/Network-Interfaces/Using-ifplugd-on-a-Server-Host" >}}).
 
 ## Known Limitations
 
