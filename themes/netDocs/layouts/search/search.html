@@ -78,15 +78,17 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <script async src="https://cse.google.com/cse.js?cx=002929300794741444210:sy0sz3qlwdc"></script>
-            <div class="gcse-searchbox-only" enableAutoComplete="true" data-resultsUrl={{"search" | absURL}}></div>
-
-            <p class="search-hint">
-              <!--<b>Hint:</b> For better results, include your version number in your query.-->
-              Search is currently disabled and will return soon.
-            </p>
-
-            <div id="search-results"></div>
+            <div id="nvidia-search-page-widget"></div>
+            <script src="https://app.nvidia.com/search/nvidia-search-page-widget.js"></script>
+            <script>
+              NvidiaSearchPageWidget.mount({
+                  site: "https://docs.nvidia.com",
+                  language:  "en-us",
+                  apiUrl: 'https://appqa.nvidia.com/search/graphql',
+                  facets: "mimetype,site,docs_version",
+                  path:"/networking-ethernet-software/"
+                });
+            </script>
           </div>
         </div>
       </div>
