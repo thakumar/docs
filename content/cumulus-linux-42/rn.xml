@@ -7,6 +7,13 @@
 <th> Fixed </th>
 </tr>
 <tr>
+<td>CM-32516</td>
+<td>&lt;p&gt;When using NCLU to add new BGP neighbors to existing configurations, the existence of address-family statements are ignored and the neighbors are added at the end of these lines. This might cause a problem if you try to activate these new neighbors in any of the existing address-family configurations.&lt;br/&gt;
+To work around this issue, configure the new BGP neighbors with vtysh.&lt;/p&gt;</td>
+<td>3.7.14-3.7.14.2, 4.2.1-4.3.0</td>
+<td></td>
+</tr>
+<tr>
 <td>CM-28249</td>
 <td>&lt;p&gt;On the Mellanox switch, when you modify the buffer and queue configuration without restarting &lt;tt&gt;switchd&lt;/tt&gt;, you might see a one second interruption in forwarding.&lt;/p&gt;</td>
 <td>4.0.0-4.3.0</td>
@@ -55,6 +62,14 @@
 <td></td>
 </tr>
 <tr>
+<td>2666839</td>
+<td>CVE-2021-31535: missing length validation in various functions provided by libx11, the X11 client-side library, allow to inject X11 protocol commands on X clients, leading to authentication bypass, denial of service or potentially the execution of arbitrary code.
+Vulnerable: &lt;= 1.6.7-1+deb10u1
+Fixed: 1.6.7-1+deb10u2</td>
+<td>4.0.0-4.3.0</td>
+<td></td>
+</tr>
+<tr>
 <td>2656530</td>
 <td>CVE-2020-18032: A buffer overflow was discovered in Graphviz, which could potentially result in the execution of arbitrary code when processing a malformed file.
 Vulnerable: 2.40.1-6
@@ -70,7 +85,7 @@ Fixed: 2.40.1-6+deb10u1</td>
 </tr>
 <tr>
 <td>2653493</td>
-<td>On the Mellanox Spectrum-2 switches, after running the {{systemctl restart networking service}} command on the MLAG primary switch, the secondary switch also closes its ports.
+<td>After running the {{systemctl restart networking service}} command on the MLAG primary switch, the secondary switch also closes its ports.
 To work around this issue, run the {{ifreload -a}} command to restart networking.</td>
 <td>4.2.1-4.3.0</td>
 <td></td>
@@ -392,13 +407,6 @@ net add vlan 1 ip6-forward off
 
 The correct NCLU command to disable IPv6 forwarding is {{net add vlan 1 ipv6 forward off}} (without the hyphen).</td>
 <td>4.2.1-4.3.0</td>
-<td></td>
-</tr>
-<tr>
-<td>2555148</td>
-<td>When using NCLU to add new BGP neighbors to existing configurations, the existence of address-family statements are ignored and the neighbors are added at the end of these lines. This might cause a problem if you try to activate these new neighbors in any of the existing address-family configurations.
-To work around this issue, configure the new BGP neighbors with vtysh.</td>
-<td>3.7.14-3.7.15, 4.2.1-4.3.0</td>
 <td></td>
 </tr>
 <tr>
@@ -1446,6 +1454,13 @@ To work around this issue, change the value of {{arp_ignore}} to 2. See [Address
 <th> Fixed </th>
 </tr>
 <tr>
+<td>CM-32516</td>
+<td>&lt;p&gt;When using NCLU to add new BGP neighbors to existing configurations, the existence of address-family statements are ignored and the neighbors are added at the end of these lines. This might cause a problem if you try to activate these new neighbors in any of the existing address-family configurations.&lt;br/&gt;
+To work around this issue, configure the new BGP neighbors with vtysh.&lt;/p&gt;</td>
+<td>3.7.14-3.7.14.2, 4.2.1-4.3.0</td>
+<td></td>
+</tr>
+<tr>
 <td>CM-30832</td>
 <td>&lt;p&gt;The Mellanox SN2700 and SN2410 switch intermittently reports PSU fan state changes with &lt;tt&gt;Unable to read from device/fan1_input/pwm1&lt;/tt&gt; syslog messages.&lt;/p&gt;</td>
 <td>3.7.11-3.7.14, 4.1.1-4.2.1</td>
@@ -1500,6 +1515,14 @@ To work around this issue, change the value of {{arp_ignore}} to 2. See [Address
 <td></td>
 </tr>
 <tr>
+<td>2666839</td>
+<td>CVE-2021-31535: missing length validation in various functions provided by libx11, the X11 client-side library, allow to inject X11 protocol commands on X clients, leading to authentication bypass, denial of service or potentially the execution of arbitrary code.
+Vulnerable: &lt;= 1.6.7-1+deb10u1
+Fixed: 1.6.7-1+deb10u2</td>
+<td>4.0.0-4.3.0</td>
+<td></td>
+</tr>
+<tr>
 <td>2656530</td>
 <td>CVE-2020-18032: A buffer overflow was discovered in Graphviz, which could potentially result in the execution of arbitrary code when processing a malformed file.
 Vulnerable: 2.40.1-6
@@ -1515,7 +1538,7 @@ Fixed: 2.40.1-6+deb10u1</td>
 </tr>
 <tr>
 <td>2653493</td>
-<td>On the Mellanox Spectrum-2 switches, after running the {{systemctl restart networking service}} command on the MLAG primary switch, the secondary switch also closes its ports.
+<td>After running the {{systemctl restart networking service}} command on the MLAG primary switch, the secondary switch also closes its ports.
 To work around this issue, run the {{ifreload -a}} command to restart networking.</td>
 <td>4.2.1-4.3.0</td>
 <td></td>
@@ -2017,13 +2040,6 @@ Vulnerable: 1.0.7-2
 Fixed: 1.0.7-2+deb10u1</td>
 <td>4.0.0-4.2.1</td>
 <td>4.3.0</td>
-</tr>
-<tr>
-<td>2555148</td>
-<td>When using NCLU to add new BGP neighbors to existing configurations, the existence of address-family statements are ignored and the neighbors are added at the end of these lines. This might cause a problem if you try to activate these new neighbors in any of the existing address-family configurations.
-To work around this issue, configure the new BGP neighbors with vtysh.</td>
-<td>3.7.14-3.7.15, 4.2.1-4.3.0</td>
-<td></td>
 </tr>
 <tr>
 <td>2554992</td>
@@ -4029,6 +4045,14 @@ asic-monitor[7389]: File "/usr/lib/python2.7/dist-packages/cumulus/asic_monitor.
 <td>CM-15812</td>
 <td>&lt;p&gt;Multicast forwarding fails for IP addresses whose DMAC overlaps with reserved DIPs.&lt;/p&gt;</td>
 <td>3.2.1-3.7.14.2, 4.0.0-4.3.0</td>
+<td></td>
+</tr>
+<tr>
+<td>2666839</td>
+<td>CVE-2021-31535: missing length validation in various functions provided by libx11, the X11 client-side library, allow to inject X11 protocol commands on X clients, leading to authentication bypass, denial of service or potentially the execution of arbitrary code.
+Vulnerable: &lt;= 1.6.7-1+deb10u1
+Fixed: 1.6.7-1+deb10u2</td>
+<td>4.0.0-4.3.0</td>
 <td></td>
 </tr>
 <tr>

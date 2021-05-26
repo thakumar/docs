@@ -27,6 +27,13 @@
 <td></td>
 </tr>
 <tr>
+<td>CM-32516</td>
+<td>&lt;p&gt;When using NCLU to add new BGP neighbors to existing configurations, the existence of address-family statements are ignored and the neighbors are added at the end of these lines. This might cause a problem if you try to activate these new neighbors in any of the existing address-family configurations.&lt;br/&gt;
+To work around this issue, configure the new BGP neighbors with vtysh.&lt;/p&gt;</td>
+<td>3.7.14-3.7.14.2, 4.2.1-4.3.0</td>
+<td></td>
+</tr>
+<tr>
 <td>CM-32055</td>
 <td>&lt;p&gt;During a graceful restart of a peer router, if the link between the local system (Helper) and the restarting router flaps, the stale routes announced by the restarting router are no longer used for forwarding by the Helper router even though they remain in the BGP RIB.&lt;/p&gt;</td>
 <td>4.3.0</td>
@@ -81,6 +88,14 @@
 <td></td>
 </tr>
 <tr>
+<td>2666839</td>
+<td>CVE-2021-31535: missing length validation in various functions provided by libx11, the X11 client-side library, allow to inject X11 protocol commands on X clients, leading to authentication bypass, denial of service or potentially the execution of arbitrary code.
+Vulnerable: &lt;= 1.6.7-1+deb10u1
+Fixed: 1.6.7-1+deb10u2</td>
+<td>4.0.0-4.3.0</td>
+<td></td>
+</tr>
+<tr>
 <td>2656530</td>
 <td>CVE-2020-18032: A buffer overflow was discovered in Graphviz, which could potentially result in the execution of arbitrary code when processing a malformed file.
 Vulnerable: 2.40.1-6
@@ -96,7 +111,7 @@ Fixed: 2.40.1-6+deb10u1</td>
 </tr>
 <tr>
 <td>2653493</td>
-<td>On the Mellanox Spectrum-2 switches, after running the {{systemctl restart networking service}} command on the MLAG primary switch, the secondary switch also closes its ports.
+<td>After running the {{systemctl restart networking service}} command on the MLAG primary switch, the secondary switch also closes its ports.
 To work around this issue, run the {{ifreload -a}} command to restart networking.</td>
 <td>4.2.1-4.3.0</td>
 <td></td>
@@ -498,13 +513,6 @@ The correct NCLU command to disable IPv6 forwarding is {{net add vlan 1 ipv6 for
 
 This error has no functional impact.</td>
 <td>4.3.0</td>
-<td></td>
-</tr>
-<tr>
-<td>2555148</td>
-<td>When using NCLU to add new BGP neighbors to existing configurations, the existence of address-family statements are ignored and the neighbors are added at the end of these lines. This might cause a problem if you try to activate these new neighbors in any of the existing address-family configurations.
-To work around this issue, configure the new BGP neighbors with vtysh.</td>
-<td>3.7.14-3.7.15, 4.2.1-4.3.0</td>
 <td></td>
 </tr>
 <tr>
