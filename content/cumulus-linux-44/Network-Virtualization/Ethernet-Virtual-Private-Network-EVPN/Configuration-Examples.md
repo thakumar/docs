@@ -6283,6 +6283,7 @@ cumulus@leaf01:~$ net add interface swp1 alias bond member of bond1
 cumulus@leaf01:~$ net add interface swp2 alias bond member of bond2
 cumulus@leaf01:~$ net add interface swp3 alias bond member of bond3
 cumulus@leaf01:~$ net add interface swp51-54 alias to spine
+cumulus@leaf01:~$ net add bridge bridge vlan-aware
 cumulus@leaf01:~$ net add bond bond1 bridge access 10
 cumulus@leaf01:~$ net add bond bond1 clag id 1
 cumulus@leaf01:~$ net add bond bond1-3 bond lacp-bypass-allow
@@ -6302,9 +6303,7 @@ cumulus@leaf01:~$ net add interface peerlink.4094 clag backup-ip 10.10.10.2
 cumulus@leaf01:~$ net add interface peerlink.4094 clag peer-ip linklocal
 cumulus@leaf01:~$ net add interface peerlink.4094 clag priority 1000
 cumulus@leaf01:~$ net add interface peerlink.4094 clag sys-mac 44:38:39:BE:EF:AA
-cumulus@leaf01:~$ net add bridge bridge vlan-aware
 cumulus@leaf01:~$ net add loopback lo clag vxlan-anycast-ip 10.0.1.12
-cumulus@leaf01:~$ net add loopback lo vxlan local-tunnelip 10.10.10.1
 cumulus@leaf01:~$ net add vrf RED vni 4001
 cumulus@leaf01:~$ net add vrf BLUE vni 4002
 cumulus@leaf01:~$ net add vlan 10 ip address 10.1.10.2/24
@@ -6330,7 +6329,6 @@ cumulus@leaf01:~$ net add vlan 4002 hwaddress 44:38:39:BE:EF:AA
 cumulus@leaf01:~$ net add vlan 4002 vlan-id 4002
 cumulus@leaf01:~$ net add vlan 4002 vlan-raw-device bridge
 cumulus@leaf01:~$ net add vlan 4002 vrf BLUE
-cumulus@leaf01:~$ net add vrf BLUE,mgmt,RED vrf-table auto
 cumulus@leaf01:~$ net add vxlan vni10 vxlan id 10
 cumulus@leaf01:~$ net add vxlan vni20 vxlan id 20
 cumulus@leaf01:~$ net add vxlan vni30 vxlan id 30
@@ -6347,6 +6345,7 @@ cumulus@leaf01:~$ net add vxlan vniBLUE bridge access 4002
 cumulus@leaf01:~$ net add vxlan vniRED bridge access 4001
 cumulus@leaf01:~$ net add bridge bridge ports vni10,vni20,vni30,vniRED,vniBLUE
 cumulus@leaf01:~$ net add bridge bridge vids 10,20,30,4001-4002
+cumulus@leaf01:~$ net add loopback lo vxlan local-tunnelip 10.10.10.1
 cumulus@leaf01:~$ net add bgp autonomous-system 65101
 cumulus@leaf01:~$ net add bgp router-id 10.10.10.1
 cumulus@leaf01:~$ net add bgp neighbor underlay peer-group
@@ -6382,6 +6381,7 @@ cumulus@leaf02:~$ net add interface swp1 alias bond member of bond1
 cumulus@leaf02:~$ net add interface swp2 alias bond member of bond2
 cumulus@leaf02:~$ net add interface swp3 alias bond member of bond3
 cumulus@leaf02:~$ net add interface swp51-54 alias to spine
+cumulus@leaf02:~$ net add bridge bridge vlan-aware
 cumulus@leaf02:~$ net add bond bond1 bridge access 10
 cumulus@leaf02:~$ net add bond bond1 clag id 1
 cumulus@leaf02:~$ net add bond bond1-3 bond lacp-bypass-allow
@@ -6401,11 +6401,7 @@ cumulus@leaf02:~$ net add interface peerlink.4094 clag backup-ip 10.10.10.1
 cumulus@leaf02:~$ net add interface peerlink.4094 clag peer-ip linklocal
 cumulus@leaf02:~$ net add interface peerlink.4094 clag priority 32768
 cumulus@leaf02:~$ net add interface peerlink.4094 clag sys-mac 44:38:39:BE:EF:AA
-cumulus@leaf02:~$ net add bridge bridge vlan-aware
 cumulus@leaf02:~$ net add loopback lo clag vxlan-anycast-ip 10.0.1.12
-cumulus@leaf02:~$ net add loopback lo vxlan local-tunnelip 10.10.10.2
-cumulus@leaf02:~$ net add vrf RED vni 4001
-cumulus@leaf02:~$ net add vrf BLUE vni 4002
 cumulus@leaf02:~$ net add vlan 10 ip address 10.1.10.3/24
 cumulus@leaf02:~$ net add vlan 10 ip address-virtual 00:00:00:00:00:10 10.1.10.1/24
 cumulus@leaf02:~$ net add vlan 10 vlan-id 10
@@ -6429,7 +6425,6 @@ cumulus@leaf02:~$ net add vlan 4002 hwaddress 44:38:39:BE:EF:AA
 cumulus@leaf02:~$ net add vlan 4002 vlan-id 4002
 cumulus@leaf02:~$ net add vlan 4002 vlan-raw-device bridge
 cumulus@leaf02:~$ net add vlan 4002 vrf BLUE
-cumulus@leaf02:~$ net add vrf BLUE,mgmt,RED vrf-table auto
 cumulus@leaf02:~$ net add vxlan vni10 vxlan id 10
 cumulus@leaf02:~$ net add vxlan vni20 vxlan id 20
 cumulus@leaf02:~$ net add vxlan vni30 vxlan id 30
@@ -6442,10 +6437,13 @@ cumulus@leaf02:~$ net add vxlan vni10,20,30,vniBLUE,vniRED stp bpduguard
 cumulus@leaf02:~$ net add vxlan vni10,20,30,vniBLUE,vniRED stp portbpdufilter
 cumulus@leaf02:~$ net add vxlan vni20 bridge access 20
 cumulus@leaf02:~$ net add vxlan vni30 bridge access 30
+cumulus@leaf02:~$ net add vrf RED vni 4001
+cumulus@leaf02:~$ net add vrf BLUE vni 4002
 cumulus@leaf02:~$ net add vxlan vniBLUE bridge access 4002
 cumulus@leaf02:~$ net add vxlan vniRED bridge access 4001
 cumulus@leaf02:~$ net add bridge bridge ports vni10,vni20,vni30,vniRED,vniBLUE
 cumulus@leaf02:~$ net add bridge bridge vids 10,20,30,4001-4002
+cumulus@leaf02:~$ net add loopback lo vxlan local-tunnelip 10.10.10.2
 cumulus@leaf02:~$ net add bgp autonomous-system 65102
 cumulus@leaf02:~$ net add bgp router-id 10.10.10.2
 cumulus@leaf02:~$ net add bgp neighbor underlay peer-group
@@ -6502,9 +6500,6 @@ cumulus@leaf03:~$ net add interface peerlink.4094 clag priority 1000
 cumulus@leaf03:~$ net add interface peerlink.4094 clag sys-mac 44:38:39:BE:EF:BB
 cumulus@leaf03:~$ net add bridge bridge vlan-aware
 cumulus@leaf03:~$ net add loopback lo clag vxlan-anycast-ip 10.0.1.34
-cumulus@leaf03:~$ net add loopback lo vxlan local-tunnelip 10.10.10.3
-cumulus@leaf03:~$ net add vrf RED vni 4001
-cumulus@leaf03:~$ net add vrf BLUE vni 4002
 cumulus@leaf03:~$ net add vlan 10 ip address 10.1.10.4/24
 cumulus@leaf03:~$ net add vlan 10 ip address-virtual 00:00:00:00:00:10 10.1.10.1/24
 cumulus@leaf03:~$ net add vlan 10 vlan-id 10
@@ -6528,12 +6523,13 @@ cumulus@leaf03:~$ net add vlan 4002 hwaddress 44:38:39:BE:EF:BB
 cumulus@leaf03:~$ net add vlan 4002 vlan-id 4002
 cumulus@leaf03:~$ net add vlan 4002 vlan-raw-device bridge
 cumulus@leaf03:~$ net add vlan 4002 vrf BLUE
-cumulus@leaf03:~$ net add vrf BLUE,mgmt,RED vrf-table auto
 cumulus@leaf03:~$ net add vxlan vni10 vxlan id 10
 cumulus@leaf03:~$ net add vxlan vni20 vxlan id 20
 cumulus@leaf03:~$ net add vxlan vni30 vxlan id 30
 cumulus@leaf03:~$ net add vxlan vniBLUE vxlan id 4002
 cumulus@leaf03:~$ net add vxlan vniRED vxlan id 4001
+cumulus@leaf03:~$ net add vrf RED vni 4001
+cumulus@leaf03:~$ net add vrf BLUE vni 4002
 cumulus@leaf03:~$ net add vxlan vni10 bridge access 10
 cumulus@leaf03:~$ net add vxlan vni10,20,30,vniBLUE,vniRED bridge arp-nd-suppress on
 cumulus@leaf03:~$ net add vxlan vni10,20,30,vniBLUE,vniRED bridge learning off
@@ -6545,6 +6541,7 @@ cumulus@leaf03:~$ net add vxlan vniBLUE bridge access 4002
 cumulus@leaf03:~$ net add vxlan vniRED bridge access 4001
 cumulus@leaf03:~$ net add bridge bridge ports vni10,vni20,vni30,vniRED,vniBLUE
 cumulus@leaf03:~$ net add bridge bridge vids 10,20,30,4001-4002
+cumulus@leaf03:~$ net add loopback lo vxlan local-tunnelip 10.10.10.3
 cumulus@leaf03:~$ net add bgp autonomous-system 65103
 cumulus@leaf03:~$ net add bgp router-id 10.10.10.3
 cumulus@leaf03:~$ net add bgp neighbor underlay peer-group
@@ -6601,7 +6598,6 @@ cumulus@leaf04:~$ net add interface peerlink.4094 clag priority 32768
 cumulus@leaf04:~$ net add interface peerlink.4094 clag sys-mac 44:38:39:BE:EF:BB
 cumulus@leaf04:~$ net add bridge bridge vlan-aware
 cumulus@leaf04:~$ net add loopback lo clag vxlan-anycast-ip 10.0.1.34
-cumulus@leaf04:~$ net add loopback lo vxlan local-tunnelip 10.10.10.4
 cumulus@leaf04:~$ net add vrf RED vni 4001
 cumulus@leaf04:~$ net add vrf BLUE vni 4002
 cumulus@leaf04:~$ net add vlan 10 ip address 10.1.10.5/24
@@ -6644,6 +6640,7 @@ cumulus@leaf04:~$ net add vxlan vniBLUE bridge access 4002
 cumulus@leaf04:~$ net add vxlan vniRED bridge access 4001
 cumulus@leaf04:~$ net add bridge bridge ports vni10,vni20,vni30,vniRED,vniBLUE
 cumulus@leaf04:~$ net add bridge bridge vids 10,20,30,4001-4002
+cumulus@leaf04:~$ net add loopback lo vxlan local-tunnelip 10.10.10.4
 cumulus@leaf04:~$ net add bgp autonomous-system 65104
 cumulus@leaf04:~$ net add bgp router-id 10.10.10.4
 cumulus@leaf04:~$ net add bgp neighbor underlay peer-group
@@ -6777,7 +6774,6 @@ cumulus@border01:~$ net add interface peerlink.4094 clag peer-ip linklocal
 cumulus@border01:~$ net add interface peerlink.4094 clag priority 1000
 cumulus@border01:~$ net add interface peerlink.4094 clag sys-mac 44:38:39:BE:EF:FF
 cumulus@border01:~$ net add loopback lo clag vxlan-anycast-ip 10.0.1.255
-cumulus@border01:~$ net add loopback lo vxlan local-tunnelip 10.10.10.63
 cumulus@border01:~$ net add vrf RED vni 4001
 cumulus@border01:~$ net add vrf BLUE vni 4002
 cumulus@border01:~$ net add vlan 101 ip address 10.1.101.64/24
@@ -6804,6 +6800,7 @@ cumulus@border01:~$ net add vxlan vniBLUE,vniRED bridge learning off
 cumulus@border01:~$ net add vxlan vniBLUE,vniRED stp bpduguard
 cumulus@border01:~$ net add vxlan vniBLUE,vniRED stp portbpdufilter
 cumulus@border01:~$ net add vxlan vniRED bridge access 4001
+cumulus@border01:~$ net add loopback lo vxlan local-tunnelip 10.10.10.63
 cumulus@border01:~$ net add bgp autonomous-system 65163
 cumulus@border01:~$ net add bgp router-id 10.10.10.63
 cumulus@border01:~$ net add bgp neighbor underlay peer-group
@@ -6853,7 +6850,6 @@ cumulus@border01:~$ net add interface peerlink.4094 clag peer-ip linklocal
 cumulus@border01:~$ net add interface peerlink.4094 clag priority 32768
 cumulus@border01:~$ net add interface peerlink.4094 clag sys-mac 44:38:39:BE:EF:FF
 cumulus@border01:~$ net add loopback lo clag vxlan-anycast-ip 10.0.1.255
-cumulus@border01:~$ net add loopback lo vxlan local-tunnelip 10.10.10.64
 cumulus@border01:~$ net add vrf RED vni 4001
 cumulus@border01:~$ net add vrf BLUE vni 4002
 cumulus@border01:~$ net add vlan 101 ip address 10.1.101.65/24
@@ -6880,6 +6876,7 @@ cumulus@border01:~$ net add vxlan vniBLUE,vniRED bridge learning off
 cumulus@border01:~$ net add vxlan vniBLUE,vniRED stp bpduguard
 cumulus@border01:~$ net add vxlan vniBLUE,vniRED stp portbpdufilter
 cumulus@border01:~$ net add vxlan vniRED bridge access 4001
+cumulus@border01:~$ net add loopback lo vxlan local-tunnelip 10.10.10.64
 cumulus@border01:~$ net add bgp autonomous-system 65163
 cumulus@border01:~$ net add bgp router-id 10.10.10.63
 cumulus@border01:~$ net add bgp neighbor underlay peer-group
