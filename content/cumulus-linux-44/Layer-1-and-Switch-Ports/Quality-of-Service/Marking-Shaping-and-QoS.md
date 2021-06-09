@@ -1,5 +1,5 @@
 ---
-title: Buffer and Queue Management
+title: Marking, Shaping and QoS
 author: NVIDIA
 weight: 320
 right_toc_levels: 2
