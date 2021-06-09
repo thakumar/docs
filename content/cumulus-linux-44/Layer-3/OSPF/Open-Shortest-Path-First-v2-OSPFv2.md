@@ -26,14 +26,10 @@ The following example commands configure OSPF numbered on leaf01 and spine01.
 | ------ | ------- |
 | <ul><li>The loopback address is 10.10.10.1/32</li><li>The IP address on swp51 is 10.0.1.0/31</li><li>The router ID is 10.10.10.1</li><li>All the interfaces on the switch with an IP address that matches subnet 10.10.10.1/32 and swp51 with IP address 10.0.1.0/31 are in area 0</li><li>swp1 and swp2 are passive interfaces</li></ul> | <ul><li>The loopback address is 10.10.10.101/32</li><li>The IP address on swp1 is 10.0.1.1/31</li><li>The router ID is 10.10.10.101</li><li>All interfaces on the switch with an IP address that matches subnet 10.10.10.101/32 and swp1 with IP address 10.0.1.1/31 are in area 0.</li></ul> |
 
-{{%notice note%}}
-
-The configuration below uses the `network` command to configure the IP subnet prefix with an area address per network. Alternatively, you can configure OSPF per interface. However, you *cannot* use both methods in the same configuration.
-
-{{%/notice%}}
-
 {{< tabs "TabID35 ">}}
 {{< tab "NCLU Commands ">}}
+
+The configuration below uses the `network` command to configure the IP subnet prefix with an area address per network. Alternatively, you can configure OSPF per interface. However, you *cannot* use both methods in the same configuration.
 
 {{< tabs "TabID38 ">}}
 {{< tab "leaf01 ">}}
@@ -113,19 +109,12 @@ router ospf
 ```
 cumulus@leaf01:~$ nv set interface lo ip address 10.10.10.1/32
 cumulus@leaf01:~$ nv set interface swp51 ip address 10.0.1.0/31
-cumulus@leaf01:~$ nv set vrf default router ospf router-id 10.10.10.1
+cumulus@leaf01:~$ nv set router ospf router-id 10.10.10.1
 cumulus@leaf01:~$ nv set vrf default router ospf area 0 network 10.10.10.1/32
 cumulus@leaf01:~$ nv set vrf default router ospf area 0 network 10.0.1.0/31
-cumulus@leaf01:~$ nv set vrf default router ospf passive-interface swp1
-cumulus@leaf01:~$ nv set vrf default router ospf passive-interface swp2
+cumulus@leaf01:~$ nv set interface swp1 router ospf passive on
+cumulus@leaf01:~$ nv set interface swp2 router ospf passive on
 cumulus@leaf01:~$ nv config apply
-```
-
-You can use the `nv set vrf default router ospf passive-interface default` command to set all interfaces as *passive* and the `nv unset vrf default router ospf passive-interface <interface>` command to selectively bring up protocol adjacency only on certain interfaces:
-
-```
-cumulus@leaf01:~$ nv set vrf default router ospf passive-interface default
-cumulus@leaf01:~$ nv unset vrf default router ospf passive-interface swp51
 ```
 
 {{< /tab >}}
@@ -134,17 +123,10 @@ cumulus@leaf01:~$ nv unset vrf default router ospf passive-interface swp51
 ```
 cumulus@spine01:~$ nv set interface lo ip address 10.10.10.101/32
 cumulus@spine01:~$ nv set interface swp1 ip address 10.0.1.1/31
-cumulus@spine01:~$ nv set vrf default router ospf router-id 10.10.10.101
+cumulus@spine01:~$ nv set router ospf router-id 10.10.10.101
 cumulus@spine01:~$ nv set vrf default router ospf area 0 network 10.10.10.101/32
 cumulus@spine01:~$ nv set vrf default router ospf area 0 network 10.0.1.1/31
 cumulus@spine01:~$ nv config apply
-```
-
-You can use the `nv set vrf default router ospf passive-interface default` command to set all interfaces as *passive* and the `nv unset vrf default router ospf passive-interface <interface>` command to selectively bring up protocol adjacency only on certain interfaces:
-
-```
-cumulus@spine01:~$ nv set vrf default router ospf passive-interface default
-cumulus@spine01:~$ nv unset vrf default router ospf passive-interface swp1
 ```
 
 {{< /tab >}}
@@ -400,7 +382,6 @@ router ospf
 {{< /tab >}}
 {{< /tabs >}}
 
-
 {{< /tab >}}
 {{< tab "NVUE Commands ">}}
 
@@ -418,30 +399,13 @@ cumulus@leaf01:~$ nv config apply
 Configure OSPF:
 
 ```
-cumulus@spine01:~$ nv set vrf default router ospf router-id 10.10.10.1
-cumulus@spine01:~$ NEED COMMAND
-cumulus@spine01:~$ NEED COMMAND
-cumulus@leaf01:~$ nv set vrf default router ospf passive-interface swp1
-cumulus@leaf01:~$ nv set vrf default router ospf passive-interface swp2
-cumulus@leaf01:~$ NEED COMMAND
+cumulus@leaf01:~$ nv set router ospf router-id 10.10.10.1
+cumulus@leaf01:~$ nv set interface lo router ospf area 0
+cumulus@leaf01:~$ nv set interface swp51 router ospf area 0
+cumulus@leaf01:~$ nv set interface swp1 router ospf passive on
+cumulus@leaf01:~$ nv set interface swp2 router ospf passive on
+cumulus@leaf01:~$ nv set interface swp51 router ospf network-type point-to-point
 cumulus@leaf01:~$ nv config apply
-
-
-cumulus@leaf01:~$ net add ospf router-id 10.10.10.1
-cumulus@leaf01:~$ net add loopback lo ospf area 0
-cumulus@leaf01:~$ net add interface swp51 ospf area 0
-cumulus@leaf01:~$ net add ospf passive-interface swp1
-cumulus@leaf01:~$ net add ospf passive-interface swp2
-cumulus@leaf01:~$ net add interface swp51 ospf network point-to-point
-cumulus@leaf01:~$ net pending
-cumulus@leaf01:~$ net commit
-```
-
-You can use the `nv set vrf default router ospf passive-interface default` command to set all interfaces as *passive* and the `nv unset vrf default router ospf passive-interface <interface>` command to selectively bring up protocol adjacency only on certain interfaces:
-
-```
-cumulus@leaf01:~$ nv set vrf default router ospf passive-interface default
-cumulus@leaf01:~$ nv unset vrf default router ospf passive-interface swp51
 ```
 
 {{< /tab >}}
@@ -458,18 +422,11 @@ cumulus@spine01:~$ nv config apply
 Configure OSPF:
 
 ```
-cumulus@spine01:~$ nv set vrf default router ospf router-id 10.10.10.101
-cumulus@spine01:~$ NEED COMMAND
-cumulus@spine01:~$ NEED COMMAND
-cumulus@spine01:~$ NEED COMMAND
+cumulus@spine01:~$ nv set router ospf router-id 10.10.10.101
+cumulus@spine01:~$ nv set interface lo router ospf area 0
+cumulus@spine01:~$ nv set interface swp1 router ospf area 0
+cumulus@spine01:~$ nv set interface swp1 router ospf network-type point-to-point
 cumulus@spine01:~$ nv config apply
-```
-
-You can use the `nv set vrf default router ospf passive-interface default` command to set all interfaces as *passive* and the `nv unset vrf default router ospf passive-interface <interface>` command to selectively bring up protocol adjacency only on certain interfaces:
-
-```
-cumulus@spine01:~$ nv set vrf default router ospf passive-interface default
-cumulus@spine01:~$ nv unset vrf default router ospf passive-interface swp1
 ```
 
 {{< /tab >}}
@@ -663,7 +620,7 @@ interface swp51
 {{< tab "NVUE Commands ">}}
 
 ```
-cumulus@switch:~$ NEED COMMAND
+cumulus@switch:~$ nv set interface swp51 router ospf network-type point-to-point
 cumulus@switch:~$ nv config apply
 ```
 
@@ -720,7 +677,8 @@ interface swp51
 {{< tab "NVUE Commands ">}}
 
 ```
-cumulus@switch:~$ NEED COMMAND
+cumulus@switch:~$ nv set interface swp51 router ospf timers hello-interval 5
+cumulus@switch:~$ nv config apply
 ```
 
 {{< /tab >}}
@@ -776,7 +734,8 @@ interface swp51
 {{< tab "NVUE Commands ">}}
 
 ```
-cumulus@switch:~$ NEED COMMAND
+cumulus@switch:~$ nv set interface swp51 router ospf priority 5
+cumulus@switch:~$ nv config apply
 ```
 
 {{< /tab >}}
@@ -844,7 +803,10 @@ router ospf
 {{< tab "NVUE Commands ">}}
 
 ```
-cumulus@switch:~$ NEED COMMAND
+cumulus@switch:~$ nv set router ospf timers spf delay 80
+cumulus@switch:~$ nv set router ospf timers spf holdtime 100
+cumulus@switch:~$ nv set router ospf timers spf max-holdtime 6000
+cumulus@switch:~$ nv config apply
 ```
 
 {{< /tab >}}
@@ -939,14 +901,20 @@ interface swp1
 {{< tab "leaf01 ">}}
 
 ```
-cumulus@leaf01:~$ NEED COMMAND
+cumulus@leaf01:~$ nv set interface swp51 router ospf authentication message-digest-key 1
+cumulus@leaf01:~$ nv set interface swp51 router ospf authentication md5-key thisisthekey
+cumulus@leaf01:~$ nv set interface swp51 router ospf authentication enable on
+cumulus@leaf01:~$ nv config apply
 ```
 
 {{< /tab >}}
 {{< tab " spine01">}}
 
 ```
-cumulus@spine01:~$ NEED COMMAND
+cumulus@spine01:~$ nv set interface swp1 router ospf authentication message-digest-key 1
+cumulus@spine01:~$ nv set interface swp1 router ospf authentication md5-key thisisthekeynet 
+cumulus@spine01:~$ nv set interface swp1 router ospf authentication enable on
+cumulus@spine01:~$ nv config apply
 ```
 
 {{< /tab >}}
@@ -1094,7 +1062,8 @@ router ospf
 {{< tab "NVUE Commands ">}}
 
 ```
-cumulus@switch:~$ NEED COMMAND
+cumulus@switch:~$ nv set vrf default router ospf area 1 type stub
+cumulus@switch:~$ nv config apply
 ```
 
 {{< /tab >}}
@@ -1151,7 +1120,8 @@ router ospf
 {{< tab "NVUE Commands ">}}
 
 ```
-cumulus@switch:~$ NEED COMMAND
+cumulus@switch:~$ nv set vrf default router ospf area 1 type totally-stub 
+cumulus@switch:~$ nv config apply
 ```
 
 {{< /tab >}}
@@ -1223,7 +1193,8 @@ router ospf
 {{< tab "NVUE Commands ">}}
 
 ```
-cumulus@switch:~$ NEED COMMAND
+cumulus@switch:~$ nv set vrf default router ospf reference-bandwidth 9000
+cumulus@switch:~$ nv config apply
 ```
 
 {{< /tab >}}
@@ -1276,6 +1247,7 @@ cumulus@switch:~$ net commit
 
 ```
 cumulus@switch:~$ NEED COMMAND
+cumulus@switch:~$ nv config apply
 ```
 
 {{< /tab >}}
@@ -1311,7 +1283,10 @@ cumulus@switch:~$ net commit
 {{< tab "NVUE Commands ">}}
 
 ```
-cumulus@switch:~$ NEED COMMAND
+cumulus@switch:~$ nv set vrf default router ospf distance intra-area 150 
+cumulus@switch:~$ nv set vrf default router ospf distance inter-area 150
+cumulus@switch:~$ nv set vrf default router ospf distance external 220
+cumulus@switch:~$ nv config apply
 ```
 
 {{< /tab >}}
@@ -1347,7 +1322,8 @@ cumulus@switch:~$ net commit
 {{< tab "NVUE Commands ">}}
 
 ```
-cumulus@switch:~$ NEED COMMAND
+cumulus@switch:~$ nv set vrf default router ospf distance intra-area 150 
+cumulus@switch:~$ nv config apply
 ```
 
 {{< /tab >}}
@@ -1393,7 +1369,8 @@ router ospf
 {{< tab "NVUE Commands ">}}
 
 ```
-cumulus@switch:~$ NEED COMMAND
+cumulus@switch:~$ nv set vrf default router ospf distance inter-area 150
+cumulus@switch:~$ nv config apply
 ```
 
 {{< /tab >}}
@@ -1460,7 +1437,8 @@ cumulus@switch:~$ net commit
 {{< tab "NVUE Commands ">}}
 
 ```
-cumulus@switch:~$ NEED COMMAND
+cumulus@switch:~$ nv set interface swp51 router ospf cost 65535
+cumulus@switch:~$ nv config apply
 ```
 
 {{< /tab >}}
