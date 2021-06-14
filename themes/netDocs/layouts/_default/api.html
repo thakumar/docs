@@ -11,11 +11,13 @@
     {{ $standalone := resources.Get "api/swagger-ui-standalone-preset.js" }}
     <script src="{{ $bundle.Permalink }}" charset="UTF-8"> </script>
     <script src="{{ $standalone.Permalink }}" charset="UTF-8"> </script>
+    {{ $api_url := printf "%s/%s" .File.Dir "openapi.json" }}
+
     <script>
     window.onload = function() {
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
-        url: "./openapi.json",
+        url: "{{ $api_url | absURL }}",
         dom_id: '#swagger-ui',
         deepLinking: true,
         presets: [
