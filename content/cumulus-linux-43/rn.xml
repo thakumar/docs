@@ -88,6 +88,63 @@ To work around this issue, configure the new BGP neighbors with vtysh.&lt;/p&gt;
 <td></td>
 </tr>
 <tr>
+<td>2684418</td>
+<td>If you configure items in a VRF that has been created, deleted, then re-created, {{staticd}} crashes.</td>
+<td>4.3.0</td>
+<td></td>
+</tr>
+<tr>
+<td>2682976</td>
+<td>CVE-2021-28902, CVE-2021-28903, CVE-2021-28904, CVE-2021-28905, CVE-2021-28906: Several vulnerabilities have been announced in libyang that can cause a crash.
+Vulnerable: &lt;= 1.0.184-2+cl4.3.0u1</td>
+<td>4.0.0-4.3.0</td>
+<td></td>
+</tr>
+<tr>
+<td>2682973</td>
+<td>CVE-2020-12762: integer overflow in the json-c JSON library, which could result in denial of service or potentially the execution of arbitrary code if large malformed JSON files are processed.
+Vulnerable: 0.12.2+cl4u1</td>
+<td>4.0.0-4.3.0</td>
+<td></td>
+</tr>
+<tr>
+<td>2682780</td>
+<td>Adding a route map configuration after a MAC access list configuration line causes the route map configuration to be applied incorrectly.
+To work around this issue, add the MAC access list configuration to the end of the {{/etc/frr/frr.conf}} file.</td>
+<td>4.2.0-4.3.0</td>
+<td></td>
+</tr>
+<tr>
+<td>2679950</td>
+<td>CVE-2021-25217: parsing of stored leases by dhclient or dhcpd has an incorrect length check that may cause a crash.
+Vulnerable: &lt;= 4.3.1-6-cl3.7.14u1
+Fixed: 4.3.1-6-cl3.7.16u1</td>
+<td>3.7.0-3.7.15, 4.0.0-4.3.0</td>
+<td></td>
+</tr>
+<tr>
+<td>2677049</td>
+<td>CVE-2020-25681 CVE-2020-25682 CVE-2020-25683 CVE-2020-25684 CVE-2020-25685 CVE-2020-25686 CVE-2020-25687: Several vulnerabilities in dnsmasq, a small caching DNS proxy and DHCP/TFTP server, could result in denial of service, cache poisoning or the execution of arbitrary code.</td>
+<td>4.0.0-4.3.0</td>
+<td></td>
+</tr>
+<tr>
+<td>2671668</td>
+<td>CVE-2021-23017: off-by-one in Nginx, a high-performance web and reverse proxy server, which could
+result in denial of service and potentially the execution of arbitrary code.
+Vulnerable: &lt;= 1.14.2-2+deb10u3
+Fixed: 1.14.2-2+deb10u4</td>
+<td>4.0.0-4.3.0</td>
+<td></td>
+</tr>
+<tr>
+<td>2671381</td>
+<td>Remote MAC addreses in zebra are out of sync with {{bgpd}}.
+The zebra MAC addresses point to an incorrect (old) VTEP IP  address and the sequence number is one higher than in BGP.</td>
+<td>4.3.0</td>
+<td></td>
+</tr>
+<tr>
 <td>2669863</td>
 <td>The following CVEs were announced for rsyslog:
 CVE-2019-17041 CVE-2019-17042
@@ -121,10 +178,37 @@ https://security-tracker.debian.org/tracker/CVE-2019-14889</td>
 <td></td>
 </tr>
 <tr>
+<td>2669073</td>
+<td>On Spectrum, Spectrum-2, and Spectrum-3 switches, the {{l1-show}} command shows the wrong data when the MST service is stopped.
+To work around this issue, start the MST service with the {{sudo mst start}} command.</td>
+<td>4.3.0</td>
+<td></td>
+</tr>
+<tr>
+<td>2668483</td>
+<td>If you update the MAC address of an SVI using {{ifreload}} and {{hwaddress}}, the kernel maintains a stale permanent fdb entry for the old MAC address.</td>
+<td>3.7.14-3.7.15, 4.3.0</td>
+<td></td>
+</tr>
+<tr>
 <td>2666839</td>
 <td>CVE-2021-31535: missing length validation in various functions provided by libx11, the X11 client-side library, allow to inject X11 protocol commands on X clients, leading to authentication bypass, denial of service or potentially the execution of arbitrary code.
 Vulnerable: &lt;= 1.6.7-1+deb10u1
 Fixed: 1.6.7-1+deb10u2</td>
+<td>4.0.0-4.3.0</td>
+<td></td>
+</tr>
+<tr>
+<td>2665413</td>
+<td>When ARP/ND suppression is disabled, packets with a double 802.1q VLAN tag pass through the VTEPs without any problem. However, when ARP/ND is enabled, communication is lost; hosts have unresolved IP addresses so ARP requests do not pass through the VTEP.</td>
+<td>4.3.0</td>
+<td></td>
+</tr>
+<tr>
+<td>2663480</td>
+<td>CVE-2021-3520: integer overflow flaw in lz4, a fast LZ compression algorithm library, resulting in memory corruption.
+Vulnerable: 1.8.3-1
+Fixed: 1.8.3-1+deb10u1</td>
 <td>4.0.0-4.3.0</td>
 <td></td>
 </tr>
@@ -427,12 +511,6 @@ Fixed: 1.3.8+dfsg-3+deb10u1</td>
 <tr>
 <td>2556500</td>
 <td>Cumulus Linux does not support bond members at 200G or greater.</td>
-<td>4.0.0-4.3.0</td>
-<td></td>
-</tr>
-<tr>
-<td>2556474</td>
-<td>CVE-2020-25681 CVE-2020-25682 CVE-2020-25683 CVE-2020-25684 CVE-2020-25685 CVE-2020-25686 CVE-2020-25687: Several vulnerabilities in dnsmasq, a small caching DNS proxy and DHCP/TFTP server, could result in denial of service, cache poisoning or the execution of arbitrary code.</td>
 <td>4.0.0-4.3.0</td>
 <td></td>
 </tr>
@@ -940,6 +1018,14 @@ To work around this issue, do not make bash or bash scripts {{setuid}}.</td>
 <td>2548060</td>
 <td>On the Mellanox SN3800 switch, links do not come up when the ports are configured for 40G.</td>
 <td>4.1.0-4.3.0</td>
+<td></td>
+</tr>
+<tr>
+<td>2547903</td>
+<td>CVE-2019-19956: xmlParseBalancedChunkMemoryRecover in parser.c in libxml2 before 2.9.10 has a memory leak related to newDoc-&gt;oldNs.
+Vulnerable: 2.9.4+dfsg1-7
+Fixed: 2.9.4+dfsg1-7+deb10u1</td>
+<td>4.0.0-4.3.0</td>
 <td></td>
 </tr>
 <tr>
@@ -1768,7 +1854,14 @@ Nov 12 12:20:05.099798 leaf01 switchd[9867]:
 Nov 12 12:20:05.099871 leaf01 switchd[9867]: hal_bcm_console.c:294 ERROR loading rc script on unit 0
 Nov 12 12:20:05.099892 leaf01 switchd[9867]:
 Nov 12 12:20:05.099943 leaf01 switchd[9867]: hal_bcm_console.c:299 CRIT loading of rc script failed, aborting!
-</td>
+
+
+To work around this issue, configure Cumulus Linux to boot with the kernel command option 'intel_iommu=off':
+
+a) Open the file /etc/default/grub with a text editor
+b) Edit the variable GRUB_CMDLINE_LINUX by adding the string 'intel_iommu=off' at the end.  For example: GRUB_CMDLINE_LINUX="cl_platform=cel_e1031 console=ttyS1,115200n8 intel_iommu=off"
+c) Run the command 'update-grub'
+d) Reboot the switch</td>
 <td>3.7.11-4.2.1</td>
 </tr>
 <tr>

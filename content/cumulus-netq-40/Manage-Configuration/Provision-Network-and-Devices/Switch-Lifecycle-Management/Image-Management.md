@@ -168,7 +168,7 @@ If you have already specified a default image, you must click <strong>Manage</st
 
 9. Click **Uploaded** to verify the images are in the repository.
 
-   When all of the missing images have been uploaded, the Missing list will be empty.
+   When all the missing images have been uploaded, the Missing list is empty.
 
 10. Click {{<img src="https://icons.cumulusnetworks.com/01-Interface-Essential/33-Form-Validation/close.svg" height="14" width="14">}} to return to the LCM dashboard.
 
@@ -178,7 +178,7 @@ If you have already specified a default image, you must click <strong>Manage</st
 
 {{<tab "NetQ CLI">}}
 
-1. Download the NetQ Debian packages needed for upgrade from the {{<exlink url="https://cumulusnetworks.com/downloads/#product=NetQ" text="Cumulus Downloads page">}}, selecting the appropriate version and hypervisor/platform. Place them in an accessible part of your local network.
+1. Download the NetQ Debian packages needed for upgrade from the {{<exlink url="http://support.mellanox.com/s/" text="My Mellanox support">}} page, selecting the appropriate version and hypervisor/platform. Place them in an accessible part of your local network.
 
 2. Upload the images to the LCM repository. This example uploads the two packages (`netq-agent` and `netq-apps`) needed for NetQ version 4.0.0 for a NetQ appliance or VM running Ubuntu 18.04 with an x86 architecture.
 
@@ -412,7 +412,7 @@ cumulus@switch:~$ netq lcm show cl-images json
 
 ## Remove Images from Local Repository
 
-Once you have upgraded all of your switches beyond a particular release, you may want to remove those images from the LCM repository to save space on the server.
+After you upgrade all your switches beyond a particular release, you may want to remove those images from the LCM repository to save space on the server.
 
 To remove images:
 
