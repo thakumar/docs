@@ -865,8 +865,8 @@ Maximum 200G ports - 32
 <!-- SN4410 PLATFORM IS PLANNED TO AUG21 (CL4.4.1?)
 
 {{< tab "SN4410">}}
-SN4410 24xQSFP28-DD (100GbE) interfaces only support NRZ encoding and wll speeds down to 1G.<br> 
-The 8xQSFP-DD (400GbE) interfaces support both PAM4 and NRZ encodings with all speeds down to 1G.<br> 
+SN4410 24xQSFP28-DD (100GbE) interfaces [ports 1-24] only support NRZ encoding and wll speeds down to 1G.<br> 
+The 8xQSFP-DD (400GbE) interfaces [ports 25-32] support both PAM4 and NRZ encodings with all speeds down to 1G.<br> 
 For lower speeds, PAM4 automatically converted to NRZ encoding.<br>
 The 24xQSFP28-DD ports can breakout into 2xQSFP28 (2x100GbE) using special 2x100GbE breakout cable, or 4xSFP28 (4x25GbE).<br> 
 The top 4xQSFP-DD ports can breakout into 8xSFP56 (8x50GbE). But, in this case, the adjacent 4xQSFP-DD ports will be blocked.<br> 
@@ -982,6 +982,7 @@ Maximum 50G ports - 128
 {{< /tab >}}
 {{< tab "100G ">}}
 - 128x100G - 64xQSFP56 breakout into 2x100G
+- 64x100G - 64xQSFP28 set to 100G
 
 Maximum 100G ports - 128
 {{< /tab >}}
@@ -1014,7 +1015,7 @@ Maximum 25G ports - 128<br>
 *Other QSFP-DD breakout combinations are available up to maximum of 128x25G ports.
 {{< /tab >}}
 {{< tab "40G ">}}
-- 64x40G - 64xQSFP-DD set to 40G
+- 32x40G - 32xQSFP-DD set to 40G
 
 Maximum 40G ports - 32
 {{< /tab >}}
@@ -1025,7 +1026,7 @@ Maximum 50G ports - 128<br>
 *Other QSFP-DD breakout combinations are available up to maximum of 128x50G ports.
 {{< /tab >}}
 {{< tab "100G ">}}
-- 128x100G - 32xQSFP-DD breakout into 4x100G 
+- 128x100G - 32xQSFP-DD breakout into 4x100G
 
 Maximum 100G ports - 128
 {{< /tab >}}
